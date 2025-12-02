@@ -3734,7 +3734,7 @@ uint16 status_calc_consumablematk( status_change *sc, int32 matk );
 uint16 status_calc_pseudobuff_matk( map_session_data *sd, status_change *sc, int32 matk );
 
 uint16 status_base_atk(const block_list *bl, const struct status_data *status, int32 level);
-
+uint16 status_add_revo_weapon_mastery(map_session_data *sd,struct status_data *status);
 // Status changes accessors for StatusChange database
 uint16 status_efst_get_bl_type(enum efst_type efst);
 

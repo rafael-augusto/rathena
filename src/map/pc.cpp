@@ -14968,6 +14968,8 @@ void pc_bonus_script(map_session_data *sd) {
 	if (!sd || !(node = sd->bonus_script.head))
 		return;
 
+	
+
 	while (node) {
 		struct s_bonus_script_entry *entry = nullptr;
 		next = node->next;
