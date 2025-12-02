@@ -2358,8 +2358,8 @@ int32 status_base_amotion_pc(map_session_data* sd, struct status_data* status)
 	int32 aspd = job->aspd_base[sd->weapontype1]; // Single weapon
 	if (sd->status.shield)
 		aspd += job->aspd_base[MAX_WEAPON_TYPE];
-	else if (sd->weapontype2 != W_FIST && sd->equip_index[EQI_HAND_R] != sd->equip_index[EQI_HAND_L])
-		aspd += job->aspd_base[sd->weapontype2] / 4; // Dual-wield
+	// else if (sd->weapontype2 != W_FIST && sd->equip_index[EQI_HAND_R] != sd->equip_index[EQI_HAND_L])
+	// 	aspd += job->aspd_base[sd->weapontype2] / 4; // Dual-wield
 
 	switch(sd->status.weapon) {
 		case W_BOW:
@@ -2498,6 +2498,40 @@ uint32 status_weapon_atk(weapon_atk &wa)
 {
 	return wa.atk + wa.atk2;
 }
+
+
+uint16 status_add_revo_weapon_mastery(map_session_data *sd,struct status_data *status)
+{
+	uint16 damage = 0;
+	int32 skill =0, weapon = 0, dstr, str, dex, flag =0;
+
+	switch(sd->status.weapon) {
+		case W_BOW:
+		case W_MUSICAL:
+		case W_WHIP:
+		case W_REVOLVER:
+		case W_RIFLE:
+		case W_GATLING:
+		case W_SHOTGUN:
+		case W_GRENADE:
+			flag = 1;
+	}
+	if (flag) {
+		str = status->dex;
+		dex = status->str;
+	} else {
+		str = status->str;
+		dex = status->dex;
+	}
+
+	weapon = sd->weapontype1;
+	dstr = str / 10;
+	damage = dstr*dstr;
+	ShowDebug("STR: %d\n", str);
+	ShowDebug("Base Damage: %d\n", damage);
+	return damage;
+}
+
 #endif
 
 #ifndef RENEWAL
@@ -2729,7 +2763,7 @@ void status_calc_misc(block_list *bl, struct status_data *status, int32 level)
 		status->flee2 = 0;
 
 	status->batk += status_base_atk(bl, status, level);
-
+		
 	if (status->cri) {
 		switch (bl->type) {
 			case BL_MOB:
@@ -6299,9 +6333,9 @@ void status_calc_bl_main(block_list& bl, std::bitset<SCB_MAX> flag)
 				wMatk += status->lhw.matk;
 				variance += status->lhw.matk * status->lhw.wlv / 10;
 			}
-
-			matk_min += wMatk - variance;
-			matk_max += wMatk + variance;
+			int32 fixed = ((sd)->battle_status.int_ / 10) * ((sd)->battle_status.int_ / 10);
+			matk_min += wMatk - variance + fixed;
+			matk_max += wMatk + variance + fixed;
 		}
 
 		// Apply Recognized Spell buff
@@ -6554,6 +6588,7 @@ void status_calc_bl_(block_list* bl, std::bitset<SCB_MAX> flag, uint8 opt)
 
 	status_calc_bl_main(*bl, flag);
 
+	
 	if (opt&SCO_FIRST && bl->type == BL_HOM)
 		return; // Client update handled by caller
 
@@ -6589,6 +6624,10 @@ void status_calc_bl_(block_list* bl, std::bitset<SCB_MAX> flag, uint8 opt)
 			)
 			clif_updatestatus(*sd,SP_ATK1);
 
+		sd->battle_status.eatk =+ status_add_revo_weapon_mastery(sd,status);
+		if(b_status.eatk != sd->battle_status.eatk)
+			clif_updatestatus(*sd,SP_ATK2);
+			
 		if(b_status.def != status->def) {
 			clif_updatestatus(*sd,SP_DEF1);
 #ifdef RENEWAL
@@ -6728,6 +6767,7 @@ void status_calc_bl_(block_list* bl, std::bitset<SCB_MAX> flag, uint8 opt)
 		if( b_status.sp != status->sp )
 			clif_elemental_updatestatus(*ed->master, SP_SP);
 	}
+
 }
 
 /**
@@ -8370,6 +8410,16 @@ static int16 status_calc_fix_aspd(block_list *bl, status_change *sc, int32 aspd)
 
 	if ((sc->getSCE(SC_GUST_OPTION) || sc->getSCE(SC_BLAST_OPTION) || sc->getSCE(SC_WILD_STORM_OPTION)))
 		aspd -= 50; // +5 ASPD
+
+	if (sc->getSCE(SC_ASPDPOTION3))
+		aspd -= 40;
+	else if (sc->getSCE(SC_ASPDPOTION2))
+		aspd -= 30;
+	else if (sc->getSCE(SC_ASPDPOTION1))
+		aspd -= 20;
+	else if (sc->getSCE(SC_ASPDPOTION0))
+		aspd -= 10;
+
 	if (sc->getSCE(SC_FIGHTINGSPIRIT))
 		aspd -= sc->getSCE(SC_FIGHTINGSPIRIT)->val2;
 	if (sc->getSCE(SC_SOULSHADOW))
@@ -8378,6 +8428,24 @@ static int16 status_calc_fix_aspd(block_list *bl, status_change *sc, int32 aspd)
 		aspd -= sc->getSCE(SC_HEAT_BARREL)->val1 * 10;
 	if (sc->getSCE(SC_SINCERE_FAITH))
 		aspd -= 10 * sc->getSCE(SC_SINCERE_FAITH)->val2;
+
+
+	if (sc->getSCE(SC_STAR_COMFORT) ||
+		sc->getSCE(SC_TWOHANDQUICKEN) ||
+		sc->getSCE(SC_ONEHAND) ||
+		sc->getSCE(SC_MERC_QUICKEN) ||
+		sc->getSCE(SC_ADRENALINE2) ||
+		sc->getSCE(SC_ADRENALINE) ||
+		sc->getSCE(SC_SPEARQUICKEN) ||
+		sc->getSCE(SC_GATLINGFEVER) ||
+		sc->getSCE(SC_FLEET) ||
+		sc->getSCE(SC_INVINCIBLE))
+			aspd -= 50;
+	
+	if(sc->getSCE(SC_ASSNCROS))
+			aspd -=30;
+
+
 
 	return cap_value(aspd, 1, MIN_ASPD); // Will be recap for proper bl anyway
 }
