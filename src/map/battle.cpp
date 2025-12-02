@@ -2465,10 +2465,10 @@ static int32 battle_calc_base_weapon_attack(block_list *src, struct status_data 
 		}
 
 		float variance = 5.0f * wa->atk * wa->wlv / 100.0f;
-		float base_stat_bonus = wa->atk * base_stat / 200.0f;
+		//float base_stat_bonus = wa->atk * base_stat / 200.0f;
 
-		atkmin = max(0, (int32)(atkmin - variance + base_stat_bonus));
-		atkmax = min(UINT16_MAX, (int32)(atkmax + variance + base_stat_bonus));
+		atkmin = max(0, (int32)(atkmin - variance ));
+		atkmax = min(UINT16_MAX, (int32)(atkmax + variance ));
 
 		if ((sc && sc->getSCE(SC_MAXIMIZEPOWER)) || critical == true)
 			damage = atkmax;
@@ -4108,7 +4108,7 @@ static void battle_calc_damage_parts(struct Damage* wd, block_list *src,block_li
 	}
 
 	// Right-hand status attack is doubled after elemental adjustments
-	wd->statusAtk *= 2;
+	// wd->statusAtk *= 2;
 
 	// Check critical
 	if (wd->type == DMG_MULTI_HIT_CRITICAL || wd->type == DMG_CRITICAL)
@@ -8042,11 +8042,11 @@ static struct Damage battle_calc_weapon_attack(block_list *src, block_list *targ
 #ifdef RENEWAL
 	if (is_attack_critical(&wd, src, target, skill_id, skill_lv, false)) {
 		if (sd) { //Check for player so we don't crash out, monsters don't have bonus crit rates [helvetica]
-			wd.damage = (int64)floor((float)((wd.damage * (1.4f + (0.01f * sstatus->crate)))));
+			wd.damage = (int64)floor((float)((wd.damage * (2.0f + (0.01f * sstatus->crate)))));
 			if (is_attack_left_handed(src, skill_id))
-				wd.damage2 = (int64)floor((float)((wd.damage2 * (1.4f + (0.01f * sstatus->crate)))));
+				wd.damage2 = (int64)floor((float)((wd.damage2 * (2.0f + (0.01f * sstatus->crate)))));
 		} else
-			wd.damage = (int64)floor((float)(wd.damage * 1.4f));
+			wd.damage = (int64)floor((float)(wd.damage * 2.0f));
 
 		if (tsd && tsd->bonus.crit_def_rate != 0)
 			ATK_ADDRATE(wd.damage, wd.damage2, -tsd->bonus.crit_def_rate);
@@ -8608,7 +8608,7 @@ struct Damage battle_calc_magic_attack(block_list *src,block_list *target,uint16
 							skillratio = skillratio * sd->status.job_level / 10;
 						break;
 					case HW_GRAVITATION:
-						skillratio += -100 + 100 * skill_lv;
+						skillratio += -100 + 10 * skill_lv;
 						RE_LVL_DMOD(100);
 						break;
 					case PA_PRESSURE:
@@ -9580,7 +9580,7 @@ struct Damage battle_calc_magic_attack(block_list *src,block_list *target,uint16
 			if (mdef < 0)
 				mdef = 0; // Negative eMDEF is treated as 0 on official
 
-			ad.damage = ad.damage * (1000 + mdef) / (1000 + mdef * 10) - mdef2;
+			ad.damage = ad.damage * (1000 + mdef) / (1000 + mdef * 20) - mdef2;
 #else
 			// On pre-renewal, Mdef reduction is rounded down before being subtracted from Mdef
 			if (i > 0)
