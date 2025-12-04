@@ -5273,7 +5273,7 @@ int32 skill_castend_damage_id (block_list* src, block_list *bl, uint16 skill_id,
 	case NPC_PETRIFYATTACK:
 	case NPC_CURSEATTACK:
 	case NPC_SLEEPATTACK:
-#ifdef RENEWAL
+#ifndef RENEWAL
 	case CR_ACIDDEMONSTRATION:
 #endif
 	case LK_AURABLADE:
@@ -6402,10 +6402,15 @@ int32 skill_castend_damage_id (block_list* src, block_list *bl, uint16 skill_id,
 #ifdef RENEWAL
 	case KN_BOWLINGBASH:
 		if (flag & 1) {
-			skill_attack(skill_get_type(skill_id), src, src, bl, skill_id, skill_lv, tick, (skill_area_temp[0]) > 0 ? SD_ANIMATION | skill_area_temp[0] : skill_area_temp[0]);
-		} else {
+			// original hit
+			skill_attack(skill_get_type(skill_id), src, src, bl, skill_id, skill_lv, tick, (skill_area_temp[1] == bl->id) ? SD_ANIMATION : flag);
+			skill_blown(src, bl, skill_get_blewcount(skill_id, skill_lv), (unit_getdir(src) + 4) % 8, BLOWN_NONE);
+			//chain attack
+			skill_attack(BF_WEAPON,src,src,bl,skill_id,skill_lv,tick,0);
+		}
+		else {
 			skill_area_temp[0] = map_foreachinallrange(skill_area_sub, bl, skill_get_splash(skill_id, skill_lv), BL_CHAR, src, skill_id, skill_lv, tick, BCT_ENEMY, skill_area_sub_count);
-			map_foreachinrange(skill_area_sub, bl, skill_get_splash(skill_id, skill_lv), BL_CHAR|BL_SKILL, src, skill_id, skill_lv, tick, flag | BCT_ENEMY | SD_SPLASH | 1, skill_castend_damage_id);
+			map_foreachinrange(skill_area_sub, bl, skill_get_splash(skill_id, skill_lv), BL_CHAR | BL_SKILL, src, skill_id, skill_lv, tick, flag | BCT_ENEMY | SD_SPLASH | 1, skill_castend_damage_id);
 		}
 		break;
 #else
@@ -6656,8 +6661,8 @@ int32 skill_castend_damage_id (block_list* src, block_list *bl, uint16 skill_id,
 	case SN_FALCONASSAULT:
 #ifndef RENEWAL
 	case PA_PRESSURE:
-	case CR_ACIDDEMONSTRATION:
 #endif
+	case CR_ACIDDEMONSTRATION:
 	case NPC_SMOKING:
 	case GS_FLING:
 	case NJ_ZENYNAGE:

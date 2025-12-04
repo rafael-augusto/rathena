@@ -37490,7 +37490,7 @@ Body:
     AttackMotion: 504
     ClientAttackMotion: 252
     DamageMotion: 432
-    DamageTaken: 10
+    DamageTaken: 100
     Ai: 21
     Class: Boss
     Modes:

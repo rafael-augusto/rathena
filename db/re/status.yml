@@ -384,6 +384,7 @@ Body:
     DurationLookup: AS_ENCHANTPOISON
     CalcFlags:
       Atk_Ele: true
+      Cri: true
     Flags:
       RemoveOnUnequipWeapon: true
       RemoveOnHermode: true

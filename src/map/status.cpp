@@ -2525,10 +2525,8 @@ uint16 status_add_revo_weapon_mastery(map_session_data *sd,struct status_data *s
 	}
 
 	weapon = sd->weapontype1;
-	dstr = str / 10;
-	damage = dstr*dstr;
-	ShowDebug("STR: %d\n", str);
-	ShowDebug("Base Damage: %d\n", damage);
+	dstr = str/10;
+	damage = dstr*10;
 	return damage;
 }
 
@@ -2591,7 +2589,7 @@ uint16 status_base_matk_min(block_list *bl, const struct status_data* status, in
 			return status_get_homint(bl) + level + (status_get_homint(bl) + status_get_homdex(bl)) / 5;
 		case BL_PC:
 		default:
-			return status->int_ + (status->int_ / 2) + (status->dex / 5) + (status->luk / 3) + (level / 4) + 5 * status->spl;
+			return status->int_ + (status->dex / 5) + (status->luk / 3) + (level / 4) + 5 * status->spl;
 	}
 }
 
@@ -2610,7 +2608,7 @@ uint16 status_base_matk_max(block_list *bl, const struct status_data* status, in
 			return status_get_homint(bl) + level + (status_get_homluk(bl) + status_get_homint(bl) + status_get_homdex(bl)) / 3;
 		case BL_PC:
 		default:
-			return status->int_ + (status->int_ / 2) + (status->dex / 5) + (status->luk / 3) + (level / 4) + 5 * status->spl;
+			return status->int_ + (status->dex / 5) + (status->luk / 3) + (level / 4) + 5 * status->spl;
 	}
 }
 #endif
@@ -3976,7 +3974,7 @@ int32 status_calc_pc_sub(map_session_data* sd, uint8 opt)
 			}
 			wa->atk += sd->inventory_data[index]->atk;
 			if( info != nullptr ){
-				wa->atk2 += info->bonus / 100;
+				wa->atk += info->bonus / 100;
 
 #ifdef RENEWAL
 				if( enchantgrade_info != nullptr ){
@@ -5994,6 +5992,7 @@ void status_calc_bl_main(block_list& bl, std::bitset<SCB_MAX> flag)
 		status->batk += temp;
 
 		status->batk = status_calc_batk(&bl, sc, status->batk);
+		flag.set(SCB_WATK);	
 	}
 
 	if(flag[SCB_WATK]) {
@@ -6020,6 +6019,10 @@ void status_calc_bl_main(block_list& bl, std::bitset<SCB_MAX> flag)
 			status->watk2 = status_calc_watk(&bl, sc, b_status->watk2);
 		}
 		else status->watk = status_calc_watk(&bl, sc, b_status->watk);
+		if (sd){
+			uint16 bonus = status_add_revo_weapon_mastery(sd,status);
+			status->watk += bonus;
+		}
 #endif
 	}
 
@@ -6333,9 +6336,11 @@ void status_calc_bl_main(block_list& bl, std::bitset<SCB_MAX> flag)
 				wMatk += status->lhw.matk;
 				variance += status->lhw.matk * status->lhw.wlv / 10;
 			}
-			int32 fixed = ((sd)->battle_status.int_ / 10) * ((sd)->battle_status.int_ / 10);
-			matk_min += wMatk - variance + fixed;
-			matk_max += wMatk + variance + fixed;
+			int32 fixed = sd->battle_status.int_/10;
+			
+			matk_min += wMatk - variance + fixed*10;
+			matk_max += wMatk + variance + fixed*10;
+			ShowDebug("MATK Fixed: %d Int: %d matk_min: %d  matk_max: %d \n",fixed, sd->battle_status.int_, matk_min, matk_max);
 		}
 
 		// Apply Recognized Spell buff
@@ -6534,6 +6539,7 @@ void status_calc_bl_main(block_list& bl, std::bitset<SCB_MAX> flag)
 
 	if(flag[SCB_REGEN] && bl.type & BL_REGEN)
 		status_calc_regen_rate(&bl, status_get_regen_data(&bl), sc);
+
 }
 
 /**
@@ -6624,9 +6630,6 @@ void status_calc_bl_(block_list* bl, std::bitset<SCB_MAX> flag, uint8 opt)
 			)
 			clif_updatestatus(*sd,SP_ATK1);
 
-		sd->battle_status.eatk =+ status_add_revo_weapon_mastery(sd,status);
-		if(b_status.eatk != sd->battle_status.eatk)
-			clif_updatestatus(*sd,SP_ATK2);
 			
 		if(b_status.def != status->def) {
 			clif_updatestatus(*sd,SP_DEF1);
@@ -7547,6 +7550,9 @@ static int16 status_calc_critical(block_list *bl, status_change *sc, int32 criti
 		critical += 3*sc->getSCE(SC_SPEARQUICKEN)->val1*10;
 	if (sc->getSCE(SC_TWOHANDQUICKEN))
 		critical += (2 + sc->getSCE(SC_TWOHANDQUICKEN)->val1) * 10;
+	if(sc->getSCE(SC_ENCPOISON))
+		critical += 3 *sc->getSCE(SC_ENCPOISON)->val1 * 10;
+	
 #endif
 	if (sc->getSCE(SC__INVISIBILITY))
 		critical += sc->getSCE(SC__INVISIBILITY)->val3 * 10;
