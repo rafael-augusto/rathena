@@ -1253,7 +1253,7 @@ enum e_mado_type : uint16 {
 	(sd)->bonus.ematk + \
 	status_calc_consumablematk(&(sd)->sc, 0) + \
 	status_calc_pseudobuff_matk((sd), &(sd)->sc, 0) + \
-	((sd)->battle_status.int_ / 10) * ((sd)->battle_status.int_ / 10)\
+	(((sd)->battle_status.int_ / 10) * 10) \
 	)
 #else
 	#define pc_leftside_atk(sd) ((sd)->battle_status.batk + (sd)->battle_status.rhw.atk + (sd)->battle_status.lhw.atk)
