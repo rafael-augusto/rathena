@@ -3989,7 +3989,7 @@ int32 status_calc_pc_sub(map_session_data* sd, uint8 opt)
 				}
 #endif
 			}
-#ifdef RENEWAL
+
 			if (sd->bonus.weapon_atk_rate)
 				wa->atk += wa->atk * sd->bonus.weapon_atk_rate / 100;
 			wa->matk += sd->inventory_data[index]->matk;
@@ -3997,12 +3997,8 @@ int32 status_calc_pc_sub(map_session_data* sd, uint8 opt)
 			// Renewal magic attack refine bonus
 			if( info != nullptr && sd->weapontype1 != W_BOW ){
 				wa->matk += info->bonus / 100;
-
-				if( enchantgrade_info != nullptr ){
-					wa->matk += ( ( ( info->bonus / 100 ) * enchantgrade_info->bonus ) / 100 );
-				}
 			}
-#endif
+
 			// Overrefine bonus.
 			if( info != nullptr ){
 				wd->overrefine = info->randombonus_max / 100;
@@ -6299,6 +6295,15 @@ void status_calc_bl_main(block_list& bl, std::bitset<SCB_MAX> flag)
 			matk_max += 3 * sd->soulball;
 		}
 
+		uint16 wmatk = 0;
+		if (b_status->lhw.matk > 0)
+			wmatk += b_status->lhw.matk;
+		if (b_status->rhw.matk > 0)
+			wmatk += b_status->rhw.matk;
+
+		matk_min += wmatk;
+		matk_max += wmatk;
+
 		status->matk_min = static_cast<uint16>( cap_value(matk_min,0,USHRT_MAX) );
 		status->matk_max = static_cast<uint16>( cap_value(matk_max,0,USHRT_MAX) );
 #else
@@ -6624,9 +6629,9 @@ void status_calc_bl_(block_list* bl, std::bitset<SCB_MAX> flag, uint8 opt)
 			)
 			clif_updatestatus(*sd,SP_ATK1);
 
-		sd->battle_status.eatk =+ status_add_revo_weapon_mastery(sd,status);
-		if(b_status.eatk != sd->battle_status.eatk)
-			clif_updatestatus(*sd,SP_ATK2);
+		// sd->battle_status.eatk =+ status_add_revo_weapon_mastery(sd,status);
+		// if(b_status.eatk != sd->battle_status.eatk)
+		// 	clif_updatestatus(*sd,SP_ATK2);
 			
 		if(b_status.def != status->def) {
 			clif_updatestatus(*sd,SP_DEF1);

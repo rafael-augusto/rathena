@@ -14812,7 +14812,7 @@ BUILDIN_FUNC(getiteminfo)
 		case ITEMINFO_ALIASNAME: script_pushint(st, i_data->view_id); break;
 		case ITEMINFO_EQUIPLEVELMAX: script_pushint(st, i_data->elvmax); break;
 		case ITEMINFO_MAGICATTACK: {
-#ifdef RENEWAL
+#ifdef PRERE
 			script_pushint(st, i_data->matk);
 #else
 			script_pushint(st, 0);
@@ -14901,7 +14901,7 @@ BUILDIN_FUNC(setiteminfo)
 		case ITEMINFO_ALIASNAME: i_data->view_id = static_cast<t_itemid>(value); break;
 		case ITEMINFO_EQUIPLEVELMAX: i_data->elvmax = static_cast<uint16>(value); break;
 		case ITEMINFO_MAGICATTACK: {
-#ifdef RENEWAL
+#ifdef PRERE
 			i_data->matk = static_cast<uint32>(value);
 #else
 			value = 0;

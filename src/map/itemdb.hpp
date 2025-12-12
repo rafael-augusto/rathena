@@ -3352,9 +3352,7 @@ struct item_data
 	uint16 armor_level;
 	t_itemid view_id;
 	uint16 elvmax; ///< Maximum level for this item
-#ifdef RENEWAL
 	uint32 matk;
-#endif
 
 //Lupus: I rearranged order of these fields due to compatibility with ITEMINFO script command
 //		some script commands should be revised as well...
