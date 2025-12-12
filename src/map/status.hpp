@@ -3362,10 +3362,8 @@ struct weapon_atk {
 	uint16 atk, atk2;
 	uint16 range;
 	unsigned char ele;
-#ifdef RENEWAL
 	uint16 matk;
 	unsigned char wlv;
-#endif
 };
 
 ///For holding basic status (which can be modified by status changes)
