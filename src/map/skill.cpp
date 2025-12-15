@@ -330,6 +330,8 @@ int32 skill_get_range2(block_list *bl, uint16 skill_id, uint16 skill_lv, bool is
 	if( bl->type == BL_MOB && battle_config.mob_ai&0x400 )
 		return 9; //Mobs have a range of 9 regardless of skill used.
 
+	status_change* sc = status_get_sc(bl);
+
 	int32 range = skill_get_range(skill_id, skill_lv);
 
 	if( range < 0 ) {
@@ -363,9 +365,14 @@ int32 skill_get_range2(block_list *bl, uint16 skill_id, uint16 skill_lv, bool is
 			}
 		}
 	}
-
+	
+	int32 finalRange = 0;
 	if( !range && bl->type != BL_PC )
-		return 9; // Enable non players to use self skills on others. [Skotlex]
+		finalRange = 9; // Enable non players to use self skills on others. [Skotlex]
+
+	if(sc && sc->getSCE(SC_BLIND) && finalRange > 4) {
+		finalRange = finalRange * 2 / 3;
+	}
 	return range;
 }
 
@@ -1228,6 +1235,8 @@ int32 skill_additional_effect( block_list* src, block_list *bl, uint16 skill_id,
 	status_data* sstatus = status_get_status_data(*src);
 	status_data* tstatus = status_get_status_data(*bl);
 
+	int32 bottleIndex = -1;
+
 	// Taekwon combos activate on traps, so we need to check them even for targets that don't have status
 	if (sd && skill_id == 0 && !(attack_type&BF_SKILL) && sc) {
 		// Chance to trigger Taekwon kicks
@@ -1524,21 +1533,37 @@ int32 skill_additional_effect( block_list* src, block_list *bl, uint16 skill_id,
 		break;
 
 	case AM_ACIDTERROR:
-		sc_start2(src,bl,SC_BLEEDING,(skill_lv*3),skill_lv,src->id,skill_get_time2(skill_id,skill_lv));
-#ifdef RENEWAL
-		if (skill_break_equip(src,bl, EQP_ARMOR, (1000 * skill_lv + 500) - 1000, BCT_ENEMY))
-#else
-		if (skill_break_equip(src,bl, EQP_ARMOR, 100*skill_get_time(skill_id,skill_lv), BCT_ENEMY))
-#endif
-			clif_emotion( *bl, ET_HUK );
-		break;
+		if(sd)
+		{
+			bottleIndex = -1;
+			bottleIndex = pc_search_inventory(sd,ITEMID_ACID_BOTTLE);
+			if(bottleIndex >= 0)
+			{
+				sc_start2(src,bl,SC_BLEEDING,(skill_lv*3),skill_lv,src->id,skill_get_time2(skill_id,skill_lv));
+				if (skill_break_equip(src,bl, EQP_ARMOR, 100*skill_get_time(skill_id,skill_lv), BCT_ENEMY));
+			}
+		}
+		else{
+			sc_start2(src,bl,SC_BLEEDING,(skill_lv*3),skill_lv,src->id,skill_get_time2(skill_id,skill_lv));
+			if (skill_break_equip(src,bl, EQP_ARMOR, 100*skill_get_time(skill_id,skill_lv), BCT_ENEMY))
+				clif_emotion( *bl, ET_HUK );
+		}
 
+		break;
 	case AM_DEMONSTRATION:
-#ifdef RENEWAL
-		skill_break_equip(src,bl, EQP_WEAPON, 300 * skill_lv, BCT_ENEMY);
-#else
-		skill_break_equip(src,bl, EQP_WEAPON, 100*skill_lv, BCT_ENEMY);
-#endif
+		if(sd)
+		{
+			bottleIndex = -1;
+			bottleIndex = pc_search_inventory(sd,ITEMID_FIRE_BOTTLE);
+			if( bottleIndex >= 0)
+			{
+				skill_break_equip(src,bl, EQP_WEAPON, 100*skill_lv, BCT_ENEMY);
+			}
+		}
+		else
+		{
+				skill_break_equip(src,bl, EQP_WEAPON, 100*skill_lv, BCT_ENEMY);
+		}
 		break;
 
 	case CR_SHIELDCHARGE:
@@ -1722,7 +1747,9 @@ int32 skill_additional_effect( block_list* src, block_list *bl, uint16 skill_id,
 				sc_start2(src,bl,SC_BLEEDING,(5+skill_lv*5),skill_lv,src->id,skill_get_time2(skill_id,3));
 		}
 		break;
-
+	case MG_NAPALMBEAT:
+		sc_start(src,bl,SC_CURSE,skill_lv,skill_lv,skill_get_time2(skill_id,skill_lv));
+		break;
 	case HW_NAPALMVULCAN:
 	case HN_NAPALM_VULCAN_STRIKE:
 		sc_start(src,bl,SC_CURSE,5*skill_lv,skill_lv,skill_get_time2(skill_id,skill_lv));
@@ -2359,10 +2386,10 @@ int32 skill_additional_effect( block_list* src, block_list *bl, uint16 skill_id,
 			if (skill == PF_SPIDERWEB) //Special case, due to its nature of coding.
 				type = CAST_GROUND;
 #ifndef RENEWAL
-			else if( skill == AS_SONICBLOW ){
-				// Special case, Sonic Blow autospell should stop the player attacking.
-				unit_stop_attack( sd );
-			}
+			// else if( skill == AS_SONICBLOW ){
+			// 	// Special case, Sonic Blow autospell should stop the player attacking.
+			// 	unit_stop_attack( sd );
+			// }
 #endif
 
 			sd->state.autocast = 1;
@@ -3844,6 +3871,8 @@ int64 skill_attack (int32 attack_type, block_list* src, block_list *dsrc, block_
 		case KN_AUTOCOUNTER:
 		case NPC_CRITICALSLASH:
 		case TF_DOUBLE:
+		case MO_TRIPLEATTACK:
+		case NJ_KIRIKAGE:
 		case GS_CHAINACTION:
 			clif_damage(*src,*bl,tick,dmg.amotion,dmg.dmotion,damage,dmg.div_,dmg.type,dmg.damage2,false);
 			break;
@@ -3861,9 +3890,6 @@ int64 skill_attack (int32 attack_type, block_list* src, block_list *dsrc, block_
 		case WL_COMET:
 		case NPC_COMET:
 		case KO_MUCHANAGE:
-#ifndef RENEWAL
-		case NJ_HUUMA:
-#endif
 			clif_skill_damage( *src, *bl, tick, dmg.amotion, dmg.dmotion, damage, dmg.div_, skill_id, skill_lv, DMG_MULTI_HIT );
 			break;
 		case WL_CHAINLIGHTNING_ATK:
@@ -3985,7 +4011,13 @@ int64 skill_attack (int32 attack_type, block_list* src, block_list *dsrc, block_
 					break;
 				}
 			}
-			clif_skill_damage( *dsrc, *bl, tick, dmg.amotion, dmg.dmotion, damage, dmg.div_, skill_id, (flag&SD_LEVEL) ? -1 : skill_lv, dmg_type );
+			if(skill_id && dmg.type == DMG_CRITICAL){
+				if ((skill_id == AS_SONICBLOW  || skill_id == AC_DOUBLE || skill_id == KN_PIERCE || skill_id == CR_HOLYCROSS || skill_id == MO_CHAINCOMBO || skill_id == MO_FINGEROFFENSIVE))
+					dmg.type = DMG_MULTI_HIT_CRITICAL;
+
+			}
+
+			clif_skill_damage( *dsrc, *bl, tick, dmg.amotion, dmg.dmotion, damage, dmg.div_, skill_id, (flag&SD_LEVEL) ? -1 : skill_lv, dmg.type == DMG_MULTI_HIT_CRITICAL ? DMG_MULTI_HIT_CRITICAL : dmg_type );
 			break;
 	}
 
@@ -5557,43 +5589,9 @@ int32 skill_castend_damage_id (block_list* src, block_list *bl, uint16 skill_id,
 
 	case RG_BACKSTAP:
 		{
-#ifdef RENEWAL
-			uint8 dir = map_calc_dir(src, bl->x, bl->y);
-			int16 x, y;
-
-			if (dir > 0 && dir < 4)
-				x = -1;
-			else if (dir > 4)
-				x = 1;
-			else
-				x = 0;
-
-			if (dir > 2 && dir < 6)
-				y = -1;
-			else if (dir == 7 || dir < 2)
-				y = 1;
-			else
-				y = 0;
-
-			if (battle_check_target(src, bl, BCT_ENEMY) > 0 && unit_movepos(src, bl->x + x, bl->y + y, 2, true)) { // Display movement + animation.
-#else
-			if (check_distance_bl(src, bl, 0))
-				break;
-
-			uint8 dir = map_calc_dir(src, bl->x, bl->y), t_dir = unit_getdir(bl);
-
-			if (!map_check_dir(dir, t_dir) || bl->type == BL_SKILL) {
-#endif
 				status_change_end(src, SC_HIDING);
-				dir = dir < 4 ? dir+4 : dir-4; // change direction [Celest]
-				unit_setdir(bl,dir);
-#ifdef RENEWAL
-				clif_blown(src);
-#endif
 				skill_attack(BF_WEAPON, src, src, bl, skill_id, skill_lv, tick, flag);
-			}
-			else if (sd)
-				clif_skill_fail( *sd, skill_id );
+
 		}
 		break;
 
@@ -5958,9 +5956,7 @@ int32 skill_castend_damage_id (block_list* src, block_list *bl, uint16 skill_id,
 				case SKE_SKY_MOON:
 					clif_skill_nodamage(src,*bl,skill_id,skill_lv);
 					break;
-#ifdef RENEWAL
 				case NJ_HUUMA:
-#endif
 				case LG_MOONSLASHER:
 				case MH_XENO_SLASHER:
 					clif_skill_damage( *src, *bl,tick, status_get_amotion(src), 0, DMGVAL_IGNORE, 1, skill_id, skill_lv, DMG_SINGLE );
@@ -6412,78 +6408,16 @@ int32 skill_castend_damage_id (block_list* src, block_list *bl, uint16 skill_id,
 	case KN_BOWLINGBASH:
 #endif
 	case MS_BOWLINGBASH:
-		{
-			int32 min_x,max_x,min_y,max_y,i,c,dir,tx,ty;
-			// Chain effect and check range gets reduction by recursive depth, as this can reach 0, we don't use blowcount
-			c = (skill_lv-(flag&0xFFF)+1)/2;
-			// Determine the Bowling Bash area depending on configuration
-			if (battle_config.bowling_bash_area == 0) {
-				// Gutter line system
-				min_x = ((src->x)-c) - ((src->x)-c)%40;
-				if(min_x < 0) min_x = 0;
-				max_x = min_x + 39;
-				min_y = ((src->y)-c) - ((src->y)-c)%40;
-				if(min_y < 0) min_y = 0;
-				max_y = min_y + 39;
-			} else if (battle_config.bowling_bash_area == 1) {
-				// Gutter line system without demi gutter bug
-				min_x = src->x - (src->x)%40;
-				max_x = min_x + 39;
-				min_y = src->y - (src->y)%40;
-				max_y = min_y + 39;
-			} else {
-				// Area around caster
-				min_x = src->x - battle_config.bowling_bash_area;
-				max_x = src->x + battle_config.bowling_bash_area;
-				min_y = src->y - battle_config.bowling_bash_area;
-				max_y = src->y + battle_config.bowling_bash_area;
-			}
-			// Initialization, break checks, direction
-			if((flag&0xFFF) > 0) {
-				// Ignore monsters outside area
-				if(bl->x < min_x || bl->x > max_x || bl->y < min_y || bl->y > max_y)
-					break;
-				// Ignore monsters already in list
-				if(idb_exists(bowling_db, bl->id))
-					break;
-				// Random direction
-				dir = rnd()%8;
-			} else {
-				// Create an empty list of already hit targets
-				db_clear(bowling_db);
-				// Direction is walkpath
-				dir = (unit_getdir(src)+4)%8;
-			}
-			// Add current target to the list of already hit targets
-			idb_put(bowling_db, bl->id, bl);
-			// Keep moving target in direction square by square
-			tx = bl->x;
-			ty = bl->y;
-			for(i=0;i<c;i++) {
-				// Target coordinates (get changed even if knockback fails)
-				tx -= dirx[dir];
-				ty -= diry[dir];
-				// If target cell is a wall then break
-				if(map_getcell(bl->m,tx,ty,CELL_CHKWALL))
-					break;
-				skill_blown(src,bl,1,dir,BLOWN_NONE);
-
-				int32 count;
-
-				// Splash around target cell, but only cells inside area; we first have to check the area is not negative
-				if((max(min_x,tx-1) <= min(max_x,tx+1)) &&
-					(max(min_y,ty-1) <= min(max_y,ty+1)) &&
-					(count = map_foreachinallarea(skill_area_sub, bl->m, max(min_x,tx-1), max(min_y,ty-1), min(max_x,tx+1), min(max_y,ty+1), splash_target(src), src, skill_id, skill_lv, tick, flag|BCT_ENEMY, skill_area_sub_count))) {
-					// Recursive call
-					map_foreachinallarea(skill_area_sub, bl->m, max(min_x,tx-1), max(min_y,ty-1), min(max_x,tx+1), min(max_y,ty+1), splash_target(src), src, skill_id, skill_lv, tick, (flag|BCT_ENEMY)+1, skill_castend_damage_id);
-					// Self-collision
-					if(bl->x >= min_x && bl->x <= max_x && bl->y >= min_y && bl->y <= max_y)
-						skill_attack(BF_WEAPON,src,src,bl,skill_id,skill_lv,tick,(flag&0xFFF)>0?SD_ANIMATION|count:count);
-					break;
-				}
-			}
-			// Original hit or chain hit depending on flag
-			skill_attack(BF_WEAPON,src,src,bl,skill_id,skill_lv,tick,(flag&0xFFF)>0?SD_ANIMATION:0);
+		if (flag & 1) {
+			// original hit
+			skill_attack(skill_get_type(skill_id), src, src, bl, skill_id, skill_lv, tick, (skill_area_temp[1] == bl->id) ? SD_ANIMATION : flag);
+			skill_blown(src, bl, skill_get_blewcount(skill_id, skill_lv), (unit_getdir(src) + 4) % 8, BLOWN_NONE);
+			//chain attack
+			skill_attack(BF_WEAPON,src,src,bl,skill_id,skill_lv,tick,0);
+		}
+		else {
+			skill_area_temp[0] = map_foreachinallrange(skill_area_sub, bl, skill_get_splash(skill_id, skill_lv), BL_CHAR, src, skill_id, skill_lv, tick, BCT_ENEMY, skill_area_sub_count);
+			map_foreachinrange(skill_area_sub, bl, skill_get_splash(skill_id, skill_lv), BL_CHAR | BL_SKILL, src, skill_id, skill_lv, tick, flag | BCT_ENEMY | SD_SPLASH | 1, skill_castend_damage_id);
 		}
 		break;
 
@@ -8149,8 +8083,15 @@ int32 skill_castend_nodamage_id (block_list *src, block_list *bl, uint16 skill_i
 		break;
 
 	case RG_CLOSECONFINE:
-		clif_skill_nodamage(src,*bl,skill_id,skill_lv,
-			sc_start4(src,bl,type,100,skill_lv,src->id,0,0,skill_get_time(skill_id,skill_lv)));
+		{
+			uint8 dir = map_calc_dir(src, bl->x, bl->y), t_dir = unit_getdir(bl);
+
+			status_change_end(src, SC_HIDING);
+			unit_setdir(bl,dir);
+				
+			clif_skill_nodamage(src,*bl,skill_id,skill_lv,
+				sc_start4(src,bl,type,100,skill_lv,src->id,0,0,skill_get_time(skill_id,skill_lv)));
+			}
 		break;
 	case SA_FLAMELAUNCHER:	// added failure chance and chance to break weapon if turned on [Valaris]
 	case SA_FROSTWEAPON:
@@ -10323,12 +10264,12 @@ int32 skill_castend_nodamage_id (block_list *src, block_list *bl, uint16 skill_i
 
 	case NPC_POWERUP:
 		clif_skill_nodamage(src,*bl,skill_id,skill_lv,
-			sc_start2(src,bl,type,100,200,100,skill_get_time(skill_id, skill_lv)));
+			sc_start2(src,bl,type,100,10,100,skill_get_time(skill_id, skill_lv)));
 		break;
 
 	case NPC_AGIUP:
 		clif_skill_nodamage(src,*bl,skill_id,skill_lv,
-			sc_start2(src,bl,type,100,50,100,skill_get_time(skill_id, skill_lv)));
+			sc_start2(src,bl,type,100,10,100,skill_get_time(skill_id, skill_lv)));
 		break;
 
 	case NPC_INVISIBLE:
@@ -13618,15 +13559,6 @@ static int8 skill_castend_id_check(block_list *src, block_list *target, uint16 s
 			break;
 		case RG_BACKSTAP:
 			{
-#ifndef RENEWAL
-				uint8 dir = map_calc_dir(src,target->x,target->y), t_dir = unit_getdir(target);
-
-				if (map_check_dir(dir, t_dir))
-					return USESKILL_FAIL_MAX;
-#endif
-
-				if (check_distance_bl(src, target, 0))
-					return USESKILL_FAIL_MAX;
 			}
 			break;
 		case PR_TURNUNDEAD:
@@ -15950,8 +15882,23 @@ std::shared_ptr<s_skill_unit_group> skill_unitsetting(block_list *src, uint16 sk
 		break;
 	case WZ_QUAGMIRE:	//The target changes to "all" if used in a gvg map. [Skotlex]
 	case AM_DEMONSTRATION:
-		if (battle_config.vs_traps_bctall && (src->type&battle_config.vs_traps_bctall) && map_flag_vs(src->m))
-			target = BCT_ALL;
+		{
+			if (battle_config.vs_traps_bctall && (src->type&battle_config.vs_traps_bctall) && map_flag_vs(src->m))
+				target = BCT_ALL;
+			if(sd)
+			{
+				int32 bottleIndex = -1;
+				bottleIndex = pc_search_inventory(sd, ITEMID_FIRE_BOTTLE);
+				if (bottleIndex >= 0)
+				{
+					pc_delitem(sd, bottleIndex, 1, 0, 1, LOG_TYPE_CONSUME);
+				}
+				else
+				{
+					limit = limit /10;
+				}
+			}
+		}
 		break;
 	case HT_SKIDTRAP:
 	case MA_SKIDTRAP:
@@ -16034,7 +15981,7 @@ std::shared_ptr<s_skill_unit_group> skill_unitsetting(block_list *src, uint16 sk
 	case BA_POEMBRAGI:
 		val1 = 3 * skill_lv + status->dex / 10; // Casting time reduction
 		//For some reason at level 10 the base delay reduction is 50%.
-		val2 = (skill_lv < 10 ? 3 * skill_lv : 50) + status->int_ / 5; // After-cast delay reduction
+		val2 = 3 * skill_lv  + status->int_ / 5; // After-cast delay reduction
 		if (sd) {
 			val1 += pc_checkskill(sd, BA_MUSICALLESSON);
 			val2 += 2 * pc_checkskill(sd, BA_MUSICALLESSON);
@@ -17076,10 +17023,6 @@ int32 skill_unit_onplace_timer(skill_unit *unit, block_list *bl, t_tick tick)
 			break;
 
 		case UNT_MAGNUS:
-#ifndef RENEWAL
-			if (!battle_check_undead(tstatus->race,tstatus->def_ele) && tstatus->race!=RC_DEMON)
-				break;
-#endif
 			skill_attack(BF_MAGIC,ss,unit,bl,sg->skill_id,sg->skill_lv,tick,0);
 			break;
 
@@ -20506,11 +20449,11 @@ int32 skill_delayfix(block_list *bl, uint16 skill_id, uint16 skill_lv)
 
 	// Delay reductions
 	switch (skill_id) {	//Monk combo skills have their delay reduced by agi/dex.
-		case MO_TRIPLEATTACK:
-		case MO_CHAINCOMBO:
-		case MO_COMBOFINISH:
-		case CH_TIGERFIST:
-		case CH_CHAINCRUSH:
+		// case MO_TRIPLEATTACK:
+		// case MO_CHAINCOMBO:
+		// case MO_COMBOFINISH:
+		// case CH_TIGERFIST:
+		// case CH_CHAINCRUSH:
 		case SR_DRAGONCOMBO:
 		case SR_FALLENEMPIRE:
 		case SJ_PROMINENCEKICK:
