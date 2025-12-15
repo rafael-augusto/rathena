@@ -2404,7 +2404,7 @@ int32 status_base_amotion_pc(map_session_data* sd, struct status_data* status)
 	// Base weapon delay
 	int32 amotion = (sd->status.weapon < MAX_WEAPON_TYPE)
 	 ? (job->aspd_base[sd->status.weapon]) // Single weapon
-	 : (job->aspd_base[sd->weapontype1] + job->aspd_base[sd->weapontype2]) * 7 / 10; // Dual-wield
+	 : (job->aspd_base[sd->weapontype1] + job->aspd_base[sd->weapontype2]) * 0.5f; // Dual-wield
 
 	// Percentual delay reduction from stats
 	amotion -= amotion * (4 * status->agi + status->dex) / 1000;
@@ -6315,6 +6315,11 @@ void status_calc_bl_main(block_list& bl, std::bitset<SCB_MAX> flag)
 		matk_min += wmatk;
 		matk_max += wmatk;
 
+		if (sc->getSCE(SC_CURSE)){
+			matk_min = matk_min * 0.75f;
+			matk_max = matk_max * 0.75f;
+		}
+
 		status->matk_min = static_cast<uint16>( cap_value(matk_min,0,USHRT_MAX) );
 		status->matk_max = static_cast<uint16>( cap_value(matk_max,0,USHRT_MAX) );
 #else
@@ -7558,12 +7563,12 @@ static int16 status_calc_critical(block_list *bl, status_change *sc, int32 criti
 		critical += sc->getSCE(SC_TRUESIGHT)->val2;
 	if (sc->getSCE(SC_CLOAKING))
 		critical += critical;
-#ifdef RENEWAL
 	if (sc->getSCE(SC_SPEARQUICKEN))
 		critical += 3*sc->getSCE(SC_SPEARQUICKEN)->val1*10;
 	if (sc->getSCE(SC_TWOHANDQUICKEN))
 		critical += (2 + sc->getSCE(SC_TWOHANDQUICKEN)->val1) * 10;
-#endif
+	if(sc->getSCE(SC_ENCPOISON))
+		critical += sc->getSCE(SC_ENCPOISON)->val1 * 20;
 	if (sc->getSCE(SC__INVISIBILITY))
 		critical += sc->getSCE(SC__INVISIBILITY)->val3 * 10;
 	if (sc->getSCE(SC__UNLUCKY))
@@ -7609,7 +7614,7 @@ static int16 status_calc_hit(block_list *bl, status_change *sc, int32 hit)
 	if(sc->getSCE(SC_INCHITRATE))
 		hit += hit * sc->getSCE(SC_INCHITRATE)->val1/100;
 	if (sc->getSCE(SC_POWERUP))
-		hit += hit * sc->getSCE(SC_POWERUP)->val2 / 100;
+		hit += hit * 1.25f;
 	if(sc->getSCE(SC_BLIND))
 		hit -= hit * 25/100;
 	if(sc->getSCE(SC_HEAT_BARREL))
@@ -7624,13 +7629,13 @@ static int16 status_calc_hit(block_list *bl, status_change *sc, int32 hit)
 		hit -= hit * 50 / 100;
 	if(sc->getSCE(SC_ILLUSIONDOPING))
 		hit -= sc->getSCE(SC_ILLUSIONDOPING)->val2;
-#ifdef RENEWAL
-	if (sc->getSCE(SC_BLESSING))
-		hit += sc->getSCE(SC_BLESSING)->val1 * 2;
 	if (sc->getSCE(SC_TWOHANDQUICKEN))
 		hit += sc->getSCE(SC_TWOHANDQUICKEN)->val1 * 2;
 	if (sc->getSCE(SC_ADRENALINE))
 		hit += sc->getSCE(SC_ADRENALINE)->val1 * 3 + 5;
+#ifdef RENEWAL
+	if (sc->getSCE(SC_BLESSING))
+		hit += sc->getSCE(SC_BLESSING)->val1 * 2;
 	if (sc->getSCE(SC_NIBELUNGEN) && sc->getSCE(SC_NIBELUNGEN)->val2 == RINGNBL_HIT)
 		hit += 50;
 #endif
@@ -7706,9 +7711,10 @@ static int16 status_calc_flee(block_list *bl, status_change *sc, int32 flee)
 		flee -= sc->getSCE(SC_C_MARKER)->val3;
 	if( sc->getSCE(SC_WILD_WALK) != nullptr )
 		flee += sc->getSCE(SC_WILD_WALK)->val3;
-#ifdef RENEWAL
+
 	if( sc->getSCE(SC_SPEARQUICKEN) )
 		flee += 2 * sc->getSCE(SC_SPEARQUICKEN)->val1;
+#ifdef RENEWAL
 	if (sc->getSCE(SC_NIBELUNGEN) && sc->getSCE(SC_NIBELUNGEN)->val2 == RINGNBL_FLEE)
 		flee += 50;
 #endif

@@ -300,6 +300,8 @@ Body:
     DurationLookup: KN_TWOHANDQUICKEN
     CalcFlags:
       Aspd: true
+      Hit: true
+      Cri: true
     Opt3:
       Quicken: true
     Flags:
@@ -363,6 +365,7 @@ Body:
     DurationLookup: AS_ENCHANTPOISON
     CalcFlags:
       Atk_Ele: true
+      Cri: true
     Flags:
       RemoveOnUnequipWeapon: true
       RemoveOnHermode: true
@@ -2562,7 +2565,14 @@ Body:
       RemoveOnHermode: true
     EndOnStart:
       Enchantarms: true
+      Encpoison: true
       Aspersio: true
+      Fireweapon: true
+      Waterweapon: true
+      Windweapon: true
+      Earthweapon: true
+      Shadowweapon: true
+      Ghostweapon: true
   - Status: Magicalattack
     DurationLookup: NPC_MAGICALATTACK
     CalcFlags:

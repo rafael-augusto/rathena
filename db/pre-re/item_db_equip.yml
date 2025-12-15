@@ -1932,7 +1932,7 @@ Body:
       Knight: true
       Swordman: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -1959,7 +1959,7 @@ Body:
       Knight: true
       Swordman: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -2082,7 +2082,7 @@ Body:
       Knight: true
       Swordman: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -2113,7 +2113,7 @@ Body:
       Knight: true
       Swordman: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -2203,7 +2203,7 @@ Body:
       Knight: true
       Swordman: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -2230,7 +2230,7 @@ Body:
       Knight: true
       Swordman: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -2330,7 +2330,7 @@ Body:
       Knight: true
       Swordman: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -2493,7 +2493,7 @@ Body:
       Knight: true
       Swordman: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -4581,7 +4581,7 @@ Body:
     Jobs:
       Assassin: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -4603,7 +4603,7 @@ Body:
     Jobs:
       Assassin: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -4627,7 +4627,7 @@ Body:
     Jobs:
       Assassin: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -4651,7 +4651,7 @@ Body:
     Jobs:
       Assassin: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -4993,7 +4993,7 @@ Body:
     Jobs:
       Assassin: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -5017,7 +5017,7 @@ Body:
     Jobs:
       Assassin: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -5258,7 +5258,7 @@ Body:
     Jobs:
       Assassin: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -5312,7 +5312,7 @@ Body:
     Jobs:
       Assassin: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -5675,7 +5675,7 @@ Body:
       Merchant: true
       Swordman: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -7188,7 +7188,7 @@ Body:
       Merchant: true
       Swordman: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -7217,7 +7217,7 @@ Body:
       Merchant: true
       Swordman: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -7248,7 +7248,7 @@ Body:
       Merchant: true
       Swordman: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -7504,7 +7504,7 @@ Body:
     Jobs:
       Blacksmith: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -7566,7 +7566,7 @@ Body:
       Merchant: true
       Swordman: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -7699,7 +7699,7 @@ Body:
       Merchant: true
       Swordman: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -7730,7 +7730,7 @@ Body:
       Merchant: true
       Swordman: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -7846,7 +7846,7 @@ Body:
     Jobs:
       Blacksmith: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -8343,7 +8343,7 @@ Body:
       Knight: true
       Swordman: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -8371,7 +8371,7 @@ Body:
       Knight: true
       Swordman: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -8399,7 +8399,7 @@ Body:
       Knight: true
       Swordman: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -8592,7 +8592,7 @@ Body:
       Knight: true
       Swordman: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -8628,7 +8628,7 @@ Body:
       Knight: true
       Swordman: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -8916,7 +8916,7 @@ Body:
       Knight: true
       Swordman: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -9097,7 +9097,7 @@ Body:
       Knight: true
       Swordman: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -9879,7 +9879,7 @@ Body:
       Knight: true
       Swordman: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -9906,7 +9906,7 @@ Body:
     Jobs:
       Knight: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -9932,7 +9932,7 @@ Body:
       Knight: true
       Swordman: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -11466,7 +11466,7 @@ Body:
       Monk: true
       Priest: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -13570,7 +13570,7 @@ Body:
       Sage: true
       Wizard: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -13628,7 +13628,7 @@ Body:
       Sage: true
       Wizard: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -13939,7 +13939,7 @@ Body:
       Sage: true
       Wizard: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -13973,7 +13973,7 @@ Body:
       Sage: true
       Wizard: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -14208,7 +14208,7 @@ Body:
       Sage: true
       Wizard: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -14249,7 +14249,7 @@ Body:
       Sage: true
       Wizard: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -14292,7 +14292,7 @@ Body:
       Sage: true
       Wizard: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -14323,7 +14323,7 @@ Body:
       Monk: true
       Priest: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -14350,7 +14350,7 @@ Body:
       Sage: true
       Wizard: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -14713,7 +14713,7 @@ Body:
     Jobs:
       Wizard: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -14771,7 +14771,7 @@ Body:
       Sage: true
       Wizard: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -14804,7 +14804,7 @@ Body:
       Sage: true
       Wizard: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -14839,7 +14839,7 @@ Body:
       Sage: true
       Wizard: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -16509,7 +16509,7 @@ Body:
     SubType: Bow
     Buy: 20
     Weight: 1600
-    Attack: 120
+    Attack: 20
     Range: 5
     Jobs:
       Archer: true
@@ -16586,7 +16586,7 @@ Body:
     Jobs:
       Hunter: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -16676,7 +16676,7 @@ Body:
     Jobs:
       Hunter: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -16701,7 +16701,7 @@ Body:
       BardDancer: true
       Hunter: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -16816,7 +16816,7 @@ Body:
     Jobs:
       Hunter: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -17464,7 +17464,7 @@ Body:
     Jobs:
       Monk: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -18963,7 +18963,7 @@ Body:
     Jobs:
       BardDancer: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Gender: Male
@@ -18988,7 +18988,7 @@ Body:
     Jobs:
       BardDancer: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Gender: Male
@@ -19121,7 +19121,7 @@ Body:
     Jobs:
       BardDancer: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Gender: Male
@@ -19148,7 +19148,7 @@ Body:
     Jobs:
       BardDancer: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Gender: Male
@@ -19209,7 +19209,7 @@ Body:
     Jobs:
       BardDancer: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Gender: Male
@@ -20194,7 +20194,7 @@ Body:
     Jobs:
       BardDancer: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Gender: Female
@@ -20224,7 +20224,7 @@ Body:
     Jobs:
       BardDancer: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Gender: Female
@@ -20249,7 +20249,7 @@ Body:
     Jobs:
       BardDancer: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Gender: Female
@@ -20381,7 +20381,7 @@ Body:
     Jobs:
       BardDancer: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Gender: Female
@@ -20406,7 +20406,7 @@ Body:
     Jobs:
       BardDancer: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Gender: Female
@@ -20914,7 +20914,7 @@ Body:
     Jobs:
       Wizard: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -21014,7 +21014,7 @@ Body:
     Jobs:
       Wizard: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -21053,7 +21053,7 @@ Body:
       Sage: true
       Wizard: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -21082,7 +21082,7 @@ Body:
       Monk: true
       Priest: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -22072,7 +22072,7 @@ Body:
       Wizard: true
     Classes:
       Third: true
-      Third_Upper: true
+      Third_All: true
       Third_Baby: true
     Locations:
       Both_Hand: true
@@ -22102,7 +22102,7 @@ Body:
       Sage: true
       Wizard: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -22163,7 +22163,7 @@ Body:
       Sage: true
     Classes:
       Third: true
-      Third_Upper: true
+      Third_All: true
       Third_Baby: true
     Locations:
       Both_Hand: true
@@ -22342,7 +22342,7 @@ Body:
       Sage: true
     Classes:
       Third: true
-      Third_Upper: true
+      Third_All: true
       Third_Baby: true
     Locations:
       Both_Hand: true
@@ -22551,7 +22551,7 @@ Body:
       SuperNovice: true
       Wizard: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -23321,7 +23321,7 @@ Body:
       Novice: false
       SuperNovice: false
     Classes:
-      Upper: true
+      All: true
     Locations:
       Left_Hand: true
     ArmorLevel: 1
@@ -23347,7 +23347,7 @@ Body:
       Novice: false
       SuperNovice: false
     Classes:
-      Upper: true
+      All: true
     Locations:
       Left_Hand: true
     ArmorLevel: 1
@@ -23370,7 +23370,7 @@ Body:
       Novice: false
       SuperNovice: false
     Classes:
-      Upper: true
+      All: true
     Locations:
       Left_Hand: true
     ArmorLevel: 1
@@ -23398,7 +23398,7 @@ Body:
       Swordman: true
       Thief: true
     Classes:
-      Upper: true
+      All: true
     Locations:
       Left_Hand: true
     ArmorLevel: 1
@@ -23577,7 +23577,7 @@ Body:
       Knight: true
       Swordman: true
     Classes:
-      Upper: true
+      All: true
     Locations:
       Left_Hand: true
     ArmorLevel: 1
@@ -23612,7 +23612,7 @@ Body:
       StarGladiator: true
       Wizard: true
     Classes:
-      Upper: true
+      All: true
     Locations:
       Left_Hand: true
     ArmorLevel: 1
@@ -23633,7 +23633,7 @@ Body:
     Jobs:
       Rogue: true
     Classes:
-      Upper: true
+      All: true
     Locations:
       Left_Hand: true
     ArmorLevel: 1
@@ -23664,7 +23664,7 @@ Body:
       Novice: false
       SuperNovice: false
     Classes:
-      Upper: true
+      All: true
     Locations:
       Left_Hand: true
     ArmorLevel: 1
@@ -23700,7 +23700,7 @@ Body:
       StarGladiator: true
       Wizard: true
     Classes:
-      Upper: true
+      All: true
     Locations:
       Left_Hand: true
     ArmorLevel: 1
@@ -23722,10 +23722,10 @@ Body:
       Blacksmith: true
     Classes:
       Normal: true
-      Upper: true
+      All: true
       Baby: true
       Third: true
-      Third_Upper: true
+      Third_All: true
       Third_Baby: true
     Locations:
       Left_Hand: true
@@ -26292,7 +26292,7 @@ Body:
       Novice: false
       SuperNovice: false
     Classes:
-      Upper: true
+      All: true
     Locations:
       Armor: true
     ArmorLevel: 1
@@ -26379,7 +26379,7 @@ Body:
       Merchant: true
       Swordman: true
     Classes:
-      Upper: true
+      All: true
     Locations:
       Armor: true
     ArmorLevel: 1
@@ -26401,7 +26401,7 @@ Body:
       Novice: false
       SuperNovice: false
     Classes:
-      Upper: true
+      All: true
     Locations:
       Armor: true
     ArmorLevel: 1
@@ -26423,7 +26423,7 @@ Body:
       Novice: false
       SuperNovice: false
     Classes:
-      Upper: true
+      All: true
     Locations:
       Armor: true
     ArmorLevel: 1
@@ -26446,7 +26446,7 @@ Body:
     Jobs:
       Hunter: true
     Classes:
-      Upper: true
+      All: true
     Locations:
       Armor: true
     ArmorLevel: 1
@@ -26595,7 +26595,7 @@ Body:
       Sage: true
       Wizard: true
     Classes:
-      Upper: true
+      All: true
     Locations:
       Armor: true
     ArmorLevel: 1
@@ -26625,7 +26625,7 @@ Body:
       Swordman: true
       Thief: true
     Classes:
-      Upper: true
+      All: true
     Locations:
       Armor: true
     ArmorLevel: 1
@@ -26936,7 +26936,7 @@ Body:
       StarGladiator: true
       Wizard: true
     Classes:
-      Upper: true
+      All: true
     Locations:
       Armor: true
     ArmorLevel: 1
@@ -26974,7 +26974,7 @@ Body:
       StarGladiator: true
       Wizard: true
     Classes:
-      Upper: true
+      All: true
     Locations:
       Armor: true
     ArmorLevel: 1
@@ -26996,7 +26996,7 @@ Body:
     Jobs:
       Assassin: true
     Classes:
-      Upper: true
+      All: true
     Locations:
       Armor: true
     ArmorLevel: 1
@@ -27030,7 +27030,7 @@ Body:
       StarGladiator: true
       Wizard: true
     Classes:
-      Upper: true
+      All: true
     Locations:
       Armor: true
     ArmorLevel: 1
@@ -27052,7 +27052,7 @@ Body:
       BardDancer: true
       Hunter: true
     Classes:
-      Upper: true
+      All: true
     Locations:
       Armor: true
     ArmorLevel: 1
@@ -27074,7 +27074,7 @@ Body:
       Knight: true
       Swordman: true
     Classes:
-      Upper: true
+      All: true
     Locations:
       Armor: true
     ArmorLevel: 1
@@ -27215,7 +27215,7 @@ Body:
     Jobs:
       Hunter: true
     Classes:
-      Upper: true
+      All: true
     Locations:
       Armor: true
     ArmorLevel: 1
@@ -27246,7 +27246,7 @@ Body:
       Novice: false
       SuperNovice: false
     Classes:
-      Upper: true
+      All: true
     Locations:
       Armor: true
     ArmorLevel: 1
@@ -27609,7 +27609,7 @@ Body:
       Novice: false
       SuperNovice: false
     Classes:
-      Upper: true
+      All: true
     Locations:
       Shoes: true
     ArmorLevel: 1
@@ -27656,7 +27656,7 @@ Body:
       Novice: false
       SuperNovice: false
     Classes:
-      Upper: true
+      All: true
     Locations:
       Shoes: true
     ArmorLevel: 1
@@ -27679,7 +27679,7 @@ Body:
       Novice: false
       SuperNovice: false
     Classes:
-      Upper: true
+      All: true
     Locations:
       Shoes: true
     ArmorLevel: 1
@@ -27699,7 +27699,7 @@ Body:
       Novice: false
       SuperNovice: false
     Classes:
-      Upper: true
+      All: true
     Locations:
       Shoes: true
     ArmorLevel: 1
@@ -27720,7 +27720,7 @@ Body:
       Novice: false
       SuperNovice: false
     Classes:
-      Upper: true
+      All: true
     Locations:
       Shoes: true
     ArmorLevel: 1
@@ -27878,7 +27878,7 @@ Body:
       StarGladiator: true
       Wizard: true
     Classes:
-      Upper: true
+      All: true
     Locations:
       Shoes: true
     ArmorLevel: 1
@@ -27898,7 +27898,7 @@ Body:
       Novice: false
       SuperNovice: false
     Classes:
-      Upper: true
+      All: true
     Locations:
       Shoes: true
     ArmorLevel: 1
@@ -28074,7 +28074,7 @@ Body:
       StarGladiator: true
       Wizard: true
     Classes:
-      Upper: true
+      All: true
     Locations:
       Shoes: true
     ArmorLevel: 1
@@ -28234,7 +28234,7 @@ Body:
       Novice: false
       SuperNovice: false
     Classes:
-      Upper: true
+      All: true
     Locations:
       Shoes: true
     ArmorLevel: 1
@@ -28264,7 +28264,7 @@ Body:
       Novice: false
       SuperNovice: false
     Classes:
-      Upper: true
+      All: true
     Locations:
       Shoes: true
     ArmorLevel: 1
@@ -28701,7 +28701,7 @@ Body:
       Novice: false
       SuperNovice: false
     Classes:
-      Upper: true
+      All: true
     Locations:
       Garment: true
     ArmorLevel: 1
@@ -28757,7 +28757,7 @@ Body:
       Novice: false
       SuperNovice: false
     Classes:
-      Upper: true
+      All: true
     Locations:
       Garment: true
     ArmorLevel: 1
@@ -28778,7 +28778,7 @@ Body:
       Novice: false
       SuperNovice: false
     Classes:
-      Upper: true
+      All: true
     Locations:
       Garment: true
     ArmorLevel: 1
@@ -28798,7 +28798,7 @@ Body:
       Novice: false
       SuperNovice: false
     Classes:
-      Upper: true
+      All: true
     Locations:
       Garment: true
     ArmorLevel: 1
@@ -28819,7 +28819,7 @@ Body:
       Novice: false
       SuperNovice: false
     Classes:
-      Upper: true
+      All: true
     Locations:
       Garment: true
     ArmorLevel: 1
@@ -28846,7 +28846,7 @@ Body:
       Swordman: true
       Thief: true
     Classes:
-      Upper: true
+      All: true
     Locations:
       Garment: true
     ArmorLevel: 1
@@ -28873,7 +28873,7 @@ Body:
       Sage: true
       Wizard: true
     Classes:
-      Upper: true
+      All: true
     Locations:
       Garment: true
     ArmorLevel: 1
@@ -28980,7 +28980,7 @@ Body:
       StarGladiator: true
       Wizard: true
     Classes:
-      Upper: true
+      All: true
     Locations:
       Garment: true
     ArmorLevel: 1
@@ -29118,7 +29118,7 @@ Body:
       Novice: false
       SuperNovice: false
     Classes:
-      Upper: true
+      All: true
     Locations:
       Garment: true
     ArmorLevel: 1
@@ -29175,7 +29175,7 @@ Body:
       StarGladiator: true
       Wizard: true
     Classes:
-      Upper: true
+      All: true
     Locations:
       Garment: true
     ArmorLevel: 1
@@ -29198,7 +29198,7 @@ Body:
       Monk: true
       Priest: true
     Classes:
-      Upper: true
+      All: true
     Locations:
       Garment: true
     ArmorLevel: 1
@@ -29246,7 +29246,7 @@ Body:
       Novice: false
       SuperNovice: false
     Classes:
-      Upper: true
+      All: true
     Locations:
       Garment: true
     ArmorLevel: 1
@@ -29308,7 +29308,7 @@ Body:
       Novice: false
       SuperNovice: false
     Classes:
-      Upper: true
+      All: true
     Locations:
       Garment: true
     ArmorLevel: 1
@@ -29343,7 +29343,7 @@ Body:
       Sage: true
       Wizard: true
     Classes:
-      Upper: true
+      All: true
     Locations:
       Garment: true
     ArmorLevel: 1
@@ -29373,7 +29373,7 @@ Body:
       Novice: false
       SuperNovice: false
     Classes:
-      Upper: true
+      All: true
     Locations:
       Garment: true
     ArmorLevel: 1
@@ -29394,7 +29394,7 @@ Body:
       Novice: false
       SuperNovice: false
     Classes:
-      Upper: true
+      All: true
     Locations:
       Garment: true
     ArmorLevel: 1
@@ -30275,7 +30275,7 @@ Body:
       StarGladiator: true
       Wizard: true
     Classes:
-      Upper: true
+      All: true
     Locations:
       Both_Accessory: true
     ArmorLevel: 1
@@ -30307,7 +30307,7 @@ Body:
       StarGladiator: true
       Wizard: true
     Classes:
-      Upper: true
+      All: true
     Locations:
       Both_Accessory: true
     ArmorLevel: 1
@@ -30339,7 +30339,7 @@ Body:
       StarGladiator: true
       Wizard: true
     Classes:
-      Upper: true
+      All: true
     Locations:
       Both_Accessory: true
     ArmorLevel: 1
@@ -30371,7 +30371,7 @@ Body:
       StarGladiator: true
       Wizard: true
     Classes:
-      Upper: true
+      All: true
     Locations:
       Both_Accessory: true
     ArmorLevel: 1
@@ -30648,7 +30648,7 @@ Body:
       StarGladiator: true
       Wizard: true
     Classes:
-      Upper: true
+      All: true
     Locations:
       Both_Accessory: true
     ArmorLevel: 1
@@ -30685,7 +30685,7 @@ Body:
       StarGladiator: true
       Wizard: true
     Classes:
-      Upper: true
+      All: true
     Locations:
       Both_Accessory: true
     ArmorLevel: 1
@@ -31161,7 +31161,7 @@ Body:
       Knight: true
       Swordman: true
     Classes:
-      Upper: true
+      All: true
     Locations:
       Both_Accessory: true
     ArmorLevel: 1
@@ -31178,7 +31178,7 @@ Body:
       Novice: false
       SuperNovice: false
     Classes:
-      Upper: true
+      All: true
     Locations:
       Both_Accessory: true
     ArmorLevel: 1
@@ -31198,7 +31198,7 @@ Body:
       Novice: false
       SuperNovice: false
     Classes:
-      Upper: true
+      All: true
     Locations:
       Both_Accessory: true
     ArmorLevel: 1
@@ -31217,7 +31217,7 @@ Body:
       Novice: false
       SuperNovice: false
     Classes:
-      Upper: true
+      All: true
     Locations:
       Both_Accessory: true
     ArmorLevel: 1
@@ -31635,7 +31635,7 @@ Body:
     Jobs:
       Hunter: true
     Classes:
-      Upper: true
+      All: true
     Locations:
       Both_Accessory: true
     ArmorLevel: 1
@@ -31652,7 +31652,7 @@ Body:
     Jobs:
       Hunter: true
     Classes:
-      Upper: true
+      All: true
     Locations:
       Both_Accessory: true
     ArmorLevel: 1
@@ -31702,7 +31702,7 @@ Body:
       StarGladiator: true
       Wizard: true
     Classes:
-      Upper: true
+      All: true
     Locations:
       Both_Accessory: true
     ArmorLevel: 1
@@ -31987,7 +31987,7 @@ Body:
       StarGladiator: true
       Wizard: true
     Classes:
-      Upper: true
+      All: true
     Locations:
       Both_Accessory: true
     ArmorLevel: 1
@@ -32021,7 +32021,7 @@ Body:
       StarGladiator: true
       Wizard: true
     Classes:
-      Upper: true
+      All: true
     Locations:
       Both_Accessory: true
     ArmorLevel: 1
@@ -32052,7 +32052,7 @@ Body:
       StarGladiator: true
       Wizard: true
     Classes:
-      Upper: true
+      All: true
     Locations:
       Both_Accessory: true
     ArmorLevel: 1
@@ -32070,7 +32070,7 @@ Body:
     Jobs:
       Assassin: true
     Classes:
-      Upper: true
+      All: true
     Locations:
       Both_Accessory: true
     ArmorLevel: 1
@@ -32087,7 +32087,7 @@ Body:
     Jobs:
       Rogue: true
     Classes:
-      Upper: true
+      All: true
     Locations:
       Both_Accessory: true
     ArmorLevel: 1
@@ -32105,7 +32105,7 @@ Body:
       BardDancer: true
       Hunter: true
     Classes:
-      Upper: true
+      All: true
     Locations:
       Both_Accessory: true
     ArmorLevel: 1
@@ -32142,7 +32142,7 @@ Body:
       StarGladiator: true
       Wizard: true
     Classes:
-      Upper: true
+      All: true
     Locations:
       Both_Accessory: true
     ArmorLevel: 1
@@ -32391,7 +32391,7 @@ Body:
       Novice: false
       SuperNovice: false
     Classes:
-      Upper: true
+      All: true
     Locations:
       Both_Accessory: true
     ArmorLevel: 1
@@ -32725,7 +32725,7 @@ Body:
       Novice: false
       SuperNovice: false
     Classes:
-      Upper: true
+      All: true
     Locations:
       Both_Accessory: true
     ArmorLevel: 1
@@ -32765,7 +32765,7 @@ Body:
       Novice: false
       SuperNovice: false
     Classes:
-      Upper: true
+      All: true
     Locations:
       Both_Accessory: true
     ArmorLevel: 1
@@ -32786,7 +32786,7 @@ Body:
       Novice: false
       SuperNovice: false
     Classes:
-      Upper: true
+      All: true
     Locations:
       Both_Accessory: true
     ArmorLevel: 1
@@ -32807,7 +32807,7 @@ Body:
       Novice: false
       SuperNovice: false
     Classes:
-      Upper: true
+      All: true
     Locations:
       Both_Accessory: true
     ArmorLevel: 1
@@ -32828,7 +32828,7 @@ Body:
       Novice: false
       SuperNovice: false
     Classes:
-      Upper: true
+      All: true
     Locations:
       Both_Accessory: true
     ArmorLevel: 1
@@ -36122,7 +36122,7 @@ Body:
       Novice: false
       SuperNovice: false
     Classes:
-      Upper: true
+      All: true
     Locations:
       Head_Top: true
     ArmorLevel: 1
@@ -40391,7 +40391,7 @@ Body:
       Merchant: true
       Swordman: true
     Classes:
-      Upper: true
+      All: true
     Locations:
       Head_Top: true
     ArmorLevel: 1
@@ -40427,7 +40427,7 @@ Body:
       StarGladiator: true
       Wizard: true
     Classes:
-      Upper: true
+      All: true
     Locations:
       Head_Top: true
     ArmorLevel: 1
@@ -42383,7 +42383,7 @@ Body:
     Jobs:
       Hunter: true
     Classes:
-      Upper: true
+      All: true
     Locations:
       Head_Mid: true
     ArmorLevel: 1
@@ -44588,7 +44588,7 @@ Body:
       Sage: true
       Wizard: true
     Classes:
-      Upper: true
+      All: true
     Locations:
       Head_Low: true
       Head_Mid: true
@@ -46297,7 +46297,7 @@ Body:
       Thief: true
       Wizard: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -46334,7 +46334,7 @@ Body:
       Thief: true
       Wizard: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -46533,7 +46533,7 @@ Body:
     Jobs:
       Assassin: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -46554,7 +46554,7 @@ Body:
     Jobs:
       Assassin: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -46678,7 +46678,7 @@ Body:
     Jobs:
       Rogue: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -46719,7 +46719,7 @@ Body:
       Thief: true
       Wizard: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -46980,7 +46980,7 @@ Body:
       Rogue: true
       Thief: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -47006,7 +47006,7 @@ Body:
       Rogue: true
       Thief: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -47501,7 +47501,7 @@ Body:
       Thief: true
       Wizard: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -47722,7 +47722,7 @@ Body:
       Swordman: true
       Thief: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -47754,7 +47754,7 @@ Body:
       Swordman: true
       Thief: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -48129,7 +48129,7 @@ Body:
       Wizard: true
       Sage: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -52211,7 +52211,7 @@ Body:
       Swordman: true
       Thief: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -52242,7 +52242,7 @@ Body:
       Swordman: true
       Thief: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -52497,7 +52497,7 @@ Body:
       Swordman: true
       Thief: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -52530,7 +52530,7 @@ Body:
       Swordman: true
       Thief: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -52564,7 +52564,7 @@ Body:
       Swordman: true
       Thief: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -52822,7 +52822,7 @@ Body:
       Merchant: true
       Swordman: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -53094,7 +53094,7 @@ Body:
       Merchant: true
       Swordman: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -53832,7 +53832,7 @@ Body:
       Swordman: true
       Thief: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -53875,7 +53875,7 @@ Body:
       Swordman: true
       Thief: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -53920,7 +53920,7 @@ Body:
       Swordman: true
       Thief: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -54899,7 +54899,7 @@ Body:
       Swordman: true
       Thief: true
     Classes:
-      Upper: true
+      All: true
     Locations:
       Armor: true
     ArmorLevel: 1
@@ -54955,7 +54955,7 @@ Body:
       Priest: true
       Swordman: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -54989,7 +54989,7 @@ Body:
       Priest: true
       Swordman: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -55416,7 +55416,7 @@ Body:
       Monk: true
       Priest: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -55805,7 +55805,7 @@ Body:
       Monk: true
       Priest: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -58007,7 +58007,7 @@ Body:
     Jobs:
       Hunter: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
@@ -58471,7 +58471,7 @@ Body:
       BardDancer: true
       Hunter: true
     Classes:
-      Upper: true
+      All: true
       All_Third: true
       Fourth: true
     Locations:
