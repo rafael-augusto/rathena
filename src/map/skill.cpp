@@ -615,6 +615,16 @@ int32 skill_calc_heal(block_list *src, block_list *target, uint16 skill_id, uint
 		hp /= 2;
 
 	if (sd) {
+
+        if(skill_id == AL_HEAL)
+		{
+			status_data* status = status_get_status_data(*src);
+			int16 min_matk = status->matk_min;
+			int16 max_matk = status->matk_max;
+			int16 rand_matk_bonus = (max_matk > min_matk ? min_matk+rnd()%(max_matk - min_matk) : min_matk)/10;
+			hp += rand_matk_bonus * skill_lv;
+		}
+
 		if (pc_checkskill(sd, SU_POWEROFSEA) > 0) {
 #ifdef RENEWAL
 			hp_bonus += 10;
@@ -7692,12 +7702,6 @@ int32 skill_castend_nodamage_id (block_list *src, block_list *bl, uint16 skill_i
 		break;
 
 	case CR_PROVIDENCE:
-		if(sd && dstsd){ //Check they are not another crusader [Skotlex]
-			if ((dstsd->class_&MAPID_UPPERMASK) == MAPID_CRUSADER) {
-				clif_skill_fail( *sd, skill_id );
-				return 1;
-			}
-		}
 		clif_skill_nodamage(src,*bl,skill_id,skill_lv,
 			sc_start(src,bl,type,100,skill_lv,skill_get_time(skill_id,skill_lv)));
 		break;

@@ -2607,7 +2607,7 @@ Body:
     Range: 9
     Hit: Single
     HitCount: 1
-    CastTime: 2000
+    CastTime: 1500
     AfterCastActDelay: 1000
     Duration1: 120000
     Requires:
@@ -2645,7 +2645,7 @@ Body:
     Hit: Single
     HitCount: 1
     SplashArea: -1
-    CastTime: 4000
+    CastTime: 3000
     AfterCastActDelay: 1000
     Duration1:
       - Level: 1
@@ -5504,8 +5504,6 @@ Body:
     MaxLevel: 10
     Type: Weapon
     TargetType: Attack
-    DamageFlags:
-      IgnoreDefense: true
     Flags:
       IsNpc: true
     Range: -7
@@ -6980,8 +6978,6 @@ Body:
     TargetType: Support
     DamageFlags:
       NoDamage: true
-    Flags:
-      NoTargetSelf: true
     Range: 9
     Hit: Single
     HitCount: 1
