@@ -35446,8 +35446,8 @@ Body:
     SkillRange: 10
     ChaseRange: 12
     Size: Small
-    Race: Insect
-    Element: Wind
+    Race: Demon
+    Element: Shadow
     ElementLevel: 4
     WalkSpeed: 100
     AttackDelay: 676

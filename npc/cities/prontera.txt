@@ -72,7 +72,7 @@ prontera,106,116,6	script	Merideth#pront	91,{
 	close;
 }
 
-prontera,160,133,2	script	YuPi#pront	102,{
+prontera,167,138,2	script	YuPi#pront	102,{
 	mes "[YuPi]";
 	mes "Although many monsters may look the same, be careful! There are variations among monsters that have the same basic form.";
 	next;
@@ -84,7 +84,7 @@ prontera,160,133,2	script	YuPi#pront	102,{
 	close;
 }
 
-prontera,149,202,2	script	YuNa#pront	700,{
+prontera,148,201,2	script	YuNa#pront	700,{
 	mes "[YuNa]";
 	mes "Behold...";
 	mes "Mighty Odin!";
@@ -108,7 +108,7 @@ prontera,149,202,2	script	YuNa#pront	700,{
 	close;
 }
 
-prontera,216,70,2	script	Strife#pront	48,{
+prontera,211,70,2	script	Strife#pront	48,{
 	if (Class == Job_Novice) {
 		if (event_prt_nov_dreamtalk == 0) {
 			mes "[Strife]";
@@ -199,7 +199,7 @@ prontera,216,70,2	script	Strife#pront	48,{
 			close;
 		}
 		mes "[Strife]";
-		mes "Wha--?";
+		mes "Wha?";
 		mes "Fine! But I'm gonna keep on training, and we'll see who gets the last laugh!";
 		close;
 	}
@@ -728,3 +728,4 @@ prt_maze02,110,69,0	script	Soldier#2pront	105,{
 	mes "Whaaaat a stupid guy. Why would anyone want to throw his life away just to collect some silly Herbs?";
 	close;
 }
+

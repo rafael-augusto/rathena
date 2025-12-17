@@ -876,7 +876,7 @@ int32 battle_calc_cardfix(int32 attack_type, block_list *src, block_list *target
 					int32 ele_fix = tsd->indexed_bonus.subele[rh_ele] + tsd->indexed_bonus.subele[ELE_ALL] + tsd->indexed_bonus.subele_script[rh_ele] + tsd->indexed_bonus.subele_script[ELE_ALL];
 
 					for (const auto &it : tsd->subele2) {
-						if (it.ele != ELE_ALL && it.ele != rh_ele)
+						if (it.ele != ELE_ALL && it.ele != rh_ele && it.ele != s_defele)
 							continue;
 						if (!(((it.flag)&flag)&BF_WEAPONMASK &&
 							((it.flag)&flag)&BF_RANGEMASK &&
@@ -1089,7 +1089,7 @@ int32 battle_calc_cardfix(int32 attack_type, block_list *src, block_list *target
 			else if( tsd && !nk[NK_IGNOREDEFCARD] && !(left&2) ) {
 				if( !nk[NK_IGNOREELEMENT] ) { // Affected by Element modifier bonuses
 					int32 ele_fix = tsd->indexed_bonus.subele[rh_ele] + tsd->indexed_bonus.subele[ELE_ALL] + tsd->indexed_bonus.subele_script[rh_ele] + tsd->indexed_bonus.subele_script[ELE_ALL];
-
+					ele_fix += !sd && s_defele != ELE_NEUTRAL ? tsd->indexed_bonus.subele[s_defele] + tsd->indexed_bonus.subele_script[s_defele] : 0;
 					for (const auto &it : tsd->subele2) {
 						if (it.ele != ELE_ALL && it.ele != rh_ele)
 							continue;
@@ -7875,16 +7875,18 @@ static struct Damage battle_calc_weapon_attack(block_list *src, block_list *targ
 #ifndef RENEWAL
 		// Skill ratio
 
-		switch(skill_id){
-			case AM_ACIDTERROR:
-			case AM_DEMONSTRATION:
-			{	
-				if (sstatus->matk_max > sstatus->matk_min) {
-					ATK_ADD(wd.damage, wd.damage2, (sstatus->matk_min+rnd()%(sstatus->matk_max-sstatus->matk_min)) /2 );
-				} else
-					ATK_ADD(wd.damage, wd.damage2, sstatus->matk_min / 2);
+		if(sd){
+			switch(skill_id){
+				case AM_ACIDTERROR:
+				case AM_DEMONSTRATION:
+				{	
+					if (sstatus->matk_max > sstatus->matk_min) {
+						ATK_ADD(wd.damage, wd.damage2, (sstatus->matk_min+rnd()%(sstatus->matk_max-sstatus->matk_min)) /2 );
+					} else
+						ATK_ADD(wd.damage, wd.damage2, sstatus->matk_min / 2);
+				}
+					break;
 			}
-				break;
 		}
 
 		ATK_RATE(wd.damage, wd.damage2, battle_calc_attack_skill_ratio(&wd, src, target, skill_id, skill_lv));

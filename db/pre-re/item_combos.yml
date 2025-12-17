@@ -54,7 +54,7 @@ Body:
           - Long_Horn_M
           - Valkyrja's_Shield
     Script: |
-      bonus3 bAutoSpellWhenHit,"HP_ASSUMPTIO",2,5;
+      bonus3 bAutoSpellWhenHit,"HP_ASSUMPTIO",2,50;
   - Combos:
       - Combo:
           - Long_Horn

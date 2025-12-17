@@ -5578,7 +5578,6 @@ Body:
     Type: Weapon
     TargetType: Attack
     DamageFlags:
-      IgnoreDefense: true
       Critical: true
     Flags:
       IsNpc: true
