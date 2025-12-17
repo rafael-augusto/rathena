@@ -2244,7 +2244,7 @@ Body:
       bonus bFlee2,20;
       bonus3 bAutoSpell,"NPC_HELLPOWER",1,10;
       bonus4 bAutoSpell,"NPC_HELLPOWER",1,10,0;
-      bonus3 bAutoSpell,"NPC_VAMPIRE_GIFT",(getrefine()>8?2:1),20;
+      bonus3 bAutoSpell,"NPC_VAMPIRE_GIFT",(getrefine()>8?2:1),40;
   - Id: 1187
     AegisName: Krieger_Twohand_Sword1
     Name: Glorious Claymore
@@ -7229,7 +7229,7 @@ Body:
       bonus bCritical,20+getrefine();
       bonus bAspdRate,5;
       if (Class == Job_Whitesmith || Class == Job_Creator || Class == Job_Mechanic || Class == Job_Mechanic_T || Class == Job_Genetic || Class == Job_Genetic_T)
-         bonus3 bAutoSpell,"BS_HAMMERFALL",3,30;
+         bonus3 bAutoSpell,"BS_HAMMERFALL",3,50;
   - Id: 1377
     AegisName: Hurricane_Fury
     Name: Hurricane's Fury
@@ -14790,7 +14790,7 @@ Body:
     AegisName: Thorn_Staff_
     Name: Thorn Staff of Darkness
     Type: Weapon
-    SubType: Mace
+    SubType: Staff
     Buy: 10
     Weight: 700
     Attack: 60
@@ -16572,7 +16572,7 @@ Body:
     EquipLevelMin: 70
     Refineable: true
     Script: |
-      bonus3 bAutoSpell,"AC_DOUBLE",getskilllv("AC_DOUBLE"),10;
+      bonus3 bAutoSpell,"AC_DOUBLE",getskilllv("AC_DOUBLE"),100;
   - Id: 1737
     AegisName: Ixion_Wing
     Name: Ixion Wings
@@ -17303,7 +17303,7 @@ Body:
     EquipLevelMin: 75
     Refineable: true
     Script: |
-      bonus3 bAutoSpell,"SA_FLAMELAUNCHER",5,10;
+      bonus3 bAutoSpell,"SA_FLAMELAUNCHER",5,100;
   - Id: 1819
     AegisName: Icicle_Fist
     Name: Icicle Fist
@@ -17323,7 +17323,7 @@ Body:
     EquipLevelMin: 75
     Refineable: true
     Script: |
-      bonus3 bAutoSpell,"SA_FROSTWEAPON",5,10;
+      bonus3 bAutoSpell,"SA_FROSTWEAPON",5,100;
   - Id: 1820
     AegisName: Electric_Fist
     Name: Electric Fist
@@ -17343,7 +17343,7 @@ Body:
     EquipLevelMin: 75
     Refineable: true
     Script: |
-      bonus3 bAutoSpell,"SA_LIGHTNINGLOADER",5,10;
+      bonus3 bAutoSpell,"SA_LIGHTNINGLOADER",5,100;
   - Id: 1821
     AegisName: Seismic_Fist
     Name: Seismic Fist
@@ -17363,7 +17363,7 @@ Body:
     EquipLevelMin: 75
     Refineable: true
     Script: |
-      bonus3 bAutoSpell,"SA_SEISMICWEAPON",5,10;
+      bonus3 bAutoSpell,"SA_SEISMICWEAPON",5,100;
   - Id: 1822
     AegisName: Combo_Battle_Glove
     Name: Combo Battle Glove
@@ -17475,7 +17475,7 @@ Body:
     Script: |
       bonus3 bAutoSpell,"NPC_CRITICALWOUND",1,30;
       bonus4 bAutoSpellOnSkill,"CH_PALMSTRIKE","MO_INVESTIGATE",1,100;
-      bonus3 bAutoSpell,"MO_CALLSPIRITS",5,10;
+      bonus3 bAutoSpell,"MO_CALLSPIRITS",5,100;
   - Id: 1826
     AegisName: Krieger_Knuckle1
     Name: Glorious Claw
@@ -20261,7 +20261,7 @@ Body:
     Script: |
       .@r = getrefine();
       if (.@r>0)
-         bonus3 bAutoSpell,"AL_INCAGI",min(.@r,10),10;
+         bonus3 bAutoSpell,"AL_INCAGI",min(.@r,10),20;
   - Id: 1975
     AegisName: Queen_Is_Whip
     Name: Queen Is Whip

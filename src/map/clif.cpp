@@ -19791,6 +19791,34 @@ void clif_autoshadowspell_list( map_session_data& sd ){
 #endif
 }
 
+
+void clif_plagiarism( map_session_data& sd ){
+	PACKET_ZC_SKILL_SELECT_REQUEST* p = reinterpret_cast<PACKET_ZC_SKILL_SELECT_REQUEST*>( packet_buffer );
+
+	p->packetType = HEADER_ZC_SKILL_SELECT_REQUEST;
+	p->packetLength = sizeof( *p );
+	p->flag = 1; // enum PACKET_ZC_SKILL_SELECT_REQUEST::enumWHY::WHY_SC_AUTOSHADOWSPELL =  0x1
+	
+	size_t count = 0;
+	for( size_t i = 0; i < MAX_SKILL; i++ ){
+			auto skill = skill_db.find(i);
+			if(skill && skill->copyable.option){
+				p->skillIds[count] = i;
+				p->packetLength += static_cast<decltype(p->packetLength)>( sizeof( p->skillIds[0] ) );
+				count++;
+			}
+	}
+
+	if( count > 0 ) {
+		clif_send( p, p->packetLength, &sd, SELF );
+
+		sd.menuskill_id = RG_PLAGIARISM;
+		sd.menuskill_val = static_cast<decltype(sd.menuskill_val)>( count );
+	} 
+}
+
+
+
 /*===========================================
  * Skill list for Four Elemental Analysis
  * and Change Material skills.
@@ -19832,7 +19860,7 @@ void clif_parse_SkillSelectMenu(int32 fd, map_session_data *sd) {
 	if (sd->menuskill_id == SA_AUTOSPELL) {
 		sd->state.workinprogress = WIP_DISABLE_NONE;
 		skill_autospell(sd, p->selectedSkillId);
-	} else if (sd->menuskill_id == SC_AUTOSHADOWSPELL) {
+	} else if (sd->menuskill_id == SC_AUTOSHADOWSPELL || sd->menuskill_id == RG_PLAGIARISM) {
 		if (pc_istrading(sd)) {
 			clif_skill_fail( *sd, sd->ud.skill_id );
 			clif_menuskill_clear(sd);

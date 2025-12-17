@@ -1003,6 +1003,7 @@ void clif_skillunit_update( block_list& bl);
 void clif_skill_unit_test(block_list *bl, int16 x, int16 y, int32 unit_id, int16 range, int16 skill_lv);
 
 void clif_autospell( map_session_data& sd, uint16 skill_lv );
+void clif_plagiarism( map_session_data& sd);
 void clif_devotion(block_list *src, map_session_data *tsd);
 void clif_spiritball( block_list *bl, block_list* target = nullptr, enum send_target send_target = AREA );
 void clif_soulball( map_session_data *sd, block_list* target = nullptr, enum send_target send_target = AREA );
@@ -1423,6 +1424,7 @@ enum out_ui_type : int8 {
 	OUT_UI_ENCHANTGRADE,
 	OUT_UI_ENCHANT = 10,
 };
+
 
 void clif_ui_open( map_session_data& sd, enum out_ui_type ui_type, int32 data );
 void clif_attendence_response( map_session_data *sd, int32 data );

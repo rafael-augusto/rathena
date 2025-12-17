@@ -1477,18 +1477,6 @@ int32 skill_additional_effect( block_list* src, block_list *bl, uint16 skill_id,
 			sc_start(src,bl,SC_FREEZE,3,skill_lv,skill_get_time2(skill_id,skill_lv));
 		break;
 
-	case WZ_METEOR:
-	case HN_METEOR_STORM_BUSTER:
-		sc_start(src,bl,SC_STUN,3*skill_lv,skill_lv,skill_get_time2(skill_id,skill_lv));
-		break;
-
-	case WZ_VERMILION:
-#ifdef RENEWAL
-		sc_start(src,bl,SC_BLIND,10 + 5 * skill_lv,skill_lv,skill_get_time2(skill_id,skill_lv));
-#else
-		sc_start(src,bl,SC_BLIND,min(4*skill_lv,40),skill_lv,skill_get_time2(skill_id,skill_lv));
-#endif
-		break;
 
 	case WZ_HEAVENDRIVE:
 		status_change_end(bl, SC_SV_ROOTTWIST);
@@ -1540,7 +1528,8 @@ int32 skill_additional_effect( block_list* src, block_list *bl, uint16 skill_id,
 			if(bottleIndex >= 0)
 			{
 				sc_start2(src,bl,SC_BLEEDING,(skill_lv*3),skill_lv,src->id,skill_get_time2(skill_id,skill_lv));
-				if (skill_break_equip(src,bl, EQP_ARMOR, 100*skill_get_time(skill_id,skill_lv), BCT_ENEMY));
+				if (skill_break_equip(src,bl, EQP_ARMOR, 100*skill_get_time(skill_id,skill_lv), BCT_ENEMY))
+					clif_emotion(*bl, ET_HUK);
 			}
 		}
 		else{
@@ -1596,9 +1585,8 @@ int32 skill_additional_effect( block_list* src, block_list *bl, uint16 skill_id,
 	case BA_FROSTJOKER:
 	case DC_SCREAM:
 	{
-		int32 rate = 150 + 50 * skill_lv; // Aegis accuracy (1000 = 100%)
+		int32 rate = 50 + 50 * skill_lv; // Aegis accuracy (1000 = 100%)
 		int32 duration = skill_get_time2(skill_id, skill_lv);
-		if (skill_id == DC_SCREAM) rate += 100; // DC_SCREAM has a 10% higher base chance
 		if (battle_check_target(src, bl, BCT_PARTY) > 0) {
 			// On party members: Chance is divided by 4 and BA_FROSTJOKER duration is fixed to 15000ms
 			rate /= 4;
@@ -3871,8 +3859,8 @@ int64 skill_attack (int32 attack_type, block_list* src, block_list *dsrc, block_
 		case KN_AUTOCOUNTER:
 		case NPC_CRITICALSLASH:
 		case TF_DOUBLE:
-		case MO_TRIPLEATTACK:
 		case NJ_KIRIKAGE:
+		case RG_BACKSTAP:
 		case GS_CHAINACTION:
 			clif_damage(*src,*bl,tick,dmg.amotion,dmg.dmotion,damage,dmg.div_,dmg.type,dmg.damage2,false);
 			break;
@@ -4012,7 +4000,7 @@ int64 skill_attack (int32 attack_type, block_list* src, block_list *dsrc, block_
 				}
 			}
 			if(skill_id && dmg.type == DMG_CRITICAL){
-				if ((skill_id == AS_SONICBLOW  || skill_id == AC_DOUBLE || skill_id == KN_PIERCE || skill_id == CR_HOLYCROSS || skill_id == MO_CHAINCOMBO || skill_id == MO_FINGEROFFENSIVE))
+				if ((skill_id == AS_SONICBLOW  || skill_id == AC_DOUBLE || skill_id == KN_PIERCE || skill_id == CR_HOLYCROSS || skill_id ==  MO_TRIPLEATTACK || skill_id == MO_CHAINCOMBO || skill_id == MO_FINGEROFFENSIVE))
 					dmg.type = DMG_MULTI_HIT_CRITICAL;
 
 			}
@@ -4022,10 +4010,6 @@ int64 skill_attack (int32 attack_type, block_list* src, block_list *dsrc, block_
 	}
 
 	FreeBlockLock freeLock;
-
-	if (bl->type == BL_PC && skill_id && skill_db.find(skill_id)->copyable.option && //Only copy skill that copyable [Cydh]
-		dmg.flag&BF_SKILL && dmg.damage+dmg.damage2 > 0 && damage < status_get_hp(bl)) //Cannot copy skills if the blow will kill you. [Skotlex]
-		skill_do_copy(src,bl,skill_id,skill_lv);
 
 	if (dmg.dmg_lv >= ATK_MISS && (type = skill_get_walkdelay(skill_id, skill_lv)) > 0)
 	{	//Skills with can't walk delay also stop normal attacking for that
@@ -10084,6 +10068,13 @@ int32 skill_castend_nodamage_id (block_list *src, block_list *bl, uint16 skill_i
 		}
 		break;
 
+	case RG_PLAGIARISM:
+		if( sd ) {
+			sc_start(src,src,SC_STOP,100,skill_lv,INFINITE_TICK);// The skill_lv is stored in val1 used in skill_select_menu to determine the used skill lvl [Xazax]
+			clif_plagiarism( *sd );
+			clif_skill_nodamage(src,*bl,skill_id,1);
+		}
+		break;
 	case BS_GREED:
 		if(sd){
 			clif_skill_nodamage(src,*bl,skill_id,skill_lv);
@@ -15879,8 +15870,7 @@ std::shared_ptr<s_skill_unit_group> skill_unitsetting(block_list *src, uint16 sk
 		if((flag&1)!=0)
 			limit=1000;
 		val1=skill_lv+2;
-		break;
-	case WZ_QUAGMIRE:	//The target changes to "all" if used in a gvg map. [Skotlex]
+		break;//The target changes to "all" if used in a gvg map. [Skotlex]
 	case AM_DEMONSTRATION:
 		{
 			if (battle_config.vs_traps_bctall && (src->type&battle_config.vs_traps_bctall) && map_flag_vs(src->m))
@@ -18702,11 +18692,6 @@ bool skill_check_condition_castbegin( map_session_data& sd, uint16 skill_id, uin
 		case GD_CHARGESHOUT_FLAG:
 		case GD_CHARGESHOUT_BEATING:
 		case GD_EMERGENCY_MOVE:
-			if (!map_flag_gvg2(sd.m)) {
-				clif_skill_fail( sd, skill_id );
-				return false;
-			}
-			[[fallthrough]];
 		case GD_EMERGENCYCALL:
 		case GD_ITEMEMERGENCYCALL:
 			// other checks were already done in skill_isNotOk()
@@ -20012,11 +19997,7 @@ struct s_skill_condition skill_get_requirement(map_session_data* sd, uint16 skil
 		case WS_CARTTERMINATION:
 #endif
 			if(pc_checkskill(sd,BS_UNFAIRLYTRICK)>0)
-#ifdef RENEWAL
 				req.zeny -= req.zeny*20/100;
-#else
-				req.zeny -= req.zeny*10/100;
-#endif
 			break;
 		case SL_SMA:
 		case SL_STUN:
@@ -23813,15 +23794,21 @@ void skill_select_menu( map_session_data& sd, uint16 skill_id ){
 	if (!skill_id || !(sk_idx = skill_get_index(skill_id)))
 		return;
 
-	if( !skill_get_inf2(skill_id, INF2_ISAUTOSHADOWSPELL) || (id = sd.status.skill[sk_idx].id) == 0 || sd.status.skill[sk_idx].flag != SKILL_FLAG_PLAGIARIZED ) {
-		clif_skill_fail( sd, SC_AUTOSHADOWSPELL );
-		return;
-	}
+	if(skill_id == SC_AUTOSHADOWSPELL){
+		if( !skill_get_inf2(skill_id, INF2_ISAUTOSHADOWSPELL) || (id = sd.status.skill[sk_idx].id) == 0 || sd.status.skill[sk_idx].flag != SKILL_FLAG_PLAGIARIZED ) {
+			clif_skill_fail( sd, SC_AUTOSHADOWSPELL );
+			return;
+		}
 
-	lv = (aslvl + 5) / 2; // The level the skill will be autocasted
-	lv = min(lv,sd.status.skill[sk_idx].lv);
-	prob = (aslvl >= 10) ? 15 : (30 - 2 * aslvl); // Probability at level 10 was increased to 15.
-	sc_start4(&sd,&sd,SC__AUTOSHADOWSPELL,100,id,lv,prob,(aslvl*5),skill_get_time(SC_AUTOSHADOWSPELL,aslvl));
+		lv = (aslvl + 5) / 2; // The level the skill will be autocasted
+		lv = min(lv,sd.status.skill[sk_idx].lv);
+		prob = (aslvl >= 10) ? 15 : (30 - 2 * aslvl); // Probability at level 10 was increased to 15.
+		sc_start4(&sd,&sd,SC__AUTOSHADOWSPELL,100,id,lv,prob,(aslvl*5),skill_get_time(SC_AUTOSHADOWSPELL,aslvl));
+	}
+	else
+	{
+		pc_skill_plagiarism(sd, skill_id,pc_checkskill(&sd, RG_PLAGIARISM));
+	}
 }
 
 int32 skill_elementalanalysis( map_session_data& sd, int32 n, uint16 skill_lv, uint16* item_list ){

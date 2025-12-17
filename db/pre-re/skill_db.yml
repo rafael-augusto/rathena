@@ -3113,28 +3113,28 @@ Body:
       Skill:
         Plagiarism: true
         Reproduce: true
-    CastTime: 15000
+    CastTime: 12000
     AfterCastActDelay:
       - Level: 1
-        Time: 0
-      - Level: 2
         Time: 1000
+      - Level: 2
+        Time: 2000
       - Level: 3
         Time: 2000
       - Level: 4
-        Time: 3000
+        Time: 2000
       - Level: 5
         Time: 3000
       - Level: 6
-        Time: 4000
+        Time: 3000
       - Level: 7
-        Time: 4000
+        Time: 3000
       - Level: 8
-        Time: 5000
+        Time: 4000
       - Level: 9
-        Time: 5000
+        Time: 4000
       - Level: 10
-        Time: 5000
+        Time: 4000
     Duration1:
       - Level: 1
         Time: 2000
@@ -3307,26 +3307,26 @@ Body:
         Reproduce: true
     CastTime:
       - Level: 1
-        Time: 15000
-      - Level: 2
-        Time: 14500
-      - Level: 3
-        Time: 14000
-      - Level: 4
-        Time: 13500
-      - Level: 5
-        Time: 13000
-      - Level: 6
-        Time: 12500
-      - Level: 7
         Time: 12000
-      - Level: 8
+      - Level: 2
         Time: 11500
-      - Level: 9
+      - Level: 3
         Time: 11000
-      - Level: 10
+      - Level: 4
         Time: 10500
-    AfterCastActDelay: 4000
+      - Level: 5
+        Time: 10000
+      - Level: 6
+        Time: 9500
+      - Level: 7
+        Time: 9000
+      - Level: 8
+        Time: 8500
+      - Level: 9
+        Time: 8000
+      - Level: 10
+        Time: 7500
+    AfterCastActDelay: 3000
     Duration1: 4000
     Duration2: 30000
     Requires:
@@ -3588,6 +3588,7 @@ Body:
     Hit: Single
     HitCount: 1
     Element: Water
+    ShowScale: true
     Knockback: 2
     CopyFlags:
       Skill:
@@ -3595,25 +3596,25 @@ Body:
         Reproduce: true
     CastTime:
       - Level: 1
-        Time: 6000
+        Time: 3000
       - Level: 2
-        Time: 7000
+        Time: 4000
       - Level: 3
-        Time: 8000
+        Time: 5000
       - Level: 4
-        Time: 9000
+        Time: 6000
       - Level: 5
-        Time: 10000
+        Time: 7000
       - Level: 6
-        Time: 11000
+        Time: 8000
       - Level: 7
-        Time: 12000
+        Time: 9000
       - Level: 8
-        Time: 13000
+        Time: 10000
       - Level: 9
-        Time: 14000
+        Time: 11000
       - Level: 10
-        Time: 15000
+        Time: 12000
     AfterCastActDelay: 4000
     Duration1: 4600
     Duration2: 12000
@@ -3943,8 +3944,6 @@ Body:
     Requires:
       SpCost: 10
       Weapon:
-        Dagger: true
-        1hSword: true
         1hAxe: true
         2hAxe: true
         Mace: true
@@ -3965,15 +3964,15 @@ Body:
     SplashArea: -1
     Duration1:
       - Level: 1
-        Time: 30000
+        Time: 160000
       - Level: 2
-        Time: 60000
+        Time: 180000
       - Level: 3
-        Time: 90000
+        Time: 200000
       - Level: 4
-        Time: 120000
+        Time: 220000
       - Level: 5
-        Time: 150000
+        Time: 240000
     Requires:
       SpCost:
         - Level: 1
@@ -4007,15 +4006,15 @@ Body:
     SplashArea: -1
     Duration1:
       - Level: 1
-        Time: 10000
+        Time: 160000
       - Level: 2
-        Time: 20000
+        Time: 180000
       - Level: 3
-        Time: 30000
+        Time: 200000
       - Level: 4
-        Time: 40000
+        Time: 220000
       - Level: 5
-        Time: 50000
+        Time: 240000
     Requires:
       SpCost:
         - Level: 1
@@ -4045,15 +4044,15 @@ Body:
     SplashArea: -1
     Duration1:
       - Level: 1
-        Time: 20000
+        Time: 160000
       - Level: 2
-        Time: 40000
+        Time: 180000
       - Level: 3
-        Time: 60000
+        Time: 200000
       - Level: 4
-        Time: 80000
+        Time: 220000
       - Level: 5
-        Time: 100000
+        Time: 240000
     Requires:
       SpCost:
         - Level: 1
@@ -5296,7 +5295,8 @@ Body:
       AllowOnMado: true
     Hit: Single
     HitCount: 1
-    Duration1: 300000
+    CastTime: 1000
+    Duration1: 240000
     Requires:
       SpCost: 8
     Status: Loud
@@ -6344,6 +6344,16 @@ Body:
     Name: RG_PLAGIARISM
     Description: Intimidate
     MaxLevel: 10
+    Type: Magic
+    TargetType: Self
+    DamageFlags:
+      NoDamage: true
+    Hit: Single
+    HitCount: 1
+    CastTime: 5000
+    CastTimeFlags:
+      IgnoreDex: true
+      IgnoreStatus: true
   - Id: 226
     Name: AM_AXEMASTERY
     Description: Axe Mastery
@@ -7072,7 +7082,7 @@ Body:
       NoDamage: true
     Hit: Single
     HitCount: 1
-    CastTime: 1000
+    CastTime: 500
     Duration1: 600000
     Requires:
       SpCost: 8
@@ -7088,7 +7098,7 @@ Body:
     Range: 9
     Hit: Single
     HitCount: 1
-    CastTime: 2000
+    CastTime: 500
     Requires:
       SpCost: 5
   - Id: 263
@@ -8441,7 +8451,6 @@ Body:
     TargetType: Attack
     DamageFlags:
       Critical: true
-      IgnoreAtkCard: true
     Flags:
       AllowWhenPerforming: true
     Range: 9
@@ -8517,7 +8526,6 @@ Body:
     HitCount: 1
     SplashArea: -1
     AfterCastActDelay: 4000
-    Cooldown: 2000
     Duration1: 15000
     Duration2: 12000
     Requires:
@@ -8739,7 +8747,6 @@ Body:
     TargetType: Attack
     DamageFlags:
       Critical: true
-      IgnoreAtkCard: true
     Flags:
       AllowWhenPerforming: true
     Range: 9
@@ -8812,9 +8819,9 @@ Body:
       Splash: true
     Hit: Single
     HitCount: 1
-    SplashArea: -1
+    SplashArea: 9
+    ShowScale: true
     AfterCastActDelay: 4000
-    Cooldown: 2000
     Duration1: 5000
     Duration2: 5000
     Requires:
@@ -11427,10 +11434,7 @@ Body:
     Hit: Multi_Hit
     HitCount: -3
     Element: Weapon
-    CopyFlags:
-      Skill:
-        Plagiarism: true
-        Reproduce: true
+    
     Requires:
       SpCost:
         - Level: 1
@@ -14407,10 +14411,7 @@ Body:
     Range: 7
     Hit: Single
     HitCount: 1
-    CopyFlags:
-      Skill:
-        Plagiarism: true
-        Reproduce: true
+    
     AfterCastActDelay: 5000
     Requires:
       SpCost: 50
@@ -14447,10 +14448,7 @@ Body:
     HitCount: 1
     Element: Weapon
     Knockback: 3
-    CopyFlags:
-      Skill:
-        Plagiarism: true
-        Reproduce: true
+    
     AfterCastActDelay: 3000
     Duration1: 3000
     Duration2: 3000
@@ -14475,10 +14473,7 @@ Body:
     Hit: Single
     HitCount: 1
     Element: Weapon
-    CopyFlags:
-      Skill:
-        Plagiarism: true
-        Reproduce: true
+    
     Duration1:
       - Level: 1
         Time: 30000
@@ -14544,10 +14539,7 @@ Body:
         Size: 9
     Hit: Single
     HitCount: 1
-    CopyFlags:
-      Skill:
-        Plagiarism: true
-        Reproduce: true
+    
     Requires:
       SpCost: 10
       Status:
@@ -14577,10 +14569,7 @@ Body:
     Hit: Single
     HitCount: 1
     Element: Weapon
-    CopyFlags:
-      Skill:
-        Plagiarism: true
-        Reproduce: true
+    
     Requires:
       SpCost:
         - Level: 1
@@ -14605,10 +14594,7 @@ Body:
     Hit: Single
     HitCount: 1
     Knockback: 7
-    CopyFlags:
-      Skill:
-        Plagiarism: true
-        Reproduce: true
+    
     AfterCastActDelay: 1000
     Duration1:
       - Level: 1
@@ -14749,10 +14735,7 @@ Body:
       - Level: 10
         Count: 10
     Element: Fire
-    CopyFlags:
-      Skill:
-        Plagiarism: true
-        Reproduce: true
+    
     CastTime:
       - Level: 1
         Time: 700
@@ -14805,10 +14788,7 @@ Body:
     Hit: Multi_Hit
     HitCount: 1
     Element: Fire
-    CopyFlags:
-      Skill:
-        Plagiarism: true
-        Reproduce: true
+    
     CastTime:
       - Level: 1
         Time: 6000
@@ -14855,10 +14835,7 @@ Body:
     Hit: Multi_Hit
     HitCount: -3
     Element: Fire
-    CopyFlags:
-      Skill:
-        Plagiarism: true
-        Reproduce: true
+    
     CastTime: 3000
     AfterCastActDelay: 2000
     Duration1: 100
@@ -14914,10 +14891,7 @@ Body:
       - Level: 10
         Count: 12
     Element: Water
-    CopyFlags:
-      Skill:
-        Plagiarism: true
-        Reproduce: true
+    
     CastTime:
       - Level: 1
         Time: 700
@@ -15080,10 +15054,7 @@ Body:
     Hit: Single
     HitCount: 1
     Element: Water
-    CopyFlags:
-      Skill:
-        Plagiarism: true
-        Reproduce: true
+    
     CastTime:
       - Level: 1
         Time: 2000
@@ -15161,10 +15132,7 @@ Body:
       - Level: 10
         Count: 6
     Element: Wind
-    CopyFlags:
-      Skill:
-        Plagiarism: true
-        Reproduce: true
+    
     CastTime:
       - Level: 1
         Time: 1000
@@ -15219,10 +15187,6 @@ Body:
     Hit: Single
     HitCount: 1
     Element: Wind
-    CopyFlags:
-      Skill:
-        Plagiarism: true
-        Reproduce: true
     CastTime: 4000
     Duration1: 100
     Requires:
@@ -15291,10 +15255,7 @@ Body:
         Max: 8
       - Level: 5
         Max: 9
-    CopyFlags:
-      Skill:
-        Plagiarism: true
-        Reproduce: true
+    
     CastTime: 4000
     Requires:
       SpCost:
@@ -28898,10 +28859,7 @@ Body:
         Area: 1
       - Level: 10
         Area: 2
-    CopyFlags:
-      Skill:
-        Plagiarism: true
-        Reproduce: true
+    
     CastTime: 1000
     Duration1: 100
     Cooldown: 10000
@@ -33806,7 +33764,7 @@ Body:
     Duration1: 300000
     Unit:
       Id: Gd_Leadership
-      Layout: 2
+      Layout: 14
       Interval: -1
       Target: SameGuild
       Flag:
@@ -33818,11 +33776,11 @@ Body:
     MaxLevel: 1
     Flags:
       IsGuild: true
-    SplashArea: 2
+    SplashArea: 15
     Duration1: 300000
     Unit:
       Id: Gd_Glorywounds
-      Layout: 2
+      Layout: 14
       Interval: -1
       Target: SameGuild
       Flag:
@@ -33834,11 +33792,11 @@ Body:
     MaxLevel: 1
     Flags:
       IsGuild: true
-    SplashArea: 2
+    SplashArea: 15
     Duration1: 300000
     Unit:
       Id: Gd_Soulcold
-      Layout: 2
+      Layout: 14
       Interval: -1
       Target: SameGuild
       Flag:
@@ -33850,11 +33808,11 @@ Body:
     MaxLevel: 1
     Flags:
       IsGuild: true
-    SplashArea: 2
+    SplashArea: 15
     Duration1: 300000
     Unit:
       Id: Gd_Hawkeyes
-      Layout: 2
+      Layout: 14
       Interval: -1
       Target: SameGuild
       Flag:
