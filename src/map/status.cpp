@@ -7364,9 +7364,9 @@ static int32 status_calc_batk(block_list *bl, status_change *sc, int32 batk)
 		batk -= batk * sc->getSCE(SC__ENERVATION)->val2 / 100;
 	if( sc->getSCE(SC_ZANGETSU) )
 		batk += sc->getSCE(SC_ZANGETSU)->val2;
-#ifdef RENEWAL
 	if (sc->getSCE(SC_LOUD))
 		batk += 30;
+#ifdef RENEWAL
 	if (sc->getSCE(SC_NIBELUNGEN) && sc->getSCE(SC_NIBELUNGEN)->val2 == RINGNBL_ATKRATE)
 		batk += batk * 20 / 100;
 #endif
@@ -10006,16 +10006,16 @@ t_tick status_get_sc_def(const block_list* src, const block_list* bl, sc_type ty
 	// Natural resistance
 	if (!(flag&SCSTART_NORATEDEF)) {
 		rate -= rate*sc_def/10000;
-		rate -= sc_def2;
-
+		
 		// Item resistance (only applies to rate%)
 		if (sd) {
 			for (const auto &it : sd->reseff) {
 				if (it.id == type)
 					rate -= rate * it.val / 10000;
-			}
+			}	
 		}
 
+		rate -= sc_def2;
 		// Aegis accuracy
 		if(rate > 0 && rate%10 != 0) rate += (10 - rate%10);
 	}

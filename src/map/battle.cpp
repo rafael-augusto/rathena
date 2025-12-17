@@ -3114,8 +3114,17 @@ static bool is_attack_critical(struct Damage* wd, block_list *src, const block_l
 			case SHC_SAVAGE_IMPACT:
 			case SHC_ETERNAL_SLASH:
 			case SHC_IMPACT_CRATER:
-			case SHC_CROSS_SLASH:
-				cri /= 2;
+			case SHC_CROSS_SLASH:{
+
+				if(skill_id == RG_BACKSTAP){
+					uint8 dir = map_calc_dir(src, target->x, target->y), t_dir = unit_getdir(target);
+					if (!map_check_dir(dir, t_dir) || target->type == BL_SKILL)
+						cri = 10000;
+				}
+				else
+					cri /= 2;
+			}
+				
 				break;
 			case WH_GALESTORM:
 				if (sc && !sc->getSCE(SC_CALAMITYGALE))
@@ -4825,15 +4834,11 @@ static int32 battle_calc_attack_skill_ratio(struct Damage* wd, block_list *src,b
 			skillratio += 20 * skill_lv +  sstatus->agi;
 			break;
 		case AS_SONICBLOW:
-#ifdef RENEWAL
 			skillratio += 100 + 100 * skill_lv;
 			if (tstatus->hp < (tstatus->max_hp / 2))
 				skillratio += skillratio / 2;
-#else
-			skillratio += 200 + 50 * skill_lv;
 			if (sd && pc_checkskill(sd, AS_SONICACCEL) > 0)
 				skillratio += skillratio / 10;
-#endif
 			break;
 		case NPC_PIERCINGATT:
 			skillratio += -25; //75% base damage
@@ -4950,7 +4955,7 @@ static int32 battle_calc_attack_skill_ratio(struct Damage* wd, block_list *src,b
 				skillratio *= 2;
 			break;
 		case MO_COMBOFINISH:
-			skillratio += 350 + 50 * skill_lv + sstatus->str; // !TODO: How does STR play a role?
+			skillratio += -100 + 450 + 150 * skill_lv + sstatus->str*2; // !TODO: How does STR play a role?
 			if (sc->getSCE(SC_GT_ENERGYGAIN))
 				skillratio += skillratio * 50 / 100;
 			break;
@@ -4959,7 +4964,7 @@ static int32 battle_calc_attack_skill_ratio(struct Damage* wd, block_list *src,b
 #ifdef RENEWAL
 			skillratio += 10 + 40 * skill_lv;
 #else
-			skillratio += -40 + 40 * skill_lv;
+			skillratio += 10 + 40 * skill_lv;
 #endif
 			break;
 		case CH_TIGERFIST:
@@ -7586,13 +7591,6 @@ static struct Damage initialize_weapon_data(const block_list* src, const block_l
 		wd.flag |= battle_range_type(src, target, skill_id, skill_lv);
 		switch(skill_id)
 		{
-			case RG_BACKSTAP:
-				if(sd && sd->status.weapon == W_DAGGER){
-					uint8 dir = map_calc_dir(src, target->x, target->y), t_dir = unit_getdir(target);
-					if (!map_check_dir(dir, t_dir) || target->type == BL_SKILL)
-						wd.div_ = 2;
-				}
-				break;
 			case MO_CHAINCOMBO:
 				if (sd && sd->status.weapon == W_KNUCKLE)
 					wd.div_ = -6;
@@ -7890,8 +7888,6 @@ static struct Damage battle_calc_weapon_attack(block_list *src, block_list *targ
 		switch(skill_id){
 			case AM_ACIDTERROR:
 			case AM_DEMONSTRATION:
-			case BA_MUSICALSTRIKE:
-			case DC_THROWARROW:
 			{	
 				if (sstatus->matk_max > sstatus->matk_min) {
 					ATK_ADD(wd.damage, wd.damage2, (sstatus->matk_min+rnd()%(sstatus->matk_max-sstatus->matk_min)) /2 );
@@ -8540,11 +8536,7 @@ struct Damage battle_calc_magic_attack(block_list *src,block_list *target,uint16
 							skillratio += 100 * sd->spiritcharm;
 						break;
 					case NJ_HYOUSENSOU:
-#ifdef RENEWAL
 						skillratio -= 30;
-						if (sc && sc->getSCE(SC_SUITON))
-							skillratio += 2 * skill_lv;
-#endif
 						if(sd && sd->spiritcharm_type == CHARM_TYPE_WATER && sd->spiritcharm > 0)
 							skillratio += 20 * sd->spiritcharm;
 						break;
@@ -9854,13 +9846,7 @@ struct Damage battle_calc_misc_attack(block_list *src,block_list *target,uint16 
 				//Blitz-beat Damage
 				if(!sd || !(skill = pc_checkskill(sd,HT_STEELCROW)))
 					skill = 0;
-#ifdef RENEWAL
 				md.damage = skill_lv * 20 + skill * 6 + ((sstatus->agi / 2) *2) + ((sstatus->dex / 10) *2);
-#else
-				md.damage = (sstatus->dex / 10 + sstatus->int_ / 2 + skill * 3 + 40) * 2;
-				if(mflag > 1) //Autocasted Blitz
-					nk.set(NK_SPLASHSPLIT);
-#endif
 				if (skill_id == SN_FALCONASSAULT) {
 					//Div fix of Blitzbeat
 					DAMAGE_DIV_FIX2(md.damage, skill_get_num(HT_BLITZBEAT, 5));
@@ -10313,7 +10299,7 @@ int64 battle_calc_return_damage(block_list* tbl, block_list *src, int64 *dmg, in
 						return 0;
 				}
 			}
-			if ( tsc->getSCE(SC_REFLECTSHIELD) && skill_id != WS_CARTTERMINATION && skill_id != NPC_MAXPAIN_ATK ) {
+			if ( tsc->getSCE(SC_REFLECTSHIELD) && skill_id != WS_CARTTERMINATION && skill_id != MC_MAMMONITE && skill_id != NPC_MAXPAIN_ATK ) {
 				// Don't reflect non-skill attack if has SC_REFLECTSHIELD from Devotion bonus inheritance
 				if (!skill_id && battle_config.devotion_rdamage_skill_only && tsc->getSCE(SC_REFLECTSHIELD)->val4)
 					rdamage = 0;
