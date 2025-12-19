@@ -2122,7 +2122,7 @@ Body:
     SplashArea: 2
     ActiveInstance: 5
     Knockback: 2
-    CastTime: 700
+    CastTime: 500
     Duration1: 1000
     Requires:
       SpCost: 12
@@ -2307,7 +2307,7 @@ Body:
       Skill:
         Plagiarism: true
         Reproduce: true
-    CastTime: 700
+    CastTime: 500
     Requires:
       SpCost:
         - Level: 1

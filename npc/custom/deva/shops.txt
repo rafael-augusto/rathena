@@ -1,0 +1,5 @@
+prontera,169,228,3	script	Acessory Converter	630,{
+    callshop "Acessory_Converter", 0;
+end;
+
+}

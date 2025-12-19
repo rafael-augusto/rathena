@@ -1,0 +1,19 @@
+-	script	vip_info	-1,{
+    OnVIPInfo:
+        if (!vip_status(VIP_STATUS_ACTIVE)) {
+            dispbottom "You are not a VIP member. You may purchase one at Cash Shop.",0xff0000;
+            end;
+        }
+        dispbottom "VIP Time Left: "+ Time2Str(vip_status(VIP_STATUS_REMAINING)+gettimetick(2)),0x5cdcff;
+        end;
+    OnInit:
+        bindatcmd "vipinfo", strnpcinfo(0)+"::OnVIPInfo";
+        end;
+
+    OnPCLoginEvent:
+        if (vip_status(VIP_STATUS_ACTIVE)) {
+            dispbottom "VIP Time Left: "+ Time2Str(vip_status(VIP_STATUS_REMAINING)+gettimetick(2)),0x5cdcff;
+        }
+        else
+            dispbottom "You're not VIP. Check the Vip Tickets at Cash Shop for more information.",0x5cdcff;
+}

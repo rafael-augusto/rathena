@@ -909,6 +909,7 @@ function	script	refinemain	{
 		mes "You said so... So be it.";
 		close;
 	}
+	
 	.@fullprice = .@price * .@refinecnt;
 	mes "["+ .@npc_name$ +"]";
 	mes "That will cost you " + .@refinecnt + " " + getitemname(.@material) + " and " + .@fullprice + " Zeny. Is that ok?";
@@ -1127,15 +1128,17 @@ function	script	orimain	{
 	mes "Rough Oridecons or";
 	mes "Rough Eluniums. I'll need";
 	mes "5 Rough Stones to make";
-	mes "1 pure one for you.";
+	mes "1 pure one for you...";
 	next;
 	switch(select("Make Oridecon:Make Elunium:Ask about Enchanted Stones")) {
 	case 1:
 		if (countitem(756) > 4) {
-			delitem 756,5;  //Oridecon_Stone
-			getitem 984,1; // Oridecon
+			.@count = (countitem(756) / 5);
+			delitem 756, (.@count * 5);
+			getitem 984, .@count;
+
 			mes "["+ .@npc_name$ +"]";
-			mes "Here's your Oridecon.";
+			mes "Here's your Oridecons.";
 			mes "You're welcome to come";
 			mes "back whenever you want.";
 			close;
@@ -1148,8 +1151,10 @@ function	script	orimain	{
 		}
 	case 2:
 		if (countitem(757) > 4) {
-			delitem 757,5;  //Elunium_Stone
-			getitem 985,1; // Elunium
+			.@count = (countitem(757) / 5);
+			delitem 757, (.@count * 5);
+			getitem 985, .@count;
+			
 			mes "["+ .@npc_name$ +"]";
 			mes "Here's your Elunium.";
 			mes "You're welcome to come";
@@ -1197,10 +1202,10 @@ payon,143,165,4	script	Repairman#pay	88,{
 	end;
 }
 
-prt_in,63,54,2	script	Repairman#prt	86,{
-	callfunc "repairmain","Grendal";
-	end;
-}
+//prt_in,63,54,2	script	Repairman#prt	86,{
+// 	callfunc "repairmain","Grendal";
+// 	end;
+// }
 
 yuno_in01,175,28,3	script	Repairman#juno	86,{
 	callfunc "repairmain","Repairman";

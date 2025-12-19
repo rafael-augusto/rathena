@@ -1,0 +1,66 @@
+prontera,129,196,6	script	Master Rogue	779,{
+    set .@skill_level,getskilllv( "RG_PLAGIARISM" );
+    mes "^FF7F00[Master Rogue]^000000";
+    mes "^008aff"+strcharinfo(0)+"^000000, Im able to teach you some skills through ^FF0000Plagiarism.^000000";
+    next;
+    if( !.@skill_level ){
+        mes "Only Rogues and Stalkers are able to use my services.";
+        close;
+    }
+    if(select( ( CLONE_SKILL && CLONE_SKILL_LV )?"^008aff[»]^000000 Remove reproduced skill":"^008aff[»]^000000 Copy skill","^ff0000[»]^000000Nevermind..." ) == 1 ){
+        if( CLONE_SKILL && CLONE_SKILL_LV ){
+            mes "Reproduced skill removed";
+            set CLONE_SKILL_LV,0;
+            skill CLONE_SKILL,CLONE_SKILL_LV,0;
+            set CLONE_SKILL,0;
+        }else{
+            mes "Select a skill to reproduce";
+            next;
+            set .@i,select( .menu$ ) - 1;
+            if( .@skill_level > .skill_max_level[.@i] )
+                set .@skill_level,.skill_max_level[.@i];
+            mes "Skill : ^0055FF"+.skill_name$[.@i]+"^000000";
+            mes "Level : ^0055FF"+.@skill_level+"^000000";
+            mes "Cost : ^0055FF"+( ( .skill_cost[.@i] )? .skill_cost[.@i]+" Zeny":"Free" )+"^000000";
+            mes " ";
+            mes "You will be disconnected during the process.";
+            next;
+            if( select( "^008aff[»]^000000Reproduce!","^ff0000[»]^000000Cancel" ) == 1 ){
+                if( .skill_cost[.@i] ){
+                    if( Zeny >= .skill_cost[.@i] ){
+                        set Zeny,Zeny - .skill_cost[.@i];
+                    }else{
+                        mes "Insuficient Zeny.";
+                        close;
+                    }
+                }
+                set CLONE_SKILL,.skill_id[.@i];
+                set CLONE_SKILL_LV,.@skill_level;
+                mes "Skill to be reproduced: ^0055FFLv"+CLONE_SKILL_LV+" "+.skill_name$[.@i]+"^000000";
+         
+                skill CLONE_SKILL,CLONE_SKILL_LV,0;
+                atcommand "@kick "+strcharinfo(0);
+
+            }
+        }
+    }
+    close;
+
+    OnInit:
+    // Skill Display Names
+    setarray .skill_name$,"Bowling Bash","Triple Attack","Holy Cross","Mammonite", "Storm Gust", "Meteor Storm", "Lord of Vermilion";
+    // Skill ID
+    setarray .skill_id,62,263,253,42, 89, 83, 85;;
+    // Skill Max Learn-able Level
+    setarray .skill_max_level,10,10,10,10,10,10,10;
+    // Skill Cost in Zeny
+    setarray .skill_cost,4000,4000,4000,4000,4000,4000,4000;
+
+    set .skill_size,getarraysize( .skill_name$ );
+    while( .@i < .skill_size ){
+        set .menu$,.menu$ + "[ ^0055FFLv "+.skill_max_level[.@i]+"^000000 ] "+ .skill_name$[.@i] +":";
+        set .@i,.@i + 1;
+    }
+
+    end;
+}

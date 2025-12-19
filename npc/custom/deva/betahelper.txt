@@ -1,0 +1,39 @@
+
+
+prontera,161,183,5	script	Beta Helper#betahelper	486,{
+	
+
+    if(#BETACASH != 1){
+        mes "^FF7F00[Beta Helper]^000000";
+        mes "Day 02";
+        mes "^008aff"+strcharinfo(0)+"^000000, this is your first time! Ill give you some ^FF0000Cash Points.^000000";
+        set #CASHPOINTS,50000;
+        set #BETACASH,1;
+        next;
+    }
+                     
+    .@blevel = 90 - BaseLevel;
+    if(SET90 != 1 &&  .@blevel > 0 ){
+        mes "^FF7F00[Beta Helper]^000000";
+        mes "Day 06";
+        mes "^008affThis character will be set to level 90, as long we progress in the beta testing, new features will be enabled^000000";
+        set BaseLevel,90;
+        next;
+    }
+    switch(select("Consumables:Beta MARKET:None")) {
+        case 1:
+            callshop "betahelp",1;
+            break;
+        case 2:
+            warp "prontera",156,270;
+            break;
+        case 3:
+            break;
+    }
+    
+    OnInit:
+        delwaitingroom;
+        waitingroom "Beta Helper",0;
+}
+
+-	shop	betahelp	-1,12208:100,12210:100,668:10,12114:100,12115:100,12116:100,12117:100,984:10,985:10,7619:10,7620:10,6635:10,8501:20,8502:20,8503:20,8504:20,8505:20,8506:20

@@ -1,0 +1,24 @@
+moscovia,253,194,5	script	mpf	419,{
+
+    setmapflag "gld_dun01", mf_bexp, 150;
+    setmapflag "gld_dun01", mf_jexp, 150;
+    setmapflag "gld_dun02", mf_bexp, 150;
+    setmapflag "gld_dun02", mf_jexp, 150;
+    setmapflag "gld_dun03", mf_bexp, 150;
+    setmapflag "gld_dun03", mf_jexp, 150;
+    setmapflag "gld_dun04", mf_bexp, 150;
+    setmapflag "gld_dun04", mf_jexp, 150;
+
+
+end;
+}
+
+gld_dun01	mapflag	restricted	4
+gld_dun02	mapflag	restricted	4
+gld_dun03	mapflag	restricted	4
+gld_dun04	mapflag	restricted	4
+
+gld_dun01	mapflag	noicewall
+gld_dun02	mapflag	noicewall
+gld_dun03	mapflag	noicewall
+gld_dun04	mapflag	noicewall

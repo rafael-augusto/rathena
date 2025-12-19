@@ -251,11 +251,14 @@ function	script	Func_Socket	{
 	.@zeny_req = getarg(4);
 	setarray .@item_req[0], getarg(5), getarg(7,0);
 	setarray .@req_amount[0], getarg(6), getarg(8,0);
-
+	set .@isVip, vip_status(VIP_STATUS_ACTIVE);
+	
+	if(.@isVip)
+		.@zeny_req = .@zeny_req *1/2;
 	disable_items;
 	mes "[Seiyablem]";
 	mes "You want to add a Slot to a "+ getitemname(.@item_id) +"?";
-	mes "Alright, please bring me ^FF0000"+ .@req_amount[0] +" "+ getitemname(.@item_req[0]) + (.@req_amount[0] > 1 && .@item_req[0] != 999 ? "s":"") +"^000000, "+ (.@item_req[1] != 0 && .@req_amount[1] != 0 ? ("^FF0000"+ .@req_amount[1] +" "+ getitemname(.@item_req[1]) + (.@req_amount[1] > 1 && .@item_req[1] != 999 ? "s":"") + "^000000 ") : "") + "and my ^FF0000" + (.@zeny_req >= 1000 ? (.@zeny_req /1000 +",000") : .@zeny_req) +",000 zeny^000000 service fee.";
+	mes "Alright, please bring me ^FF0000"+ .@req_amount[0] +" "+ getitemname(.@item_req[0]) + (.@req_amount[0] > 1 && .@item_req[0] != 999 ? "s":"") +"^000000, "+ (.@item_req[1] != 0 && .@req_amount[1] != 0 ? ("^FF0000"+ .@req_amount[1] +" "+ getitemname(.@item_req[1]) + (.@req_amount[1] > 1 && .@item_req[1] != 999 ? "s":"") + "^000000 ") : "") + "and my ^FF0000" + (.@zeny_req >= 1000 ? (.@zeny_req /1000 +",000") : .@zeny_req) +",000 "+(.@isVip? "(-50% VIP)" : "")+" zeny^000000 service fee.";
 	mes "Ah, and don't forget to bring that "+ getitemname(.@item_id) +"!";
 	next;
 	mes "[Seiyablem]";

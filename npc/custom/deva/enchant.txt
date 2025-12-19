@@ -1,0 +1,773 @@
+prt_in,54,59,3	script	Enchanter	402,{
+    mes "^FF7F00[Enchanter]^000000";
+    mes "Hey! I can give your items special options. ";
+
+    goto M1;
+
+    
+function CheckItemEquipped {
+    .@itemIdCurrent = getequipid(getarg(0));
+    .@refineLevelCurrent = getequiprefinerycnt(getarg(1));
+    if(getarg(1) != .@itemIdCurrent && getarg(2) != .@refineLevelCurrent){
+        next;
+        mes "Hey! Don't touch it while I'm still working on it!";
+        return 0;
+    }
+    return 1;
+}
+
+
+function EnchantWeap {
+    .@part = getarg(0);
+    .@valor = getarg(1);
+    .@optionCurrId = getarg(2);
+    .@optionCurrDesc$ = getarg(6);
+    .@itemId = getarg(8);
+    .@refineLevel = getarg(9);
+
+    if(.@valor == 1){
+        .@itemCost$ = "[Tier 1] Weapon Stone x10";
+    }
+    else if(.@valor == 2){
+        .@itemCost$ = "[Tier 2] Weapon Stone x10";
+    }
+    else if(.@valor == 3){
+        .@itemCost$ ="[Tier 3] Weapon Stone x10";
+    }
+    clear;
+    mes "Enchanting items has 70% ";
+    mes "chance of sucess.";
+    mes "You will not lose your item or";
+    mes "enchantments if it fails.";
+    mes "This service will cost you:";
+    mes "- "+.@itemCost$;
+    mes "- 10.000 zeny";
+ 
+    if( select("Enchant it!:Nevermind...") != 1)
+    {
+        clear;
+        mes "Ok then...";
+        cutin "",255;
+        close;
+    }
+    if(.@optionCurrId )
+    {       
+        .@optionIndex = -1;
+        for(.@i = 0; .@i < getarraysize(getarg(3)); .@i++){
+            if(getelementofarray( getarg(3),.@i) == .@optionCurrId)
+            {
+                .@optionIndex = .@i;
+                break;
+            }
+        }
+        
+        .@optionCurrValue = getequiprandomoption(.@part,.@valor-1,ROA_VALUE,getcharid(0));
+        
+        if(.@optionCurrValue >= getelementofarray( getarg(5),.@optionIndex))
+        {
+            clear;
+            mes "Sorry the enchantment reached the maximum value for this item.";
+            cutin "",255;
+            close;
+           
+        }
+     
+        .@new_value = .@optionCurrValue + getelementofarray( getarg(4),.@optionIndex);
+
+      
+        if( Zeny < 10000 ){
+            clear;
+            mes "Ouch... You have not enough Zeny to pay for my services.";
+            cutin "",255;
+            close;
+           
+        }
+        
+        if(!CheckItemEquipped(.@part, .@itemId, .@refineLevel))
+        {
+            cutin "",255;
+            close;
+            
+        }
+        if( .@valor == 1 && countitem(8501) >= 10){
+            delitem 8501,10; 
+            set Zeny,Zeny - 10000;
+            if(rand(0,100) < 99){
+                clear;
+                mes "Success !!";
+                specialeffect2 55;
+                emotion ET_OK;
+                setrandomoption(.@part,.@valor-1,.@optionCurrId,.@new_value,.@valor-1,getcharid(0));
+                cutin "",255;
+                close;
+               
+            }
+            clear;
+            mes "Ouch... It failed!";
+            mes "Try again...";
+            emotion ET_HUK;
+            specialeffect2 772; 
+        }
+        else if( .@valor == 2 && countitem(8502) >= 10){
+            delitem 8502,10; 
+            set Zeny,Zeny - 10000;
+            if(rand(0,100) < 99){
+                clear;
+                mes "Success !!";
+                specialeffect2 56;
+                emotion ET_OK;
+                setrandomoption(.@part,.@valor-1,.@optionCurrId,.@new_value,.@valor-1,getcharid(0));
+                cutin "",255;
+                close;
+            }
+            clear;
+            mes "Ouch... It failed!";
+            mes "Try again...";
+            emotion ET_HUK;
+            specialeffect2 772; 
+        }
+        else if( .@valor == 3 && countitem(8503) >= 10){
+            delitem 8503,10; 
+            set Zeny,Zeny - 10000;
+            if(rand(0,100) < 99){
+                clear;
+                mes "Success !!";
+                specialeffect2 54;
+                emotion ET_OK;
+                setrandomoption(.@part,.@valor-1,.@optionCurrId,.@new_value,.@valor-1,getcharid(0));
+                cutin "",255;
+                close;
+                
+            }
+            clear;
+            mes "Ouch... It failed!";
+            mes "Try again...";
+            emotion ET_HUK;
+            specialeffect2 772; 
+        }
+        else{
+            clear;
+            mes "Ouch... You have not enough Enchant Stones for the selected Tier.";
+            cutin "",255;
+            close;
+            
+        }
+        cutin "",255;
+        close;
+       
+        
+    }
+    else
+    {
+        
+
+        for(.@i = 0; .@i < getarraysize(getarg(3)); .@i++){
+            .@menuEnchantValue$ += getelementofarray( getarg(7),.@i)+":";
+        }
+        .@selectIndex = select(.@menuEnchantValue$) - 1;
+        .@optIdSelected = getelementofarray( getarg(3),.@selectIndex);
+
+        if( Zeny < 10000 ){
+            next;
+            mes "Ouch... You have not enough Zeny to pay for my services.";
+            cutin "",255;
+            close;
+            
+        }
+   
+        if( .@valor == 1 && countitem(8501) >= 10){
+            delitem 8501,10; 
+            set Zeny,Zeny - 10000;
+            if(rand(0,100) < 99){
+                clear;
+                mes "Success !!";
+                specialeffect2 55;
+                emotion ET_OK;
+                setrandomoption(.@part,.@valor-1,.@optIdSelected, getelementofarray( getarg(4),.@selectIndex),.@valor-1,getcharid(0));
+                cutin "",255;
+                close;
+                
+            }
+            clear;
+            mes "Ouch... It failed!";
+            mes "Try again...";
+            emotion ET_HUK;
+            specialeffect2 772; 
+        }
+        else if( .@valor == 2 && countitem(8502) >= 10){
+            delitem 8502,10; 
+            set Zeny,Zeny - 10000;
+            if(rand(0,100) < 99){
+                clear;
+                mes "Success !!";
+                specialeffect2 56;
+                emotion ET_OK;
+                setrandomoption(.@part,.@valor-1,.@optIdSelected, getelementofarray( getarg(4),.@selectIndex),.@valor-1,getcharid(0));
+                cutin "",255;
+                close;
+                
+            }
+            clear;
+            mes "Ouch... It failed!";
+            mes "Try again...";
+            emotion ET_HUK;
+            specialeffect2 772; 
+        }
+        else if( .@valor == 3 && countitem(8503) >= 10){
+            delitem 8503,10; 
+            set Zeny,Zeny - 10000;
+            if(rand(0,100) < 99){
+                clear;
+                mes "Success !!";
+                specialeffect2 54;
+                emotion ET_OK;
+                setrandomoption(.@part,.@valor-1,.@optIdSelected, getelementofarray( getarg(4),.@selectIndex),.@valor-1,getcharid(0));
+                cutin "",255;
+                close;
+                
+            }
+            clear;
+            mes "Ouch... It failed!";
+            mes "Try again...";
+            emotion ET_HUK;
+            specialeffect2 772;
+        }
+        else{
+            clear;
+            mes "Ouch... You have not enough Enchant Stones for the selected Tier.";
+            cutin "",255;
+            close;
+            
+        }
+
+        
+
+    }
+    cutin "",255;
+    close;
+    
+}
+
+function EnchantArmor {
+    .@part = getarg(0);
+    .@itemTier = getarg(1);
+    .@optionCurrId = getarg(2);
+    .@optionCurrDesc$ = getarg(6);
+    .@itemId = getarg(8);
+    .@refineLevel = getarg(9);
+
+    if(.@itemTier == 1){
+        .@itemCost$ = "[Tier 1] Armor Stone x10";
+    }
+    else if(.@itemTier == 2){
+        .@itemCost$ = "[Tier 2] Armor Stone x10";
+    }
+    else if(.@itemTier == 3){
+        .@itemCost$ = "[Tier 3] Armor Stone x10";
+    }
+    clear;
+    mes "Enchanting items has 70% ";
+    mes "chance of sucess.";
+    mes "You will not lose your item or";
+    mes "enchantments if it fails.";
+    mes "This service will cost you:";
+    mes "- "+.@itemCost$;
+    mes "- 10.000 zeny";
+
+    if( select("Enchant it!:Nevermind...") != 1)
+    {
+        clear;
+        mes "Ok then...";
+        cutin "",255;
+        close;
+    }
+
+    if(.@optionCurrId)
+    {       
+        .@optionIndex = -1;
+        for(.@i = 0; .@i < getarraysize(getarg(3)); .@i++){
+            if(getelementofarray( getarg(3),.@i) == .@optionCurrId)
+            {
+                .@optionIndex = .@i;
+                break;
+            }
+        }
+        
+        .@optionCurrValue = getequiprandomoption(.@part,0,ROA_VALUE,getcharid(0));
+
+        if(.@optionCurrValue >= getelementofarray( getarg(5),.@optionIndex))
+        {
+            clear;
+            mes "Sorry the enchantment reached the maximum value for this item";
+            cutin "",255;
+            close;
+            
+
+        }
+        .@new_value = .@optionCurrValue + getelementofarray( getarg(4),.@optionIndex);
+
+
+        if( Zeny < 10000 ){
+            clear;
+            mes "Ouch... You have not enough Zeny to pay for my services.";
+            cutin "",255;
+            close;
+            
+        }
+        if(!CheckItemEquipped(.@part, .@itemId, .@refineLevel))
+        {
+            cutin "",255;
+            close;
+           
+        }
+
+        if( .@itemTier == 1 && countitem(8504) >= 10){
+            delitem 8504,10; 
+            set Zeny,Zeny - 10000;
+            if(rand(0,100) < 99){
+                clear;
+                mes "Success !!";
+                specialeffect2 55;
+                emotion ET_OK;
+                setrandomoption(.@part,0,.@optionCurrId,.@new_value,0,getcharid(0));
+                cutin "",255;
+                close;
+                
+            }
+            clear;
+            mes "Ouch... It failed!";
+            mes "Try again...";
+            emotion ET_HUK;
+            specialeffect2 772; 
+        }
+        else if( .@itemTier == 2 && countitem(8505) >= 10){
+            delitem 8505,10; 
+            set Zeny,Zeny - 10000;
+            if(rand(0,100) < 99){
+                clear;
+                mes "Success !!";
+                specialeffect2 56;
+                emotion ET_OK;
+                setrandomoption(.@part,0,.@optionCurrId,.@new_value,0,getcharid(0));
+                cutin "",255;
+                close;
+                
+            }
+            clear;
+            mes "Ouch... It failed!";
+            mes "Try again...";
+            emotion ET_HUK;
+            specialeffect2 772; 
+        }
+        else if( .@itemTier == 3 && countitem(8506) >= 10){
+            delitem 8506,10; 
+            set Zeny,Zeny - 10000;
+            if(rand(0,100) < 99){
+                clear;
+                mes "Success !!";
+                specialeffect2 54;
+                emotion ET_OK;
+                setrandomoption(.@part,0,.@optionCurrId,.@new_value,0,getcharid(0));
+                cutin "",255;
+                close;
+                
+            }
+            clear;
+            mes "Ouch... It failed!";
+            mes "Try again...";
+            emotion ET_HUK;
+            specialeffect2 772; 
+        }
+        else{
+            clear;
+            mes "Ouch... You have not enough Enchant Stones for the selected Tier.";
+            cutin "",255;
+            close;
+        }
+
+        cutin "",255;
+        close;
+       
+    
+    }
+    else
+    {
+        
+
+        for(.@i = 0; .@i < getarraysize(getarg(3)); .@i++){
+            .@menuEnchantValue$ += getelementofarray( getarg(7),.@i)+":";
+        }
+        .@selectIndex = select(.@menuEnchantValue$) - 1;
+        .@optIdSelected = getelementofarray( getarg(3),.@selectIndex);
+
+        if( Zeny < 10000 ){
+            next;
+            mes "Ouch... You have not enough Zeny to pay for my services.";
+            cutin "",255;
+            close;
+            
+        }
+        if(!CheckItemEquipped(.@part, .@itemId, .@refineLevel))
+        {
+            cutin "",255;
+            close;
+            
+        }
+
+        if( .@itemTier == 1 && countitem(8504) >= 10){
+            delitem 8504,10; 
+            set Zeny,Zeny - 10000;
+            if(rand(0,100) < 99){
+                clear;
+                mes "Success !!";
+                specialeffect2 55;
+                emotion ET_OK;
+                setrandomoption(.@part,0,.@optIdSelected, getelementofarray( getarg(4),.@selectIndex),0,getcharid(0));
+                cutin "",255;
+                close;
+                
+            }
+            clear;
+            mes "Ouch... It failed!";
+            mes "Try again...";
+            emotion ET_HUK;
+            specialeffect2 772; 
+        }
+        else if( .@itemTier == 2 && countitem(8505) >= 10){
+            delitem 8505,10; 
+            set Zeny,Zeny - 10000;
+            if(rand(0,100) < 99){
+                clear;
+                mes "Success !!";
+                specialeffect2 56;
+                emotion ET_OK;
+                setrandomoption(.@part,0,.@optIdSelected, getelementofarray( getarg(4),.@selectIndex),0,getcharid(0));
+                cutin "",255;
+                close;
+                
+            }
+            clear;
+            mes "Ouch... It failed!";
+            mes "Try again...";
+            emotion ET_HUK;
+            specialeffect2 772; 
+        }
+        else if( .@itemTier == 3 && countitem(8506) >= 10){
+            delitem 8506,10; 
+            set Zeny,Zeny - 10000;
+            if(rand(0,100) < 99){
+                clear;
+                mes "Success !!";
+                specialeffect2 54;
+                emotion ET_OK;
+                setrandomoption(.@part,0,.@optIdSelected, getelementofarray( getarg(4),.@selectIndex),0,getcharid(0));
+                cutin "",255;
+                close;
+                
+            }
+            clear;
+            mes "Ouch... It failed!";
+            mes "Try again...";
+            emotion ET_HUK;
+            specialeffect2 772;
+        }
+        else{
+            clear;
+            mes "Ouch... You have not enough Enchant Stones for the selected Tier.";
+            cutin "",255;
+            close;
+        }
+        
+       
+
+    }
+    cutin "",255;
+    close;
+    
+    
+}
+
+
+M1: 
+
+   
+    mes "Enchantments are separed 2 Groups: Weapons and Armors.";
+    mes "Each group has it's own options and Tiers. Higher Tier enchantments, number of enchantments and better options values are based on item refine and weapon level.";
+    .@choiceEnchantReset = select("Enchant Item:Reset item enchantment");
+    mes .@choiceEnchantReset == 1 ? "Which item would you like to Enchant?": "Which item would you like to Reset?";
+
+    setarray .@eq[1], EQI_ARMOR,EQI_HAND_L,EQI_HAND_R,EQI_GARMENT,EQI_SHOES,EQI_ACC_L,EQI_ACC_R;
+	for(set .@i,1; .@i<getarraysize(.@eq); set .@i,.@i+1){
+		if(getequipisequiped(.@eq[.@i])){
+			set .@menu$,.@menu$+F_getpositionname(.@eq[.@i])+" ~ [ " + getequipname(.@eq[.@i]) + " ]";
+			set .@equipped,1;
+		} 
+        set .@menu$,.@menu$+":";
+	} 
+    
+    .@part = .@eq[select(.@menu$)];
+    .@itemId = getequipid(.@part);
+    .@refineLevel = getequiprefinerycnt(.@part);
+    .@itemtype = getiteminfo( .@itemId, ITEMINFO_TYPE );
+
+
+    if(.@choiceEnchantReset == 2){
+        clear;
+        mes "Are you sure you want to RESET ALL ENCHANTMENTS in this item?";
+        if(select("Yes:No") == 1)
+        {
+            resetrandomoption(.@part,getcharid(0));
+        }
+        cutin "",255;
+        close;
+        
+    }
+    else if(.@choiceEnchantReset != 1)
+        close;
+
+    if(getequipcardid(.@part,0) == 255)
+    {
+        clear;
+        mes "I can't work on items produced by a Blacksmith.";
+        close;
+    }
+    if(.@refineLevel < 5)
+    {
+        clear;
+        mes "Hmm... The item must be at least refined to +5 to receive an enchantment!";
+        close;
+    }
+    if(.@refineLevel < 7)
+    {
+        .@itemTier = 1;
+    }
+    else if(.@refineLevel < 9)
+    {
+        .@itemTier = 2;
+    }
+    else if(.@refineLevel >= 9)
+    {
+        .@itemTier = 3;
+    }
+
+   
+   
+    
+    switch(.@part)
+    {
+        case EQI_HAND_L:
+        case EQI_HAND_R:
+            if( .@itemtype == IT_WEAPON ){
+                .@equip_lv = getequipweaponlv( .@part );
+                
+                cutin "Weapon",4;
+
+                .@charId = getcharid(0);
+                .@option2 = getequiprandomoption(.@part,2,ROA_ID,.@charId);
+                getequiprandomoption(.@part,2,ROA_DESCRIPTION,.@charId);
+                .@option2Desc$ = .@opt_descr$;
+                .@option2Value = getequiprandomoption(.@part,2,ROA_VALUE,.@charId);
+                
+                .@option1 = getequiprandomoption(.@part,1,ROA_ID,.@charId);
+                getequiprandomoption(.@part,1,ROA_DESCRIPTION,.@charId);
+                .@option1Desc$ = .@opt_descr$;
+                .@option1Value= getequiprandomoption(.@part,1,ROA_VALUE,.@charId);
+
+                .@option0 = getequiprandomoption(.@part,0,ROA_ID,.@charId);
+                getequiprandomoption(.@part,0,ROA_DESCRIPTION,.@charId);
+                .@option0Desc$ = .@opt_descr$;
+                .@option0Value=  getequiprandomoption(.@part,0,ROA_VALUE,.@charId);
+
+
+                if(.@itemTier >= 1)
+                    .@menuEnchants$ += "Tier 1 - [Rank "+.@option0Value+"] "+(.@option0 ? .@option0Desc$:"")+":";
+                if(.@itemTier >= 2 && .@option0)
+                    .@menuEnchants$ += "Tier 2 - [Rank "+.@option1Value+"] "+(.@option1 ? .@option1Desc$:"")+":";
+                if(.@itemTier >= 3 && .@option1)
+                    .@menuEnchants$ += "Tier 3 - [Rank "+.@option2Value+"] "+(.@option2 ? .@option2Desc$:"")+":";
+                
+                .@valor = select(.@menuEnchants$);
+        
+                if(.@valor == 1)
+                { 
+                    if(.@equip_lv == 1)
+                        getoptiongroup(197);
+                    else if(.@equip_lv == 2)
+                        getoptiongroup(200);
+                    else if(.@equip_lv == 3)
+                        getoptiongroup(203);
+                    else if(.@equip_lv == 4)
+                        getoptiongroup(206);
+                    .@optionCurrId = .@option0;
+                    .@optionCurrDesc$ = .@option0Desc$;  
+                    
+                }
+                else if(.@valor == 2)
+                {
+                    if(.@equip_lv == 1)
+                        getoptiongroup(198);
+                    else if(.@equip_lv == 2)
+                        getoptiongroup(201);
+                    else if(.@equip_lv == 3)
+                        getoptiongroup(204);
+                    else if(.@equip_lv == 4)
+                        getoptiongroup(207);
+                    .@optionCurrId = .@option1;
+                    .@optionCurrDesc$ = .@option1Desc$;
+
+                }
+                else if(.@valor == 3)
+                {
+                    if(.@equip_lv == 1)
+                        getoptiongroup(199);
+                    else if(.@equip_lv == 2)
+                        getoptiongroup(202);
+                    else if(.@equip_lv == 3)
+                        getoptiongroup(205);
+                    else if(.@equip_lv == 4)
+                        getoptiongroup(208);
+
+                    .@optionCurrId = .@option2;
+                    .@optionCurrDesc$ = .@option2Desc$;
+    
+                }
+                EnchantWeap(.@part, .@valor,  .@optionCurrId, .@opt_id, .@opt_minValue, .@opt_maxValue, .@optionCurrDesc$, .@opt_descr$, .@itemId, .@refineLevel);
+
+                cutin "",255;
+                close;
+
+                break;
+            }
+            else{
+                .@option0 = getequiprandomoption(.@part,0,ROA_ID,getcharid(0));
+                .@option0Desc$ = getequiprandomoption(.@part,0,ROA_DESCRIPTION,getcharid(0));
+                .@option0Value=  getequiprandomoption(.@part,0,ROA_VALUE,getcharid(0));
+                .@menuEnchants$ += "Shield Enchantment - [Rank "+.@option0Value+"] "+(.@option0 ? .@option0Desc$ : "")+"";
+                cutin "Armor",4;
+                .@valor = select(.@menuEnchants$);
+
+                if(.@valor == 1)
+                { 
+                    if(.@itemTier == 3)
+                        getoptiongroup(214);
+                    else if(.@itemTier == 2)
+                        getoptiongroup(213);
+                    else if(.@itemTier == 1)
+                        getoptiongroup(212);
+                }
+
+                .@optionCurrId = .@option0;
+                .@optionCurrDesc$ = .@option0Desc$;  
+                EnchantArmor(.@part, .@itemTier,  .@optionCurrId, .@opt_id, .@opt_minValue, .@opt_maxValue, .@optionCurrDesc$, .@opt_descr$, .@itemId, .@refineLevel);
+                cutin "",255;
+                close;
+                
+            }
+        case EQI_ARMOR:{
+            .@option0 = getequiprandomoption(.@part,0,ROA_ID,getcharid(0));
+            .@option0Desc$ = getequiprandomoption(.@part,0,ROA_DESCRIPTION,getcharid(0));
+            .@option0Value=  getequiprandomoption(.@part,0,ROA_VALUE,getcharid(0));
+            .@menuEnchants$ += "Armor Enchantment - [Rank "+.@option0Value+"] "+(.@option0 ? .@option0Desc$ : "")+"";
+            cutin "Armor",4;
+            .@valor = select(.@menuEnchants$);
+
+            if(.@valor == 1)
+            { 
+                if(.@itemTier == 3)
+                    getoptiongroup(211);
+                else if(.@itemTier == 2)
+                    getoptiongroup(210);
+                else if(.@itemTier == 1)
+                    getoptiongroup(209);
+            }
+
+            .@optionCurrId = .@option0;
+            .@optionCurrDesc$ = .@option0Desc$;  
+            EnchantArmor(.@part, .@itemTier,  .@optionCurrId, .@opt_id, .@opt_minValue, .@opt_maxValue, .@optionCurrDesc$, .@opt_descr$, .@itemId, .@refineLevel);
+            cutin "",255;
+            close;
+            break;
+        }    
+        case EQI_GARMENT:
+        {
+            .@option0 = getequiprandomoption(.@part,0,ROA_ID,getcharid(0));
+            .@option0Desc$ = getequiprandomoption(.@part,0,ROA_DESCRIPTION,getcharid(0));
+            .@option0Value=  getequiprandomoption(.@part,0,ROA_VALUE,getcharid(0));
+            .@menuEnchants$ += "Garment Enchantment - [Rank "+.@option0Value+"] "+(.@option0 ? .@option0Desc$ : "")+"";
+            cutin "Armor",4;
+            .@valor = select(.@menuEnchants$);
+
+            if(.@valor == 1)
+            { 
+                if(.@itemTier == 3)
+                    getoptiongroup(217);
+                else if(.@itemTier == 2)
+                    getoptiongroup(216);
+                else if(.@itemTier == 1)
+                    getoptiongroup(215);
+            }
+
+            .@optionCurrId = .@option0;
+            .@optionCurrDesc$ = .@option0Desc$;  
+            EnchantArmor(.@part, .@itemTier,  .@optionCurrId, .@opt_id, .@opt_minValue, .@opt_maxValue, .@optionCurrDesc$, .@opt_descr$, .@itemId, .@refineLevel);
+            cutin "",255;
+            close;
+            
+            break;
+        } 
+        case EQI_SHOES:
+        {
+            .@option0 = getequiprandomoption(.@part,0,ROA_ID,getcharid(0));
+            .@option0Desc$ = getequiprandomoption(.@part,0,ROA_DESCRIPTION,getcharid(0));
+            .@option0Value=  getequiprandomoption(.@part,0,ROA_VALUE,getcharid(0));
+            .@menuEnchants$ += "Shoes Enchantment - [Rank "+.@option0Value+"] "+(.@option0 ? .@option0Desc$ : "")+"";
+            cutin "Armor",4;
+            .@valor = select(.@menuEnchants$);
+
+            if(.@valor == 1)
+            { 
+                if(.@itemTier == 3)
+                    getoptiongroup(220);
+                else if(.@itemTier == 2)
+                    getoptiongroup(219);
+                else if(.@itemTier == 1)
+                    getoptiongroup(218);
+            }
+
+            .@optionCurrId = .@option0;
+            .@optionCurrDesc$ = .@option0Desc$;  
+            EnchantArmor(.@part, .@itemTier,  .@optionCurrId, .@opt_id, .@opt_minValue, .@opt_maxValue, .@optionCurrDesc$, .@opt_descr$, .@itemId, .@refineLevel);
+            cutin "",255;
+            close;
+            
+            break;
+        } 
+        case EQI_ACC_L:
+            mes "[Tier S]";
+            break;
+        case EQI_ACC_R:
+            mes "[Tier S]";
+            break;
+        
+    }
+end;
+
+    
+M2:
+    mes "^FF7F00[Enchanter]^000000";
+    mes "Enchantments are separed in 3 groups: Weapons, Armors and Acessories.";
+    next();
+    mes "^FF7F00[Enchanter]^000000";
+    mes "Each group has it's own set of options and Tiers. Higher Tier enchantments, number of enchantments and better options values are based on item refine and weapon level.";
+    cutin "",255;
+    close;
+
+
+
+	end;
+
+OnInit: 
+    delwaitingroom;
+    waitingroom "Enchantment",0;
+end;
+}

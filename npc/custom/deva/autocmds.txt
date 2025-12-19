@@ -1,0 +1,41 @@
+-	script	auto_cmds	-1,{
+
+
+OnShowRotd:
+    set SHOW_ROTD, !SHOW_ROTD;
+    dispbottom "[ROTD] Message will "+(SHOW_ROTD? "be displayed" : "not be displayed");
+end;
+
+
+OnEden:
+    warp "moc_para01",42,31;
+end;
+
+
+OnInit:
+bindatcmd "showrotd", strnpcinfo(0)+"::OnShowRotd";
+bindatcmd "eden", strnpcinfo(0)+"::OnEden";
+end;
+
+
+
+
+OnPCLoginEvent:
+    atcommand "@arealoot";
+
+    if(getskilllv("ALL_BUYING_STORE") == 0){
+        skill "ALL_BUYING_STORE",1,SKILL_PERM_GRANT;
+        dispbottom "You have learned the Buying Store! Look for the Catalog Vendor in Prontera!";
+    }
+    
+    if(#BETA_BONUS == 1)
+    {
+        set #BETA_BONUS, 0;
+        getitem 19657,1;
+        getitem 17461,1;
+    }
+
+
+    
+end;
+}

@@ -1,0 +1,89 @@
+
+in_rogue,266,138,6	script	Master Plagiarist	747,{
+	.@npcid = getnpcid(0);
+	.@charId = getcharid(3);
+	setunitdata .@npcid,UNPC_DEX,100;
+	setunitdata .@npcid,UNPC_INT,500;
+
+	if(QUEST_PRESERVE < 1)
+	{
+		// mes "[Master Plagiarist]";
+		// mes "Are you mocking me?";
+		// mes "... Fire bolt !!";
+		// unitskilluseid $@mobid[0],"MG_FIREBOLT",10,.@charId;
+		// sleep2 1000;
+		// next;
+		// mes "[Master Plagiarist]";
+		// mes "Oh... trying to hide?";
+		// mes "... Sight !!";
+		// unitskilluseid $@mobid[0],"MG_SIGHT",1,.@npcid;
+		// sleep2 1000;
+		// clear;
+		// mes "[Master Plagiarist]";
+		// mes "... Cold Bolt !!";
+		// unitskilluseid $@mobid[0],"MG_COLDBOLT",10,.@charId;
+		// sleep2 1000;
+		// killmonster "in_rogue","#killed";
+		// next;
+		// clear;
+		// mes "[Master Plagiarist]";
+		// mes "... Well... It seems you the plagiarist worst enemy... Taking hit from other spells!";
+		// mes "...";
+		mes "[Master Plagiarist]";
+		mes "Talk to me again, I have something to tell you...";
+		QUEST_PRESERVE = 1;
+		next;
+	}
+	else if(QUEST_PRESERVE == 1)
+	{
+		clear;
+		mes "[Master Plagiarist]";
+		mes "I may teach you an easy way to preserve your plagiarized spells...";
+		mes "It's the Master Rogue ability, called Preserve";
+		next;
+		mes "[Master Plagiarist]";
+		mes "But it's not that easy like evading spells, you must show your focus...";
+		mes "Bring me a [Id:2296] Blinkers item. I suppose you know where to get one right?";
+		next;
+		QUEST_PRESERVE = 2;
+		close;
+	}
+	else if(QUEST_PRESERVE == 2){
+		clear;
+		if(countitem(2295) == 0){
+			mes "[Master Plagiarist]";
+			mes "Bring me a [Id:2295] Blinkers item. I suppose you know where to get one right?";
+			close;
+		}
+		else if(countitem(2295)>0)
+			{
+				clear;
+				mes "[Master Plagiarist]";
+				mes "Great! To be able to preserve your spells... You need to...";
+				next;
+				mes "[Master Plagiarist]";
+				mes "Just don't take damage from other spells!";
+				mes "I hope my tip was useful, bye!";
+				delitem 2295,1;
+				skill "ST_PRESERVE",1,SKILL_PERM;
+
+				QUEST_PRESERVE = 3;
+				close;
+			}
+	}
+	else if(QUEST_PRESERVE ==3)
+	{
+		mes "[Master Plagiarist]";
+		mes "??? Go away!";
+		if(getskilllv("ST_PRESERVE") == 0){
+			skill "ST_PRESERVE",1,SKILL_PERM;
+		}
+	}
+	else{
+		clear;
+		mes "[Master Plagiarist]";
+		mes "??? Go away!";
+	}
+	close;
+end;
+}

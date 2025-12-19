@@ -240,6 +240,7 @@ Body:
               
           - Level: 8
             Bonus: 2000
+            RandomBonus: 300
             BlacksmithBlessingAmount: 1
             Chances:
               - Type: Normal
@@ -259,6 +260,7 @@ Body:
                 BreakingRate: 10000
           - Level: 9
             Bonus: 2600
+            RandomBonus: 600
             BlacksmithBlessingAmount: 2
             Chances:
               - Type: Normal
@@ -342,6 +344,7 @@ Body:
                 Material: Emveretarcon
           - Level: 7
             Bonus: 2700
+            RandomBonus: 500
             Chances:
               - Type: Normal
                 Rate: 6000
@@ -360,6 +363,7 @@ Body:
                 BreakingRate: 10000
           - Level: 8
             Bonus: 3600
+            RandomBonus: 1000
             BlacksmithBlessingAmount: 1
             Chances:
               - Type: Normal
@@ -379,6 +383,7 @@ Body:
                 BreakingRate: 10000
           - Level: 9
             Bonus: 4500
+            RandomBonus: 1500
             BlacksmithBlessingAmount: 2
             Chances:
               - Type: Normal
@@ -398,6 +403,7 @@ Body:
                 BreakingRate: 10000
           - Level: 10
             Bonus: 5400
+            RandomBonus: 2000
             BlacksmithBlessingAmount: 4
             Chances:
               - Type: Normal
@@ -458,6 +464,7 @@ Body:
                 Material: Oridecon
           - Level: 6
             Bonus: 4000
+            RandomBonus: 1600
             Chances:
               - Type: Normal
                 Rate: 6000
@@ -476,6 +483,7 @@ Body:
                 BreakingRate: 10000
           - Level: 7
             Bonus: 5500
+            RandomBonus: 1600
             Chances:
               - Type: Normal
                 Rate: 5000
@@ -494,6 +502,7 @@ Body:
                 BreakingRate: 10000
           - Level: 8
             Bonus: 7000
+            RandomBonus: 2400
             BlacksmithBlessingAmount: 1
             Chances:
               - Type: Normal
@@ -513,6 +522,7 @@ Body:
                 BreakingRate: 10000
           - Level: 9
             Bonus: 8500
+            RandomBonus: 3200
             BlacksmithBlessingAmount: 2
             Chances:
               - Type: Normal
@@ -532,6 +542,7 @@ Body:
                 BreakingRate: 10000
           - Level: 10
             Bonus: 10000
+            RandomBonus: 4000
             BlacksmithBlessingAmount: 4
             Chances:
               - Type: Normal
@@ -586,6 +597,7 @@ Body:
 
           - Level: 5
             Bonus: 4900
+            RandomBonus: 1300
             Chances:
               - Type: Normal
                 Rate: 6000
@@ -604,6 +616,7 @@ Body:
                 BreakingRate: 10000
           - Level: 6
             Bonus: 7000
+            RandomBonus: 3900
             Chances:
               - Type: Normal
                 Rate: 4000
@@ -622,6 +635,7 @@ Body:
                 BreakingRate: 10000
           - Level: 7
             Bonus: 9100
+            RandomBonus: 3900
             Chances:
               - Type: Normal
                 Rate: 4000
@@ -640,6 +654,7 @@ Body:
                 BreakingRate: 10000
           - Level: 8
             Bonus: 11200
+            RandomBonus: 5200
             BlacksmithBlessingAmount: 1
             Chances:
               - Type: Normal
@@ -659,6 +674,7 @@ Body:
                 BreakingRate: 10000
           - Level: 9
             Bonus: 13300
+            RandomBonus: 6500
             BlacksmithBlessingAmount: 2
             Chances:
               - Type: Normal
@@ -678,6 +694,7 @@ Body:
                 BreakingRate: 10000
           - Level: 10
             Bonus: 15400
+            RandomBonus: 7800
             BlacksmithBlessingAmount: 4
             Chances:
               - Type: Normal

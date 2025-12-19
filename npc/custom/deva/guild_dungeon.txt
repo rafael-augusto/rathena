@@ -1,0 +1,297 @@
+
+prontera,141,227,5	script	Guild Dungeon Soldier	419,{
+    goto L_Intro;
+end;
+
+
+OnPCLoginEvent:
+    if(.active == 2)
+    {
+        dispbottom "["+.gdname$[.i]+" Guild Dungeon]: Is active! Use @gd to join!";
+    }
+end;
+
+L_Intro:
+    if(!.active)
+    {
+        mes "[Guild Dungeon Soldier]";
+        mes "There's no Guild Dungeon invasion ocurring at the moment."; 
+        mes "Come back again at:";
+        mes "03:00, 09:00, 15:00, 21:00 (GMT - Server Time @time)";
+        close;
+    }
+    if(.active==1)
+    {
+        .@arrSize = getarraysize( .register_char );
+        for(set .@i,0; .@i < .@arrSize ; set .@i,.@i + 1 )
+        {
+            if(.register_char[.@i] == getcharid(0)){
+                clear;
+                mes "[Guild Dungeon Soldier]";
+                mes "You are already registered!";
+                close; 
+            }
+        }
+        mes "[Guild Dungeon Soldier]";
+        mes "Our soldiers report that enemies are"; 
+        mes "invading "+.gdname$[.i]+" Guild Dungeon.";
+        next;
+    
+        mes "[Guild Dungeon Soldier]";
+        mes "The entrance fee is ^FF0000FREE DURING TESTSz^000000, and you may join again for FREE while this invasion lasts.";
+        mes "Also, entrace is free for Guild members that own a castle on the respective feud.";
+        next;
+
+        mes "[Guild Dungeon Soldier]";
+        mes "Guild Dungeons are always ^FF0000GvG active^000000 which means you'll earn ^0000FF100% more EXP from monsters^000000, but...";
+        mes "^FF0000Monsters are not your only enemy there!^000000";
+    }
+    else if(.active==2)
+    {
+        .@charId = getcharid(0);
+        .@arrSize = getarraysize( .register_char );
+        for(set .@i,0; .@i < .@arrSize ; set .@i,.@i + 1 )
+        {
+            if(.register_char[ .@i ] == .@charId){
+                if(is_party_leader())
+                {
+                    clear;
+                    mes "[Guild Dungeon Soldier]";
+                    mes "You're the party leader, you will spawn on a random location!";
+                    if(select("Im ready!:Im out...") == 1)
+                    {
+                        goto L_EnterRandom;
+                    }
+                    end;
+                }
+
+                mes "[Guild Dungeon Soldier]";
+                mes "What are you gonna do?";
+                switch(select("~Spawn on Leader:~Random spawn:~Leave..."))
+                {
+                    case 1:
+                        goto L_EnterOnLeader;
+                        break;
+                    case 2: 
+                        goto L_EnterRandom; 
+                        break;
+                    default:
+                        close;
+                        break;
+                }
+                close;
+                
+            }
+        }
+    }
+    switch(select("~Register:~Challenges? I'm out...")){
+        case 1:
+            goto L_Register;
+            break;
+        default:
+            break;
+
+
+    };
+    close2;
+end;
+
+Onatcmd:
+	if ( compare( .@atcmd_parameters$, "on" ) || compare( .@atcmd_parameters$, "start" ) ) {
+		if ( .active )
+			dispbottom "Guild Dungeon already started.";
+		else
+			goto L_Start;
+	}
+	else if ( compare( .@atcmd_parameters$, "off" ) || compare( .@atcmd_parameters$, "end" ) ) {
+		if ( !.active )
+			dispbottom "Guild Dungeon not yet start.";
+		else
+			goto L_End;
+	}
+end;
+
+L_Start:
+OnClock0255: 
+OnClock0455: 
+OnClock0855:
+OnClock1255:
+OnClock1455:
+OnClock1655:
+OnClock2055:  
+OnClock2255:  
+OnClock0055:  
+    if(.i == 6)
+        .i = 1;
+    else
+        .i = .i + 1;
+    set .active, 1;
+    announce "["+.gdname$[.i]+" Guild Dungeon]: Registration is Open!",bc_all;
+	sleep 60000;
+	announce "["+.gdname$[.i]+" Guild Dungeon]: Invasion begins in 4 minutes...", bc_all;
+	sleep 60000;
+	announce "["+.gdname$[.i]+" Guild Dungeon]: Invasion begins in 3 minutes...", bc_all;
+	sleep 60000;
+	announce "["+.gdname$[.i]+" Guild Dungeon]: Invasion begins in 2 minutes...", bc_all;
+	sleep 60000;
+	announce "["+.gdname$[.i]+" Guild Dungeon]: Invasion begins in 1 minute...", bc_all;
+    sleep 60000;
+    announce "["+.gdname$[.i]+" Guild Dungeon]: Invade!!", bc_all;
+    initnpctimer;
+    set .active, 2;
+    end;
+
+
+OnTimer900000: 
+    mapannounce .dgmaps$[.i], "[Guild Dungeon]: 45 minutes remaining...",bc_all;
+    end;
+
+OnTimer1800000: 
+    mapannounce .dgmaps$[.i], "[Guild Dungeon]: 30 minutes remaining...",bc_all;
+    end;
+
+OnTimer2700000: 
+    mapannounce .dgmaps$[.i], "[Guild Dungeon]: 15 minutes remaining...",bc_all;
+    end;
+
+OnTimer3300000: 
+    mapannounce .dgmaps$[.i], "[Guild Dungeon]: 5 minutes remaining...",bc_all;
+    end;
+
+OnTimer3540000: 
+    mapannounce .dgmaps$[.i], "[Guild Dungeon]: 1 minute remaining...",bc_all;
+    end;
+
+L_EnterOnLeader:
+    .@partyLeader = getpartyleader(getcharid(1),1);
+    getmapxy(.@map$,.@x,.@y,BL_PC,rid2name(.@partyLeader));
+    if(.@map$ != (.dgmaps$[.i]))
+    {
+        clear;
+        mes "[Guild Dungeon]";
+        mes "Well... Your party leader is not in the Guild Dungeon...";
+        mes "Do you wanna to spawn on a random position anyways?";
+        if(select("Yes!:No!") == 1)
+        {
+            warp .dgmaps$[.i],0,0;
+            end;
+        }
+        else
+            close;
+    }
+    else
+        warp .@map$,.@x,.@y;
+end;
+
+L_EnterRandom:
+    warp .dgmaps$[.i],0,0;
+end;
+
+L_Register:
+    .@playerPartyId = getcharid(1);
+    if (!instance_check_party(.@playerPartyId,1)) {
+        clear;
+        mes "[Guild Dungeon]";
+        mes "Make or join a party with more than 1 member and try again.";
+        close;
+    }
+    //query_sql("SELECT `last_unique_id` FROM `login` WHERE `account_id` = '" + getcharid(3) + "'", .@lastUniqueId$);
+    //.@arrSize = getarraysize( .register_aid$ );
+    //for(set .@i,0; .@i < .@arrSize ; set .@i,.@i + 1 )
+    //{
+    //    if(.register_aid$[ .@i ] == .@lastUniqueId$){
+    //        clear;
+    //        mes "[Guild Dungeon]";
+    //        mes "You can only enter with 1 character!";
+    //        close;
+    //        
+    //    }
+    //}
+    //if(Zeny < 50000)
+    //{
+    //    clear;
+    //    mes "[Guild Dungeon]";
+    //    mes "No money eh? Since you're not a "+.gdname$+" feud member, there's a 50.000z tax to enter the Guild Dungeon!";
+    //    close;
+    //}
+    .@ptArrSize = getarraysize( .register_party );
+    for(.@i = 0, .@i <.@ptArrSize; .@i++ )
+    {
+        if(.register_party[.@i] != .@playerPartyId)
+            {
+                .register_party[.parties_registered] = getcharid(1);
+                .parties_registered++;
+            }
+    }
+
+    .register_aid$[ .register_num ] = .@lastUniqueId$;
+    .register_char[.register_num] = getcharid(0);
+    .register_num++;
+    //Zeny = Zeny - 50000;
+    clear;
+    mes "[Guild Dungeon]";
+    mes "You're now registered for Guild Dungeon!";
+    close2;
+
+end;
+
+L_End:
+OnTimer3600000:
+    stopnpctimer;
+    deletearray  .register_party;
+    deletearray .register_char;
+    deletearray .register_aid$;
+    .active = .register_num = .parties_registered = 0;
+    mapannounce .dgmaps$[.i], "[Guild Dungeon]: Invasion is over... I'll send you back to a safe place...",bc_all;
+    sleep 5000;
+    mapwarp .dgmaps$[.i],"prontera",156,223;
+    end;
+
+OnInit:
+    bindatcmd "gdungeon", strnpcinfo(0)+"::Onatcmd", 99,100;
+    setarray .gdname$[0], "", "Payon","Aldebaran","Prontera", "Geffen", "Rachel", "Yuno";
+    setarray .dgmaps$[0], "", "gld_dun01","gld_dun02","gld_dun03", "gld_dun04", "arug_dun01", "schg_dun01";
+    set .i, 5;
+    delwaitingroom;
+    waitingroom "Guild Dungeon (GvG)",0;
+    set .active, 0;
+    end;
+
+
+}
+
+gld_dun01	mapflag	noteleport
+gld_dun01	mapflag	noreturn
+gld_dun01	mapflag	nogo
+gld_dun02	mapflag	noteleport
+gld_dun02	mapflag	noreturn
+gld_dun02	mapflag	nogo
+gld_dun03	mapflag	noteleport
+gld_dun03	mapflag	noreturn
+gld_dun03	mapflag	nogo
+gld_dun04	mapflag	noteleport
+gld_dun04	mapflag	noreturn
+gld_dun04	mapflag	nogo
+
+gld_dun01	mapflag	restricted	4
+gld_dun02	mapflag	restricted	4
+gld_dun03	mapflag	restricted	4
+gld_dun04	mapflag	restricted	4
+
+gld_dun01	mapflag	noicewall
+gld_dun02	mapflag	noicewall
+gld_dun03	mapflag	noicewall
+gld_dun04	mapflag	noicewall
+
+
+schg_dun01	mapflag	noteleport
+schg_dun01	mapflag	noreturn
+schg_dun01	mapflag	nogo
+schg_dun01	mapflag	restricted	4
+schg_dun01	mapflag	noicewall
+
+arug_dun01	mapflag	noteleport
+arug_dun01	mapflag	noreturn
+arug_dun01	mapflag	nogo
+arug_dun01	mapflag	restricted	4
+arug_dun01	mapflag	noicewall

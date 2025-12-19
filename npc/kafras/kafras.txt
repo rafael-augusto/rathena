@@ -59,7 +59,7 @@ aldeba_in,96,181,4	script	Kafra Service	113,{
 			mes "seems that you don't";
 			mes "have the 20 zeny to pay";
 			mes "the Storage access fee...";
-			close3;
+			close;
 		}
 		mes "[Kafra Leilah]";
 		mes "Although this facility is";
@@ -166,7 +166,7 @@ morocc,156,97,4	script	Kafra Employee::kaf_morocc	113,{
 	mes "you with convenient services.";
 	mes "How may I be of assistance?";
 	callfunc "F_Kafra",5,0,0,60,930;
-	savepoint "morocc",156,46,1,1;
+	savepoint "morocc",158,90,1,1;
 	callfunc "F_KafEnd",0,1,"in the city of Morocc";
 }
 
@@ -268,6 +268,19 @@ prontera,29,207,6	script	Kafra Employee::kaf_prontera3	113,{
 	mes "How may I be of assistance?";
 	callfunc "F_Kafra",5,0,0,40,800;
 	savepoint "prontera",33,208,1,1;
+	callfunc "F_KafEnd",0,1,"in the city of Prontera";
+}
+
+prontera,152,193,6	script	Kafra Employee::kaf_pronteram	113,{
+	cutin "kafra_05",2;
+	callfunc "F_KafSet";
+	mes "[Kafra Employee]";
+	mes "The Kafra Corporation";
+	mes "is always working to provide";
+	mes "you with convenient services.";
+	mes "How may I be of assistance?";
+	callfunc "F_Kafra",5,0,0,40,800;
+	savepoint "prontera",156,191,0,0;
 	callfunc "F_KafEnd",0,1,"in the city of Prontera";
 }
 
@@ -415,9 +428,9 @@ cmd_fild07,136,134,4	script	Kafra Employee::kaf_cmd_fild07	721,{
 	mes "How may I assist you?";
 	callfunc "F_Kafra",5,0,1,40,820;
 	if (checkre(0))
-		savepoint strnpcinfo(4),129,97,1,1;
+		savepoint strnpcinfo(4),128,143,1,1;
 	else
-		savepoint "izlude",94,103,1,1;
+		savepoint "izlude",128,143,1,1;
 	callfunc "F_KafEnd",0,1,"in the city of Izlude";
 }
 
@@ -513,7 +526,7 @@ gonryun,159,122,4	script	Kafra Employee::kaf_gonryun	116,{
 	mes "always ready to serve you.";
 	mes "How can I help you today?";
 	callfunc "F_Kafra",5,3,1,50,700;
-	savepoint "gonryun",160,62,1,1;
+	savepoint "gonryun",160,116,1,1;
 	callfunc "F_KafEnd",0,1,"in the city of Kunlun";
 }
 
@@ -583,7 +596,7 @@ umbala,87,160,4	script	Kafra Employee::kaf_umbala	721,{
 	mes "service is always";
 	mes "on your side~";
 	callfunc "F_Kafra",5,0,1,80,0;
-	savepoint "umbala",126,131,1,1;
+	savepoint "umbala",95,153,1,1;
 	callfunc "F_KafEnd",0,1,"in the city of Umbala";
 }
 
@@ -686,13 +699,4 @@ alb2trea,59,69,5	script	Kafra Employee::kaf_alb2trea	117,{
 	callfunc "F_Kafra",5,2,1,50,0;
 	savepoint "alb2trea",92,64,1,1;
 	callfunc "F_KafEnd",0,1,"at Sunken Ship";
-}
-
-// Brasilis
-//============================================================
-brasilis,197,221,4	script	Kafra Employee::kaf_bra	4_F_KAFRA1,{
-	cutin "kafra_01",2;
-	callfunc "F_Kafra",0,3,0,80,700;
-	savepoint "brasilis",195,259,1,1;
-	callfunc "F_KafEnd",0,1,"in the city of Brasilis";
 }

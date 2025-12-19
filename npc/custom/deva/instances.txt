@@ -1,0 +1,142 @@
+prontera,192,163,4	script	Instances	PORTAL,{
+
+    function Go {
+        warp getarg(0),getarg(1,0),getarg(2,0);
+        end;
+    }
+    
+    mes "[DevaRO Instance Teleport System]";
+    mes "Select the instance entry mode.";
+    mes " ";
+    mes "Some instances may require quests to enable access.";
+ 
+    
+    menu	"Solo",M1,
+            "Party",M2;
+
+
+
+M1: 
+    menu    "Airship Assault (70+)",W_Airship;
+           //"Eclage Interior (100+)",W_Eclage,    
+           //"Geffen Magic Tournament (120+)",W_Geffen,
+           //"Ghost Palace (130+)",W_Ghost,
+           //"Room of Conciousness (120+)",W_Room;
+M2:
+    menu    
+            "Faceworms Nest (90+)",W_Faceworms;
+            //"Bakonawa Lake (140+)",W_Bakonawa,
+            //"Bangungot Hospital (100+)",W_Bangungot,
+            //"Buwaya Cave (130+)",W_Buwaya,
+            //"Bios Island (160+)",W_Bios,
+            //"Central Laboratory (135+)",W_Central,
+            //"Charleston Crisis (130+)",W_Charleston,
+            //"Devil Tower (150+)",W_Devil,
+            //"Endless Tower (150+)",W_Endless,
+            //"Hazy Forest (100+)",W_Hazy,
+            //"Heart Hunter War Base (150+)",W_HeartHunter,
+            //"Horror Toy Factory (170+)",W_Horror,
+            //"Infinity Space (100+)",W_Infinity,
+            //"Last Room (130+)",W_LastRoom,
+            //"Malangdo Culvert (100+)",W_Malangdo,
+            //"Morse Cave (160+)",W_Morse,
+            //"Nidhoggur's Nest (150+)",W_Nid,
+            //"Nightmarish Jitterbug (120+)",W_Jitterbug,
+            //"Octopus Cave (100+)",W_Octopus,
+            //"Old Glast Heim (150+)",W_Glast,
+            //"Orc's Memory (50+)",W_Orc,
+            //"Sarah and Fenrir (145+)",W_SarahFenrir,
+            //"Sara Memory (100+)",W_SarahMemo,
+            //"Sealed Shrine (170+)",W_Sealed,
+            //"Sky Fortress (160+)",W_SkyFortress,
+            //"Temple of Demon God (180+)", W_TempleDemonGod, 
+            //"Wolfchev's Laboratory (170+)",W_Wolfchev,
+            //"Werner's Laboratory (180+)",W_Werner;
+            
+W_Airship: 
+    clear;
+    mes "It's recommended high Neutral Element and Dragon Racial resistances for this instance";
+    mes "Do you wanna try?";
+    if(select("Yes:No") == 1)
+        Go("dali02",137,83);
+    end;
+
+W_Bakonawa: 
+	Go("ma_scene01",172,175);
+W_Bios:
+    Go("moro_cav",50,60);
+W_Charleston: 
+	Go("verus04",80,117);
+
+W_Bangungot: 
+	Go("ma_dun01",151,8);
+W_Buwaya:
+	Go("ma_fild02",316,317);
+W_Central:
+    Go("verus01",153,153);
+W_Devil:
+	Go("dali02",137,115);
+W_Eclage:
+	Go("ecl_hub01",129,12);
+W_Endless: 
+    Go("e_tower",72,112);
+W_Faceworms: 
+clear;
+mes "It's recommended:";
+mes "~ 10+ Players;";
+mes "~ High Neutral Element Resistance;";
+mes "~ Poison Resistance (or Poison Armor element);";
+mes "~ High Insect Race Resistance and Damaging Gears;";
+mes "~ High Boss Protocol Resistance and Damaging Gears;";
+mes " ";
+mes "Do you wanna try?";
+if(select("Yes:No") == 1)
+    Go("dali",85,64);
+end;
+W_Geffen: 
+	Go("dali",94,141);
+W_Ghost: 
+	Go("dali02",46,128);
+W_Hazy: 
+	Go("bif_fild01",161,334);
+W_HeartHunter:
+    Go("ein_fild04",275,340);
+W_Horror: 
+	Go("xmas",234,298);
+W_Infinity:
+    Go("cmd_fild07",54,277);
+W_LastRoom:
+    Go("verus01",123,187);
+W_Malangdo: 
+	Go("mal_in01",164,21);
+W_Morse:
+    Go("moro_cav",60,65);
+W_Jitterbug:
+    Go("moc_para01",26,93);
+W_Nid: 
+    Go("nyd_dun02",95,193);
+W_Octopus: 
+	Go("mal_dun01",152,230);
+W_Glast: 
+	Go("glast_01",204,268);
+W_Orc: 
+    Go("gef_fild10",240,198);
+W_Room:
+    Go("prt_lib_q",91,83);
+W_SarahFenrir: 
+	Go("dali02",92,141);
+W_SarahMemo: 
+	Go("dali",133,108);
+W_Sealed: 
+    Go("monk_test",306,143);
+W_SkyFortress:
+    Go("prt_q",244,80);
+W_TempleDemonGod:
+    Go("moro_cav",41,70);
+W_Wolfchev: 
+	Go("lhz_dun04",148,269);
+W_Werner:
+    Go("slabw01",238,88);
+
+end;
+}

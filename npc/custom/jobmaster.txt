@@ -16,7 +16,7 @@
 //= 2.0 Added 4th class [Lemongrass]
 //============================================================
 
-prontera,153,193,6	script	Job Master	123,{
+prontera,147,196,6	script	Job Master	123,{
 function Get_Job_Equip;
 // Checks if the Player has the required level.
 // closes if not, returns if yes
@@ -228,7 +228,7 @@ function	Job_Options	{
 				// First job change
 				Job_Options(.@job_opt,Job_Swordman,
 					Job_Mage, Job_Archer, Job_Acolyte, Job_Merchant, Job_Thief,
-					Job_Super_Novice, Job_Taekwon, Job_Gunslinger, Job_Ninja);
+					Job_Super_Novice);
 				if( .BabyNovice )
 					Job_Options(.@job_opt, Job_Baby);
 				break;
@@ -250,8 +250,7 @@ function	Job_Options	{
 					Job_Baby_Archer,Job_Baby_Acolyte, Job_Baby_Merchant,
 					Job_Baby_Thief);
 				if( .BabyExpanded )
-					Job_Options(.@job_opt, Job_Super_Baby, Job_Baby_Taekwon,
-						Job_Baby_Gunslinger, Job_Baby_Ninja);
+					Job_Options(.@job_opt, Job_Super_Baby);
 				if( .BabySummoner )
 					Job_Options(.@job_opt, Job_Baby_Summoner);
 				break;
@@ -503,20 +502,20 @@ OnInit:
 	.NPCName$ = "[Job Master]";
 	
 	// Settings
-	.FourthClass = true;				// Enable fourth classes?
-	.FourthExpanded = true;				// Enable new expanded fourth classes: Ex. Hyper Novice, Rebellion, Shinkiro/Shiranui?
-	.ThirdClass = true;					// Enable third classes?
-	.RebirthClass = true;				// Enable rebirth classes?
-	.SecondExpanded = true;				// Enable new expanded second classes: Ex. Super Novice, Kagerou/Oboro, Rebellion?
+	.FourthClass = false;				// Enable fourth classes?
+	.FourthExpanded = false;				// Enable new expanded fourth classes: Ex. Hyper Novice, Rebellion, Shinkiro/Shiranui?
+	.ThirdClass = false;					// Enable third classes?
+	.RebirthClass = false;				// Enable rebirth classes?
+	.SecondExpanded = false;				// Enable new expanded second classes: Ex. Super Novice, Kagerou/Oboro, Rebellion?
 	.BabyNovice = true;					// Enable Baby novice classes? Disable it if you like player must have parent to get job baby.
 	.BabyClass = true;					// Enable Baby classes?
 	.BabyThird = true;					// Enable Baby third classes?
 	.BabyExpanded = true;				// Enable Baby Expanded classes: Ex. Baby Ninja, Baby Taekwon, etc.
-	.BabySummoner = true;				// Enable Baby Summoner?
+	.BabySummoner = false;				// Enable Baby Summoner?
 	.LastJob = true;					// Enforce linear class changes?
 	.SkillPointCheck = true;			// Force player to use up all skill points?
-	.Platinum = true;					// Get platinum skills automatically?
-	.GetJobEquip = false;				// Get job equipment (mostly weapons) on job change?
+	.Platinum = false;					// Get platinum skills automatically?
+	.GetJobEquip = true;				// Get job equipment (mostly weapons) on job change?
 
 	// Level Requirements
 	setarray .Req_First[0],1,10; 		// Minimum base level, job level to turn into 1st class
