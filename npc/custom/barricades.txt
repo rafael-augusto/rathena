@@ -1,0 +1,40 @@
+-	script	Barricade	78,{ 
+    OnInit:
+        
+        bindatcmd "gate", strnpcinfo(0)+"::Oncommand", 99,99;
+        
+        setcell "new_1-1",67,108,67,115,cell_walkable,0; //non walkable
+        monster "new_1-1",68,113,""+getmonsterinfo(1905,0)+"",1905,1;
+        monster "new_1-1",68,112,""+getmonsterinfo(1905,0)+"",1905,1;
+        monster "new_1-1",68,111,""+getmonsterinfo(1905,0)+"",1905,1;
+        monster "new_1-1",68,110,""+getmonsterinfo(1905,0)+"",1905,1;
+        
+    end;
+    
+    Oncommand:
+        if(compare(.@atcmd_parameters$, "open" )) goto L_open;
+        else if(compare( .@atcmd_parameters$, "close")) goto L_close;
+        else{
+            dispbottom "type - '@gate open' to open the gate";
+            dispbottom "type - '@gate close' to close the gate";
+        }
+    end;
+    
+    L_close:
+        setcell "new_1-1",67,108,67,115,cell_walkable,0; //non walkable
+        monster "new_1-1",68,113,""+getmonsterinfo(1905,0)+"",1905,1;
+        monster "new_1-1",68,112,""+getmonsterinfo(1905,0)+"",1905,1;
+        monster "new_1-1",68,111,""+getmonsterinfo(1905,0)+"",1905,1;
+        monster "new_1-1",68,110,""+getmonsterinfo(1905,0)+"",1905,1;
+    end;
+    
+    L_open:
+        announce "The Gate is now OPEN. Good Luck Adventurer.", bc_all;
+        setcell "new_1-1",67,108,67,115,cell_walkable,1; // walkable
+        setcell "new_1-1",66,108,66,115,cell_walkable,1; // walkable
+        setcell "new_1-1",68,113,68,110,cell_walkable,1; //non walkable
+        atcommand "@killmonster2";
+    end;
+    
+    
+    }

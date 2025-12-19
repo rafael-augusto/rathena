@@ -1,0 +1,69 @@
+-	shop	costume_exchange	-1,501:50.
+
+
+prontera,187,210,4	script	Costume Trader	612,{
+    mes "[Costume Trader]";
+    mes "Hi! I can buy your unused Costumes for Cash Points!";
+    mes "Each Costume can be sold for ^0000FF50 Cash Points...^000000";
+    next;
+    mes "[Costume Trader]";
+    mes "Remember that I can only work on";
+    mes "Costumes earned from  ^0000FFCostume Eggs^000000";
+	callshop "costume_exchange",2;
+	npcshopattach "costume_exchange";
+	end;
+
+OnSellItem:
+    
+    .@cashSold = 0;
+	for (.@i = 0; .@i < getarraysize(@sold_nameid); .@i++) {
+		if (countitem(@sold_nameid[.@i]) < @sold_quantity[.@i] || @sold_quantity[.@i] <= 0) {
+			mes "omgh4x!";
+			close;
+		} 
+        .@currentItem = @sold_nameid[.@i];
+        
+        switch(.@currentItem)
+        {
+            case 20575:
+            case 20541:
+            case 20514:
+            case 20101:
+            case 19824:
+            case 20198:
+            case 31771:
+            case 31412:
+            case 31236:
+            case 31699:
+            case 31168:
+            case 31625:
+            case 31844:
+            case 31055:
+            case 19952:
+                delitem .@currentItem,@sold_quantity[.@i];
+                set #CASHPOINTS, #CASHPOINTS + 50;
+                .@cashSold = .@cashSold + 50;
+                break;
+            default:
+                break;
+        }
+	}
+	deletearray @sold_quantity, getarraysize(@sold_quantity);
+	deletearray @sold_nameid, getarraysize(@sold_nameid);
+    if(.@cashSold > 0){
+        mes "[Costume Trader]";
+	    mes "Nice! You've earned "+.@cashSold+" Cash points with this trade!";
+        mes "If the cash points are not shown in cash shop window, just relogin.";
+        dispbottom "You've earned "+.@cashSold+" Cash points.";
+    }
+    else
+        {
+            mes "[Costume Trader]";
+            mes "Sorry, I can only buy from you Costumes earned from Costume Eggs...";
+        }
+    close;
+
+OnInit:
+	npcshopitem "costume_exchange", 501,40,502,200;
+    end;
+}

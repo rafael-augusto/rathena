@@ -1,0 +1,45 @@
+prontera,150,188,5	script	Guard#walk_talk	105,{
+
+	if(.j < gettimetick(2))
+	{	
+		npctalk .Message$[ rand( getarraysize( .Message$ ) ) ];
+		set .j,gettimetick(2)+8;
+	}
+end;
+
+OnInit:
+setarray .Message$,"Guard: So many new things, so many options, maybe you should search the database...",
+ 				   "Guard: Which is better: Leveling by quests or by pure grind?",
+ 				   "Guard: Those Bio 5 headgears are amazing! I hope someday I will be strong enough to go there...",
+ 				   "Guard: Do you know that you can find awesome stuff on Eden's Market? You may enter there by the Eden Warehouse",
+ 				   "Guard: Clowns and Gypsies have trained a lot to handle the instruments and shoot Severe Rainstorms with them!",
+ 				   "Guard: High Wizards mastered all the elements and after years of training, they now can cast spells with little to no preparation at all!!",
+ 				   "Guard: How much HP Paladins can reach? I can't even imagine...",
+ 				   "Guard: Do you know DevaRO is based on 'Renewal' mechanics?",
+				   "Guard: DevaRO allows the players to play all the new RO content with the good, old and fair Second Classes",
+				   "Guard: Every class should have its strenghts and weakenesses.",
+				   "Guard: DevaRO is in constant evolution. If something is too overpowered: It will be nerfed.",
+				   "Guard: On DevaRO all 3rd job gears are adapted (and mosly nerfed) to be used by Second and Transclasses",
+				   "Guard: On DevaRO Level 4 weapons are way more powerfull than those bamboo stick-ish four slotted ones",
+ 				   "Guard: Even staves and rods benefit from over refining. If you want more power you have to take some risks... (or maybe by having some kind of Blacksmith Blessing :O)";
+
+set .j,0;	
+set .@i,1;		
+while( 1 ){
+	sleep 5000;
+	if(.@i == 1){
+		npcwalkto 150,188;
+		set .@i,0;
+	}
+	else
+	{
+		npcwalkto 162,188;
+		set .@i,1;
+	}
+	// npctalk .Message$[ rand( getarraysize( .Message$ ) ) ];
+}
+end;
+
+
+
+}

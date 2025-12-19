@@ -1149,4 +1149,4 @@ Body:
       bonus bMaxHPRate,5;
       bonus bHit,10;
       bonus2 bAddSize,Size_Large,30;
-      autobonus "{ bonus bAspdRate,100; }",1,7000,BF_WEAPON,"{ specialeffect2 EF_POTION_BERSERK; }";
+      autobonus "{ bonus bAspdRate,100; }",10,7000,BF_WEAPON,"{ specialeffect2 EF_POTION_BERSERK; }";

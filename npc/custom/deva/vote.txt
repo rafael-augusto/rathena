@@ -1,0 +1,13 @@
+-	script	VOTAO	-1,{
+
+
+    OnInit:
+    bindatcmd "vote",strnpcinfo(3)+"::OnAtNPCVOTE";
+    OnAtNPCVOTE:
+        mes "[Vote for Points!]";
+        mes "Hello! You can earn points by voting for DevaRO!";
+        mes "It's easy to vote, just click here: ";
+        mes "<URL>Vote for Points!<INFO>https://devaro.site/cp?module=voteforpoints</INFO></URL>";
+        close;
+        
+        }

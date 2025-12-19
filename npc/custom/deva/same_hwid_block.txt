@@ -1,0 +1,87 @@
+-	script	abcde	-1,{
+OnPCLoadMapEvent:
+
+        getmapxy(.@amap$,.@mapx,.@mapy,BL_PC);
+
+        if(.@amap$!="pvp_n_1-1" &&
+            .@amap$!="pvp_n_1-2" &&
+            .@amap$!="pvp_n_1-3" &&
+            .@amap$!="pvp_n_1-4" &&
+            .@amap$!="pvp_n_1-5" &&
+        
+            .@amap$!="pvp_n_2-1" &&
+            .@amap$!="pvp_n_2-2" &&
+            .@amap$!="pvp_n_2-3" &&
+            .@amap$!="pvp_n_2-4" &&
+            .@amap$!="pvp_n_2-5" &&
+        
+            .@amap$!="guild_vs1" &&
+            .@amap$!="guild_vs2" &&
+            .@amap$!="guild_vs3") end;  
+
+        query_sql("SELECT `last_unique_id` FROM `login` WHERE `account_id` = '" + getcharid(3) + "'", .@lastUniqueId$);
+        query_sql("SELECT account_id FROM `login` WHERE last_unique_id = '"+.@lastUniqueId$+"'", .@AccountId);
+        set .@aidtemp,getcharid(3,strcharinfo(0));
+
+        for(set .@i ,0;.@i<getarraysize(.@AccountId);set .@i,.@i+1)
+            {
+                if(attachrid(.@AccountId[.@i]))
+                {
+                    getmapxy(.@qmap$,.@qmapx,.@qmapy,BL_PC);
+                    if (.@qmap$== .@amap$) set .@j,.@j+1;
+                    }
+                detachrid;
+            }
+        attachrid .@aidtemp;
+        if(.@j > $@MaxWindows)
+        {
+                warp "SavePoint",0,0;	
+                dispbottom "Dual client is not allowed on this map!";
+        }
+end;
+
+OnInit:
+
+set $@MaxWindows,1;
+end;
+
+}
+
+//------Enable map OnPCLoadMapEvent-------------------
+pvp_n_1-1	mapflag	loadevent
+pvp_n_1-2	mapflag	loadevent
+pvp_n_1-3	mapflag	loadevent
+pvp_n_1-4	mapflag	loadevent
+pvp_n_1-5	mapflag	loadevent
+
+pvp_n_2-1	mapflag	loadevent
+pvp_n_2-2	mapflag	loadevent
+pvp_n_2-3	mapflag	loadevent
+pvp_n_2-4	mapflag	loadevent
+pvp_n_2-5	mapflag	loadevent
+
+pvp_n_3-1	mapflag	loadevent
+pvp_n_3-2	mapflag	loadevent
+pvp_n_3-3	mapflag	loadevent
+pvp_n_3-4	mapflag	loadevent
+pvp_n_3-5	mapflag	loadevent
+
+pvp_n_3-1	mapflag	loadevent
+pvp_n_3-2	mapflag	loadevent
+pvp_n_3-3	mapflag	loadevent
+pvp_n_3-4	mapflag	loadevent
+pvp_n_3-5	mapflag	loadevent
+
+guild_vs1	mapflag	loadevent
+guild_vs2	mapflag	loadevent
+guild_vs3	mapflag	loadevent
+guild_vs4	mapflag	loadevent
+guild_vs5	mapflag	loadevent
+
+guild_vs1-1	mapflag	loadevent
+guild_vs1-2	mapflag	loadevent
+guild_vs1-3	mapflag	loadevent
+
+
+guild_vs2-1	mapflag	loadevent
+guild_vs2-2	mapflag	loadevent

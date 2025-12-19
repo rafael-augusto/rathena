@@ -1,0 +1,111 @@
+new_1-1,57,114,4	script	DevaRO Captain	556,11,11,{
+    cutin "ma_tomas01",2;
+    mes "[DevaRO Captain]";
+    mes "Rawr!";
+    if(#BETA_BONUS == 1)
+    {
+        set #BETA_BONUS, 0;
+        getitem 19657,1;
+        getitem 17461,1;
+    }
+    if(#STARTING_BONUS == 0)
+    {
+        set #STARTING_BONUS, 1;
+        getitem 20512,1;
+        getitem 23901,1;
+        getitem 20307,1;
+    }
+    .@language = select("English:Portugues");
+
+    if(.@language == 1)
+    {
+        clear;
+        mes "[DevaRO Captain]";
+        mes "Rawr! Mew";
+        mes "Are you new around here?";
+        next;
+        mes "[DevaRO Captain]";
+        mes "DevaRO is a handmade server";
+        mes "that focus bringin newer, balanced ";
+        mes "and challenging contents to the";
+        mes "classic ways of RO.";
+        next;
+        mes "[DevaRO Captain]";
+        mes "It's hard to everything here";
+        mes "since we have MANY changes.";
+        next;
+        mes "[DevaRO Captain]";
+        mes "A few examples you can expect from DevaRO:";
+        mes "- Class Rebalance";
+        mes "- New Refining System";
+        mes "  Don't lose your item upon failure";
+        cutin "",255;
+        cutin "priesteq",4;
+        next;
+        mes "[DevaRO Captain]";
+        mes "- Evolutive Enchanting (Options)";
+        mes "- Instances";
+        mes "- Maps, mobs and items from Ep. 13.2";
+        mes "  Encounter with the Unknown";
+        cutin "",255;
+        cutin "armor",4;
+        next;
+        cutin "",255;
+        cutin "ma_tomas01",2;
+        mes "[DevaRO Captain]";
+        mes "And much more...";
+        mes "I strongly reccomend you to";
+        mes "check our <URL>DevaRO Discord<INFO>https://discord.gg/mDXEMN9SjY</INFO></URL>";
+        mes "and Website: <URL>https://devaro.site/<INFO>https://devaro.site/</INFO></URL>";
+        mes "for more information";
+        next;
+        mes "Enjoy!";
+    }
+    else if(.@language == 2)
+    {
+        clear;
+        mes "[DevaRO Captain]";
+        mes "Rawr! Miau";
+        mes "Você é novo por aqui?";
+        next;
+        mes "[DevaRO Captain]";
+        mes "DevaRO é um server feito a mão";
+        mes "que foca em trazer conteúdos";
+        mes "novos e desafiadores para o";
+        mes "jeito clássico de se jogar RO.";
+        next;
+        mes "[DevaRO Captain]";
+        mes "É bem difícil listar tudo aqui,";
+        mes "já que temos tantas modificações.";
+        next;
+        mes "[DevaRO Captain]";
+        mes "Algumas features que DevaRO possui:";
+        mes "- Rebalanceamento de Classes";
+        mes "- Novo sistema de Refine";
+        mes "- Não perca o item caso falhe refinando com Minérios Enriquecidos";
+        cutin "",255;
+        cutin "priesteq",4;
+        next;
+        mes "[DevaRO Captain]";
+        mes "- Encantamentos Evolutivos (Opções)";
+        mes "- Instâncias";
+        mes "- Mapas, mobs e itens do Ep. 13.2";
+        mes "Encontro com o Desconhecido";
+        cutin "",255;
+        cutin "armor",4;
+        next;
+        cutin "",255;
+        cutin "ma_tomas01",2;
+        mes "[DevaRO Captain]";
+        mes "E muito mais...";
+        mes "Eu recomendo fortemente que";
+        mes "você cheque nosso <URL>Discord DevaRO<INFO>https://discord.gg/mDXEMN9SjY</INFO></URL>";
+        mes "e Website: <URL>https://devaro.site/<INFO>https://devaro.site/</INFO></URL>";
+        mes "para mais informaçoes";
+        next;
+        mes "Divirta-se!";
+    }
+    cutin "",255;
+    close;
+
+}

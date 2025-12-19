@@ -1,0 +1,73 @@
+-	script	atcmd_example	-1,{
+    OnInit:
+        .max_slot = 5;
+        bindatcmd "killcount", strnpcinfo(3) + "::OnAtcommand";
+        end;
+        
+    OnAtcommand:
+        if (compare(.@atcmd_parameters$[0], "reset")) {
+            if (.@atcmd_parameters$[1] == "all") {
+                for (.@i = 0; .@i < .max_slot; .@i++)
+                    dispbottom .@atcmd_command$+" removed "+getmonsterinfo(#killcount_mob_id[.@i], MOB_NAME)+" from slot "+.@i+" successfully.";
+                deletearray #killcount_mob_id;
+                deletearray #killcount_amount;
+            }
+            else if (.@atcmd_parameters$[1] != "") {
+                .@index = atoi(.@atcmd_parameters$[1]);
+                if (.@index < 0 || .@index >= .max_slot) {
+                    dispbottom .@atcmd_command$+" invalid slot #"+.@index+" (min = 0, max = "+.max_slot+").";
+                    end;
+                }
+            }
+            else {
+                dispbottom .@atcmd_command$+" removed "+getmonsterinfo(#killcount_mob_id[.@index], MOB_NAME)+" from slot "+.@index+" successfully.";
+                #killcount_mob_id[.@index] = 0;
+                #killcount_amount[.@index] = 0;
+            }
+            #killcount_mob_id$ = "#";
+            for (.@i = 0; .@i < .max_slot; .@i++)
+                #killcount_mob_id$ = #killcount_mob_id$ + #killcount_mob_id[.@i] + "#";
+        }
+        else if (getmonsterinfo(atoi(.@atcmd_parameters$[0]), MOB_NAME) != "null") {
+            .@killcount_mob_id = atoi(.@atcmd_parameters$[0]);
+            if (.@atcmd_parameters$[1] != "") {
+                .@index = atoi(.@atcmd_parameters$[1]);
+                if (.@index < 0 || .@index >= .max_slot) {
+                    dispbottom .@atcmd_command$+" invalid slot #"+.@index+" (min = 0, max = "+.max_slot+").";
+                    end;
+                }
+            }
+            
+            .@temp_index = inarray(#killcount_mob_id, .@killcount_mob_id);
+            if (.@temp_index != -1) {
+                dispbottom .@atcmd_command$+" already registerd "+getmonsterinfo(#killcount_mob_id[.@temp_index], MOB_NAME)+" at slot "+.@temp_index+" with current "+F_InsertComma(#killcount_amount[.@index])+" kills.";
+                end;
+            }
+            
+            if (.@killcount_mob_id != #killcount_mob_id) {
+                #killcount_mob_id[.@index] = .@killcount_mob_id;
+                #killcount_amount[.@index] = 0;
+                dispbottom .@atcmd_command$+" registered "+getmonsterinfo(#killcount_mob_id[.@index], MOB_NAME)+" at slot "+.@temp_index+", will start counting.";
+            }
+            #killcount_mob_id$ = "#";
+            for (.@i = 0; .@i < .max_slot; .@i++)
+                #killcount_mob_id$ = #killcount_mob_id$ + #killcount_mob_id[.@i] + "#";
+        }
+        else if (compare(.@atcmd_parameters$[0], "list")) {
+            for (.@i = 0; .@i < .max_slot; .@i++)
+                dispbottom getmonsterinfo(#killcount_mob_id[.@i], MOB_NAME)+" Kill: "+F_InsertComma(#killcount_amount[.@i]);
+        }
+        else {
+            dispbottom .@atcmd_command$+" failed. Usage: "+.@atcmd_command$+" <list|reset|mob_id> {slot}";
+        }
+        end;
+        
+    OnNPCKillEvent:
+        .@killedrid = killedrid;
+        if (compare(#killcount_mob_id$, "#"+.@killedrid+"#")) {
+            .@index = inarray(#killcount_mob_id, .@killedrid);
+            #killcount_amount[.@index]++;
+            //dispbottom getmonsterinfo(.@killedrid, MOB_NAME)+" Kill: "+F_InsertComma(#killcount_amount[.@index]);
+        }
+        end;
+}

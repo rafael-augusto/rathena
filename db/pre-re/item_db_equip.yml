@@ -22072,7 +22072,6 @@ Body:
       Wizard: true
     Classes:
       Third: true
-      Third_All: true
       Third_Baby: true
     Locations:
       Both_Hand: true
@@ -22163,7 +22162,6 @@ Body:
       Sage: true
     Classes:
       Third: true
-      Third_All: true
       Third_Baby: true
     Locations:
       Both_Hand: true
@@ -22342,7 +22340,6 @@ Body:
       Sage: true
     Classes:
       Third: true
-      Third_All: true
       Third_Baby: true
     Locations:
       Both_Hand: true
@@ -23725,7 +23722,6 @@ Body:
       All: true
       Baby: true
       Third: true
-      Third_All: true
       Third_Baby: true
     Locations:
       Left_Hand: true
@@ -52569,6 +52565,7 @@ Body:
       Fourth: true
     Locations:
       Right_Hand: true
+      Left_Hand: false
     WeaponLevel: 3
     EquipLevelMin: 70
     Refineable: true

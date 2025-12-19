@@ -13,18 +13,21 @@
 //= 1.1 Switched to 'getbattleflag', credits to Saithis. [Euphy]
 //============================================================
 
-prontera,170,180,1	script	Stylist#custom_stylist	122,{
+prontera,188,198,1	script	Stylist#custom_stylist	122,{
 	setarray .@Styles[1],
 		getbattleflag("max_cloth_color"),
-		getbattleflag("max_hair_style"),
-		getbattleflag("max_hair_color");
+		(Class == Job_Summoner) ? 10 : getbattleflag("max_hair_style"),
+		(Class == Job_Summoner) ? 0 : getbattleflag("max_hair_color");
 	setarray .@Look[1],
 		LOOK_CLOTHES_COLOR,
 		LOOK_HAIR,
 		LOOK_HAIR_COLOR;
-	set .@s, select(" ~ Cloth color: ~ Hairstyle: ~ Hair color");
+	set .@s, select(" ~ Cloth color: ~ Hairstyle: ~ Hair color: ~ Random Style");
 	set .@Revert, getlook(.@Look[.@s]);
 	set .@Style,1;
+	if(.@s == 4)
+		goto l_random;
+
 	while(1) {
 		setlook .@Look[.@s], .@Style;
 		message strcharinfo(0),"This is style #"+.@Style+".";
@@ -48,4 +51,31 @@ prontera,170,180,1	script	Stylist#custom_stylist	122,{
 			break;
 		}
 	}
+
+
+l_random:
+	mes "[^008080Stylist^000000]";
+	mes "Would you like to randomize your style?";
+	menu "~ Yes!",s,"~ No!",n;
+	 
+s:
+	next;
+	setlook 1,rand(1,getbattleflag ("max_hair_style"));
+	setlook 6,rand(getbattleflag ("min_hair_color"),getbattleflag ("max_hair_color"));
+	setlook 7,rand(getbattleflag ("min_cloth_color"),getbattleflag ("max_cloth_color"));
+	getlook 1;
+	getlook 6;
+	getlook 7;
+	mes "[^008080Stylist^000000]";
+	mes "Current hair style is: ^800080"+getlook(1)+"^000000.";
+	mes "Current cloth style is: ^800080"+getlook(6)+"^000000.";
+	mes "Current cloth color is: ^800080"+getlook(7)+"^000000.";
+	mes "~";
+	mes "So, ^993366"+strcharinfo(0)+"^000000.";
+	mes "Do you like it?";
+	menu "- Nah, other please.",s,"- I like it.",n;
+	 
+n:
+	close;
+end;
 }

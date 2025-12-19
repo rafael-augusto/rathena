@@ -389,20 +389,23 @@ function	script	Func_Socket2	{
 	.@zeny_req = getarg(4);
 	setarray .@item_req[0], getarg(5), getarg(7,0);
 	setarray .@req_amount[0], getarg(6), getarg(8,0);
+	set .@isVip, vip_status(VIP_STATUS_ACTIVE);
 
 	disable_items;
 	mes "[Leablem]";
+	if(.@isVip)
+		.@zeny_req = .@zeny_req *1/2;	
 	if (.@item_req[1] != 0 && .@req_amount[1] != 0)
 	{
 		mes getitemname(.@item_id) +"... Okay, then you need to bring me";
-		mes "^FF0000"+ (.@zeny_req >= 1000 ? (.@zeny_req /1000 +",000") : .@zeny_req) +",000 zeny as service charge,";
+		mes "^FF0000"+ (.@zeny_req >= 1000 ? (.@zeny_req /1000 +",000") : .@zeny_req) +",000 "+(.@isVip? "(-50% VIP)" : "")+" zeny as service charge,";
 		mes "^FF0000"+ .@req_amount[0] +"ea "+ getitemname(.@item_req[0]) +" and "+ .@req_amount[1] +"ea "+ getitemname(.@item_req[1]) +".";
 		mes "^FF0000Of course, you need a "+ getitemname(.@item_id) +".^000000";
 	}
 	else
 	{
 		mes getitemname(.@item_id) +"? Okay, then you need to bring me";
-		mes "^FF0000"+ (.@zeny_req >= 1000 ? (.@zeny_req/1000 +",000") : .@zeny_req) +",000 zeny as service charge and "+ .@req_amount[0] +" "+ getitemname(.@item_req[0]) + (.@req_amount[0] > 1 && .@item_req[0] != 999 ? "s":"") +" as the requirement.";
+		mes "^FF0000"+ (.@zeny_req >= 1000 ? (.@zeny_req/1000 +",000") : .@zeny_req) +",000 "+(.@isVip? "(-50% VIP)" : "")+" zeny as service charge and "+ .@req_amount[0] +" "+ getitemname(.@item_req[0]) + (.@req_amount[0] > 1 && .@item_req[0] != 999 ? "s":"") +" as the requirement.";
 		mes "^FF0000Of course, don't forget to bring me a "+ getitemname(.@item_id) +".";
 		mes "^FF0000You should have all items.^000000";
 	}

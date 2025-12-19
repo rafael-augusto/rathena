@@ -3437,9 +3437,9 @@ static bool attack_ignores_def(struct Damage* wd, block_list *src, block_list *t
 	std::bitset<NK_MAX> nk = battle_skill_get_damage_properties(skill_id, wd->miscflag);
 
 #ifndef RENEWAL
-	// if (is_attack_critical(wd, src, target, skill_id, skill_lv, false))
-	// 	return true;
-	// else
+	if (is_attack_critical(wd, src, target, skill_id, skill_lv, false) && (!skill_id || skill_id == MO_TRIPLEATTACK)) 
+		return true;
+	else
 #endif
 	if (sc && sc->getSCE(SC_FUSION))
 		return true;
@@ -8067,7 +8067,7 @@ static struct Damage battle_calc_weapon_attack(block_list *src, block_list *targ
 	battle_calc_element_damage(&wd, src, target, skill_id, skill_lv);
 
 
-	if (is_attack_critical(&wd, src, target, skill_id, skill_lv, false)) {
+	if (is_attack_critical(&wd, src, target, skill_id, skill_lv, false) && skill_id && skill_id != MO_TRIPLEATTACK) {
 		if (sd) { //Check for player so we don't crash out, monsters don't have bonus crit rates [helvetica]
 			wd.damage = (int64)floor((float)((wd.damage * (1.5f))));
 			if (is_attack_left_handed(src, skill_id))

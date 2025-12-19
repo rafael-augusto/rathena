@@ -1,24 +1,42 @@
 //===== rAthena Script ======================================= 
-//= Izlude Town Pre-Renewal
+//= Izlude Town Renewal
 //===== By: ================================================== 
-//= Daegaladh
+//= Masao
 //===== Current Version: ===================================== 
-//= 1.0
+//= 1.2
 //===== Compatible With: ===================================== 
 //= rAthena Project
 //===== Description: ========================================= 
 //= [Official Conversion]
 //= Izlude town NPCs.
 //===== Additional Comments: ================================= 
-//= 1.0 First Version.
+//= 1.0 First Version. Still missing many new NPCs and their dialogues. [Masao]
+//= 1.1 Updated to match the official script. [Euphy]
+//= 1.2 Added Channel Warper and Izlude duplicates. [Euphy]
 //============================================================
 
-izlude,201,181,2	duplicate(Sailor_izlude)	Sailor#izlude	100
-izlude,55,74,2	duplicate(Bonne_izlude)	Bonne#izlude	90
-izlude,135,78,2	duplicate(Charfri_izlude)	Charfri#izlude	91
-izlude,119,121,2	duplicate(Cuskoal_izlude)	Cuskoal#izlude	124
-izlude,150,118,2	duplicate(Dega_izlude)	Dega#izlude	84
-izlude,150,143,2	duplicate(Kylick_izlude)	Kylick#izlude	97
-izlude,56,126,2	duplicate(Red_izlude)	Red#izlude	85
-izlude,58,126,2	duplicate(Cebalis_izlude)	Cebalis#izlude	98
-izlude,124,178,2	duplicate(Soldier_izlude)	Soldier#izlude	105
+// Izlude
+//============================================================
+izlude,197,205,1	duplicate(Sailor_izlude)	Sailor#izlude	4W_SAILOR
+izlude,71,92,2	duplicate(Bonne_izlude)	Bonne#izlude	4_F_01
+izlude,172,215,4	duplicate(Charfri_izlude)	Charfri#izlude	4_F_02
+izlude,174,164,4	duplicate(Cuskoal_izlude)	Cuskoal#izlude	4_F_TELEPORTER
+izlude,85,103,4	duplicate(Dega_izlude)	Dega#izlude	4_M_02
+izlude,140,186,4	duplicate(Kylick_izlude)	Kylick#izlude	4W_M_01
+izlude,57,159,2	duplicate(Red_izlude)	Red#izlude	4_M_03
+izlude,55,159,2	duplicate(Cebalis_izlude)	Cebalis#izlude	4W_M_02
+izlude,165,156,2	duplicate(Soldier_izlude)	Soldier#izlude	8W_SOLDIER
+
+prt_fild08,338,217,7	script	Resting Adventurer#iz	4_F_SITDOWN,{
+	end;
+
+OnTimer60000:
+	npctalk "Resting Adventurer : You know what? If you are sitting, HP and SP recovery is faster.";
+	end;
+
+OnTimer65000:
+	npctalk "Resting Adventurer : Sitting is possible if your basic job skill level is more than 3. Shortcut is pressing the <INSERT> key.";
+OnInit:
+	initnpctimer;
+	end;
+}

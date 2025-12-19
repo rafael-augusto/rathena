@@ -35447,7 +35447,7 @@ Body:
     ChaseRange: 12
     Size: Small
     Race: Demon
-    Element: Shadow
+    Element: Dark
     ElementLevel: 4
     WalkSpeed: 100
     AttackDelay: 676

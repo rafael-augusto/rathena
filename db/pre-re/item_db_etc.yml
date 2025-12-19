@@ -14431,6 +14431,414 @@ Body:
     Name: Auger Of Spirit
     Type: Etc
     Weight: 10
+  - Id: 6417
+    AegisName: Silvervine
+    Name: Silvervine Fruit
+    Type: Etc
+    Buy: 20
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+  - Id: 6418
+    AegisName: Agrade_Coin
+    Name: A Grade Coin
+    Type: Etc
+    Buy: 20
+  - Id: 6419
+    AegisName: Bgrade_Coin
+    Name: B Grade Coin
+    Type: Etc
+    Buy: 20
+  - Id: 6420
+    AegisName: Cgrade_Coin
+    Name: C Grade Coin
+    Type: Etc
+    Buy: 20
+  - Id: 6421
+    AegisName: Dgrade_Coin
+    Name: D Grade Coin
+    Type: Etc
+    Buy: 20
+  - Id: 6422
+    AegisName: Egrade_Coin
+    Name: E Grade Coin
+    Type: Etc
+    Buy: 20
+  - Id: 6423
+    AegisName: Anger_Seagod
+    Name: Sea God's Wrath
+    Type: Etc
+    Buy: 20
+    Flags:
+      BuyingStore: true
+  - Id: 6424
+    AegisName: Halloween_Fragment
+    Name: Spirit Piece
+    Type: Etc
+    Buy: 20
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoCart: true
+      NoStorage: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+  - Id: 6425
+    AegisName: Halloween_Certificate
+    Name: Halloween Certificate
+    Type: Etc
+    Buy: 20
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoCart: true
+      NoStorage: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+  - Id: 6426
+    AegisName: Bad_Can
+    Name: Bad Canned Food
+    Type: Etc
+    Buy: 20
+    Weight: 10
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoCart: true
+      NoStorage: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+  - Id: 6427
+    AegisName: Bad_Can_Sack
+    Name: Bad Canned Food Sack
+    Type: Etc
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoStorage: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+  - Id: 6428
+    AegisName: Bravery_Card_A
+    Name: Adventure Card A
+    Type: Etc
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoStorage: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+  - Id: 6429
+    AegisName: Bravery_Card_B
+    Name: Adventure Card B
+    Type: Etc
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoStorage: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+  - Id: 6430
+    AegisName: Picture_Piece
+    Name: Picture Fragment
+    Type: Etc
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoCart: true
+      NoStorage: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+  - Id: 6431
+    AegisName: Bucket
+    Name: Pail
+    Type: Etc
+    Weight: 100
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoCart: true
+      NoStorage: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+  - Id: 6432
+    AegisName: Full_Bucket
+    Name: Full Pail
+    Type: Etc
+    Weight: 3000
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoCart: true
+      NoStorage: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+  - Id: 6433
+    AegisName: Clean_Brush
+    Name: Cleaning Brush
+    Type: Etc
+    Weight: 300
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoCart: true
+      NoStorage: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+  - Id: 6434
+    AegisName: Fix_Kit
+    Name: Fix Kit
+    Type: Etc
+    Weight: 1000
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoCart: true
+      NoStorage: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+  - Id: 6435
+    AegisName: Fresh_Fruit
+    Name: Fresh Fruit
+    Type: Etc
+    Weight: 100
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoCart: true
+      NoStorage: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+  - Id: 6436
+    AegisName: Ptotection_Seagod
+    Name: Sea God's Call
+    Type: Etc
+    Buy: 20
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoStorage: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+  - Id: 6437
+    AegisName: Scaraba_Perfume
+    Name: Scaraba Perfume
+    Type: Etc
+  - Id: 6438
+    AegisName: Unbreakable_Weap
+    Name: Unbreakable Weapon
+    Type: Etc
+    Weight: 10
+  - Id: 6439
+    AegisName: Unbreakable_Def
+    Name: Unbreakable Armor
+    Type: Etc
+    Weight: 10
+  - Id: 6440
+    AegisName: General_Lubricant
+    Name: General Lubrication
+    Type: Etc
+    Buy: 20
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+  - Id: 6441
+    AegisName: High_RankLubricant
+    Name: Advanced Lubrication
+    Type: Etc
+    Buy: 20
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+  - Id: 6442
+    AegisName: Octopus_Hunt_Stick
+    Name: Octopus Hunting Skewer
+    Type: Etc
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoStorage: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+  - Id: 6443
+    AegisName: Sillit_Pong_Bottle
+    Name: Sillit Pong Bottle
+    Type: Etc
+    Buy: 20
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+  - Id: 6444
+    AegisName: Emperium_G
+    Name: Emperium G
+    Type: Etc
+    Buy: 2
+    Weight: 1000
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+  - Id: 6445
+    AegisName: Blue_Card_X
+    Name: Blue Card X
+    Type: Etc
+    Weight: 10
+  - Id: 6446
+    AegisName: Green_Paper
+    Name: Green Paper
+    Type: Etc
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoStorage: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+  - Id: 6447
+    AegisName: Red_Paper
+    Name: Red Paper
+    Type: Etc
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoStorage: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+  - Id: 6448
+    AegisName: White_Paper
+    Name: White Paper
+    Type: Etc
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoStorage: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+  - Id: 6449
+    AegisName: Casual_Diary
+    Name: Casual Diary
+    Type: Etc
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoStorage: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+  - Id: 6450
+    AegisName: Honest_Diary
+    Name: Honest Diary
+    Type: Etc
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoStorage: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+  - Id: 6451
+    AegisName: Unknown_Fish
+    Name: Unknown Fish
+    Type: Etc
+    Buy: 20
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoCart: true
+      NoStorage: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+  - Id: 6452
+    AegisName: Etoile_Ring
+    Name: Etoile Ring
+    Type: Etc
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoStorage: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+  - Id: 6453
+    AegisName: Undelivered_Gift
+    Name: Undelivered Gift
+    Type: Etc
+    Buy: 2
+    Weight: 10
+  - Id: 6454
+    AegisName: Santa_Bag
+    Name: Santa Bag
+    Type: Etc
+    Buy: 2
+    Weight: 10
+  - Id: 6455
+    AegisName: Tiny_Ticket
+    Name: Tiny Ticket
+    Type: Etc
+    Buy: 20
   - Id: 6456
     AegisName: Guarantee_Weapon_5Up
     Name: +5 Weapon Refine Ticket
