@@ -6075,7 +6075,7 @@ Body:
       Skill:
         Plagiarism: true
         Reproduce: true
-    AfterCastActDelay: 500
+    AfterCastActDelay: 250
     Requires:
       SpCost: 16
     Status: Stun
@@ -6779,6 +6779,7 @@ Body:
     Description: Shield Boomerang
     MaxLevel: 5
     Type: Weapon
+    Element: Weapon
     TargetType: Attack
     Range:
       - Level: 1
@@ -15419,11 +15420,10 @@ Body:
     Description: Earthquake
     MaxLevel: 10
     Type: Magic
-    TargetType: Self
+    TargetType: Ground
     DamageFlags:
       Splash: true
       SplashSplit: true
-      IgnoreDefense: true
     Flags:
       IsNpc: true
       TargetTrap: true

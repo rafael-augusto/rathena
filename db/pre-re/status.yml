@@ -291,6 +291,7 @@ Body:
     DurationLookup: SM_ENDURE
     CalcFlags:
       Mdef: true
+      Def: true
       Dspd: true
     Flags:
       NoRemoveOnDead: true
@@ -419,6 +420,7 @@ Body:
     DurationLookup: AL_ANGELUS
     CalcFlags:
       Def2: true
+      MaxHp: true
     Opt2:
       Angelus: true
     Flags:
@@ -431,6 +433,7 @@ Body:
       Str: true
       Int: true
       Dex: true
+      Hit: true
     Flags:
       BossResist: true
       TaekwonAngel: true

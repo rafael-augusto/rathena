@@ -228,10 +228,10 @@ Body:
       Baby_Assassin: true
     BaseASPD:
       Fist: 400
-      Dagger: 500
+      Dagger: 400
       1hSword: 650
       1hAxe: 800
-      Katar: 500
+      Katar: 400
   - Jobs:
       Crusader: true
       Crusader2: true

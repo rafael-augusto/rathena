@@ -3052,7 +3052,8 @@ static bool is_attack_critical(struct Damage* wd, block_list *src, block_list *t
 
 		//The official equation is *2, but that only applies when sd's do critical.
 		//Therefore, we use the old value 3 on cases when an sd gets attacked by a mob
-		cri -= tstatus->luk * ((!sd && tsd) ? 3 : 2);
+		if(!tsc || !tsc->getSCE(SC_POISON))
+			cri -= tstatus->luk * ((!sd && tsd) ? 3 : 2);
 
 		if( tsc && tsc->getSCE(SC_SLEEP) )
 			cri *= 2;
@@ -4295,7 +4296,7 @@ static void battle_calc_skill_base_damage(struct Damage* wd, block_list *src,blo
 
 				//Base damage of shield skills is [batk + 4*refine + weight]
 				if (index >= 0 && sd->inventory_data[index] && sd->inventory_data[index]->type == IT_ARMOR) {
-					ATK_ADD(wd->damage, wd->damage2, 4 * sd->inventory.u.items_inventory[index].refine);
+					ATK_ADD(wd->damage, wd->damage2, 10 * sd->inventory.u.items_inventory[index].refine);
 					ATK_ADD(wd->damage, wd->damage2, sd->inventory_data[index]->weight / 10);
 #ifdef RENEWAL
 					ATK_ADD(wd->weaponAtk, wd->weaponAtk2, 4 * sd->inventory.u.items_inventory[index].refine);
@@ -4895,8 +4896,7 @@ static int32 battle_calc_attack_skill_ratio(struct Damage* wd, block_list *src,b
 			break;
 		case NPC_DARKCROSS:
 		case CR_HOLYCROSS:
-			if(sd && sd->status.weapon == W_2HSPEAR)
-				skillratio += 70 * skill_lv;
+			skillratio += 35 * skill_lv;
 			break;
 		case AM_DEMONSTRATION:
 			skillratio += 20 * skill_lv;
