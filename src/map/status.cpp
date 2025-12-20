@@ -3217,10 +3217,8 @@ static int32 status_get_hpbonus(block_list *bl, enum e_status_bonus type) {
 				bonus += 30;
 			if(sc->getSCE(SC_CROSSBOWCLAN))
 				bonus += 30;
-#ifdef RENEWAL
 			if (sc->getSCE(SC_ANGELUS))
 				bonus += sc->getSCE(SC_ANGELUS)->val1 * 50;
-#endif
 			if (sc->getSCE(SC_OVERCOMING_CRISIS))
 				bonus += sc->getSCE(SC_OVERCOMING_CRISIS)->val3;
 		}
@@ -4705,7 +4703,7 @@ int32 status_calc_pc_sub(map_session_data* sd, uint8 opt)
 	if((skill=pc_checkskill(sd,CR_TRUST))>0)
 		sd->indexed_bonus.subele[ELE_HOLY] += skill*5;
 	if((skill=pc_checkskill(sd,BS_SKINTEMPER))>0) {
-		sd->indexed_bonus.subele[ELE_NEUTRAL] += skill;
+		sd->indexed_bonus.subele[ELE_NEUTRAL] += skill*2;
 		sd->indexed_bonus.subele[ELE_FIRE] += skill*5;
 	}
 	if((skill=pc_checkskill(sd,SA_DRAGONOLOGY))>0) {
@@ -7633,9 +7631,10 @@ static int16 status_calc_hit(block_list *bl, status_change *sc, int32 hit)
 		hit += sc->getSCE(SC_TWOHANDQUICKEN)->val1 * 2;
 	if (sc->getSCE(SC_ADRENALINE))
 		hit += sc->getSCE(SC_ADRENALINE)->val1 * 3 + 5;
-#ifdef RENEWAL
+
 	if (sc->getSCE(SC_BLESSING))
 		hit += sc->getSCE(SC_BLESSING)->val1 * 2;
+#ifdef RENEWAL
 	if (sc->getSCE(SC_NIBELUNGEN) && sc->getSCE(SC_NIBELUNGEN)->val2 == RINGNBL_HIT)
 		hit += 50;
 #endif
@@ -7829,6 +7828,9 @@ static defType status_calc_def(block_list *bl, status_change *sc, int32 def)
 #endif
 	if (bl->type == BL_HOM && sc->getSCE(SC_DEFENCE))
 		def += sc->getSCE(SC_DEFENCE)->val2;
+
+	if(sc->getSCE(SC_ENDURE) && !sc->getSCE(SC_ENDURE)->val3) // It has been confirmed that Eddga card grants 1 MDEF, not 0, not 10, but 1.
+		def += (sc->getSCE(SC_ENDURE)->val4 == 0) ? sc->getSCE(SC_ENDURE)->val1 : 1;
 	if(sc->getSCE(SC_INCDEFRATE))
 		def += def * sc->getSCE(SC_INCDEFRATE)->val1/100;
 	if(sc->getSCE(SC_EARTH_INSIGNIA) && sc->getSCE(SC_EARTH_INSIGNIA)->val1 == 2)
@@ -10932,7 +10934,7 @@ static bool status_change_start_post_delay(block_list* src, block_list* bl, sc_t
 			val2 = 2 + val1; // Agi change
 			break;
 		case SC_ENDURE:
-			val2 = 7; // Hit-count [Celest]
+			val2 = 7 * val1; // Hit-count [Celest]
 			if( !(flag&SCSTART_NOAVOID) && (bl->type&(BL_PC|BL_MER)) && !map_flag_gvg2(bl->m) && !map_getmapflag(bl->m, MF_BATTLEGROUND) && !val4 ) {
 				map_session_data *tsd;
 				if( sd ) {

@@ -1811,7 +1811,8 @@ bool unit_can_move(block_list *bl) {
 		return false;
 
 	if (ud->skilltimer != INVALID_TIMER && ud->skill_id != LG_EXEEDBREAK && (!sd || !pc_checkskill(sd, SA_FREECAST) || skill_get_inf2(ud->skill_id, INF2_ISGUILD)))
-		return false; // Prevent moving while casting
+		if(sd)
+			return false; // Prevent moving while casting
 
 	if (DIFF_TICK(ud->canmove_tick, gettick()) > 0)
 		return false;
@@ -3228,8 +3229,10 @@ static int32 unit_attack_timer_sub(block_list* src, int32 tid, t_tick tick)
 		return 0; // Can't attack under these conditions
 
 	if( ud->skilltimer != INVALID_TIMER && !(sd && pc_checkskill(sd,SA_FREECAST) > 0) )
-		return 0; // Can't attack while casting
-
+	{
+		if(sd)
+			return 0; // Can't attack while casting
+	}
 	if( !battle_config.sdelay_attack_enable && DIFF_TICK(ud->canact_tick,tick) > 0 && !(sd && pc_checkskill(sd,SA_FREECAST) > 0) ) {
 		// Attacking when under cast delay has restrictions:
 		if( tid == INVALID_TIMER ) { // Requested attack.

@@ -1578,10 +1578,10 @@ int32 skill_additional_effect( block_list* src, block_list *bl, uint16 skill_id,
 	case RG_RAID:
 		sc_start(src,bl,SC_STUN,(10+3*skill_lv),skill_lv,skill_get_time(skill_id,skill_lv));
 		sc_start(src,bl,SC_BLIND,(10+3*skill_lv),skill_lv,skill_get_time2(skill_id,skill_lv));
-#ifdef RENEWAL
+
 		sc_start(src, bl, SC_RAID, 100, skill_lv, 10000); // Hardcoded to 10 seconds since Duration1 and Duration2 are used
 		break;
-
+#ifdef RENEWAL
 	case RG_BACKSTAP:
 		sc_start(src,bl,SC_STUN,(5+2*skill_lv),skill_lv,skill_get_time(skill_id,skill_lv));
 #endif
