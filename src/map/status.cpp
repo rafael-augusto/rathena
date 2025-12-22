@@ -8112,7 +8112,7 @@ static uint16 status_calc_speed(block_list *bl, status_change *sc, int32 speed)
 
 		// GetMoveSlowValue()
 		if( sd && sc->getSCE(SC_HIDING) && pc_checkskill(sd,RG_TUNNELDRIVE) > 0 )
-			val = 120 - 6 * pc_checkskill(sd,RG_TUNNELDRIVE);
+			val = 100 - 6 * pc_checkskill(sd,RG_TUNNELDRIVE);
 		else if( sd && sc->getSCE(SC_CHASEWALK) && sc->getSCE(SC_CHASEWALK)->val3 < 0 )
 			val = sc->getSCE(SC_CHASEWALK)->val3;
 		else {
@@ -8126,8 +8126,10 @@ static uint16 status_calc_speed(block_list *bl, status_change *sc, int32 speed)
 				val = max( val, 50 - 10 * sc->getSCE(SC_LONGING)->val1 );
 #endif
 			else
-			if( sd && sc->getSCE(SC_DANCING) )
-				val = max( val, 500 - (40 + 10 * (sc->getSCE(SC_SPIRIT) && sc->getSCE(SC_SPIRIT)->val2 == SL_BARDDANCER)) * pc_checkskill(sd,(sd->status.sex?BA_MUSICALLESSON:DC_DANCINGLESSON)) );
+			// if( sd && sc->getSCE(SC_DANCING) )
+			// 	val = max( val, 500 - (40 + 10 * (sc->getSCE(SC_SPIRIT) && sc->getSCE(SC_SPIRIT)->val2 == SL_BARDDANCER)) * pc_checkskill(sd,(sd->status.sex?BA_MUSICALLESSON:DC_DANCINGLESSON)) );
+ 			if( sd && sc->getSCE(SC_DANCING) )
+			 	val = max( val, 100 - 10  * pc_checkskill(sd,(sd->status.sex?BA_MUSICALLESSON:DC_DANCINGLESSON)) );
 
 			if( sc->getSCE(SC_DECREASEAGI) )
 				val = max( val, 25 );

@@ -71,7 +71,7 @@ prontera,145,178,7	script	Race of The Day	437,{
     
     OnInit:
         // min gm level
-        set .gm_level,100;
+        set .gm_level,99;
     
         // monster race list
         setarray .rotd$[0],
@@ -92,7 +92,7 @@ prontera,145,178,7	script	Race of The Day	437,{
         set .rotd_menu$,.rotd_menu$ + "^0055FFRandom Race^000000";
     
         set .today_rotd,5;
-        set .rotd_exp_bonus,90;
+        set .rotd_exp_bonus,50;
 
         delwaitingroom;
         waitingroom .rotd$[.today_rotd]+" +"+.rotd_exp_bonus+"% exp",0;
@@ -110,7 +110,7 @@ end;
     OnHour18:
     OnHour21:
         set .today_rotd,rand( .rotd_size );
-        set .rotd_exp_bonus,rand( 10,100 );
+        set .rotd_exp_bonus,rand( 10,50 );
         announce "[Race of the Day] : "+.rotd$[.today_rotd]+" +"+.rotd_exp_bonus+"% exp",bc_all;
         delwaitingroom;
         waitingroom .rotd$[.today_rotd]+" +"+.rotd_exp_bonus+"% exp",0;

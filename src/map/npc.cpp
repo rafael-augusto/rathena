@@ -5899,24 +5899,30 @@ TIMER_FUNC(npc_dynamicnpc_removal_timer){
 
 	map_session_data* sd = map_charid2sd( nd->dynamicnpc.owner_char_id );
 
-	if( sd != nullptr ){
-		// Still talking to the NPC
-		// TODO: are there other fields to check?
-		if( sd->npc_id == nd->id || sd->npc_shopid == nd->id ){
-			// Retry later
-			nd->dynamicnpc.last_interaction = gettick();
-			nd->dynamicnpc.removal_tid = add_timer( nd->dynamicnpc.last_interaction + battle_config.feature_dynamicnpc_timeout, npc_dynamicnpc_removal_timer, nd->id, (intptr_t)nullptr );
-			return 0;
-		}
 
-		// Last interaction is not long enough in the past
-		if( DIFF_TICK( gettick(), nd->dynamicnpc.last_interaction ) < battle_config.feature_dynamicnpc_timeout ){
-			nd->dynamicnpc.removal_tid = add_timer( nd->dynamicnpc.last_interaction + DIFF_TICK( gettick(), nd->dynamicnpc.last_interaction ), npc_dynamicnpc_removal_timer, nd->id, (intptr_t)nullptr );
-			return 0;
-		}
-
-		// npc id from sd->npc_id_dynamic is removed in npc_unload
+	if(sd != nullptr)
+	{
+		clif_refresh(sd);
 	}
+
+	// if( sd != nullptr ){
+	// 	// Still talking to the NPC
+	// 	// TODO: are there other fields to check?
+	// 	if( sd->npc_id == nd->id || sd->npc_shopid == nd->id ){
+	// 		// Retry later
+	// 		nd->dynamicnpc.last_interaction = gettick();
+	// 		nd->dynamicnpc.removal_tid = add_timer( nd->dynamicnpc.last_interaction + battle_config.feature_dynamicnpc_timeout, npc_dynamicnpc_removal_timer, nd->id, (intptr_t)nullptr );
+	// 		return 0;
+	// 	}
+
+	// 	// Last interaction is not long enough in the past
+	// 	// if( DIFF_TICK( gettick(), nd->dynamicnpc.last_interaction ) < battle_config.feature_dynamicnpc_timeout ){
+	// 	// 	nd->dynamicnpc.removal_tid = add_timer( nd->dynamicnpc.last_interaction + DIFF_TICK( gettick(), nd->dynamicnpc.last_interaction ), npc_dynamicnpc_removal_timer, nd->id, (intptr_t)nullptr );
+	// 	// 	return 0;
+	// 	// }
+
+	// 	// npc id from sd->npc_id_dynamic is removed in npc_unload
+	// }
 
 	// Delete the NPC
 	npc_unload( nd, true );
@@ -5926,7 +5932,7 @@ TIMER_FUNC(npc_dynamicnpc_removal_timer){
 	return 0;
 }
 
-npc_data* npc_duplicate_npc_for_player( npc_data& nd, map_session_data& sd ){
+npc_data* npc_duplicate_npc_for_player( npc_data& nd, map_session_data& sd, bool for_everyone ){
 	// A duplicate of a duplicate is still a duplicate of the same NPC
 	int32 src_id = nd.src_id > 0 ? nd.src_id : nd.id;
 
@@ -5962,7 +5968,7 @@ npc_data* npc_duplicate_npc_for_player( npc_data& nd, map_session_data& sd ){
 		dir = nd.ud.dir;
 	}
 
-	npc_data* dnd = npc_duplicate_npc( nd, nd.name, sd.m, new_x, new_y, nd.class_, dir, nd.u.scr.xs, nd.u.scr.ys, &sd );
+	npc_data* dnd = npc_duplicate_npc( nd, nd.name, sd.m, new_x, new_y, nd.class_, dir, nd.u.scr.xs, nd.u.scr.ys, for_everyone ? nullptr : &sd );
 
 	if( dnd == nullptr ){
 		return nullptr;

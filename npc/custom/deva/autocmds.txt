@@ -21,7 +21,7 @@ end;
 
 
 OnPCLoginEvent:
-    atcommand "@arealoot";
+
 
     if(getskilllv("ALL_BUYING_STORE") == 0){
         skill "ALL_BUYING_STORE",1,SKILL_PERM_GRANT;

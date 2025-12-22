@@ -4561,8 +4561,8 @@ Body:
     Name: Anubis
     Level: 75
     Hp: 38000
-    BaseExp: 28000
-    JobExp: 22000
+    BaseExp: 14000
+    JobExp: 11000
     Attack: 530
     Attack2: 1697
     Defense: 25
@@ -35757,13 +35757,13 @@ Body:
     AegisName: LES
     Name: Les
     Level: 39
-    Hp: 3080
+    Hp: 3680
     BaseExp: 1521
     JobExp: 912
-    Attack: 102
-    Attack2: 113
+    Attack: 182
+    Attack2: 390
     MagicDefense: 17
-    Agi: 33
+    Agi: 50
     Vit: 12
     Int: 32
     Dex: 52
@@ -35774,8 +35774,8 @@ Body:
     Size: Medium
     Race: Plant
     Element: Earth
-    ElementLevel: 4
-    WalkSpeed: 230
+    ElementLevel: 1
+    WalkSpeed: 150
     AttackDelay: 1728
     AttackMotion: 720
     ClientAttackMotion: 420

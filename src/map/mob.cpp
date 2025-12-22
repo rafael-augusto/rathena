@@ -225,6 +225,7 @@ void mvptomb_create(mob_data *md, char *killer, time_t time)
 		return;
 	status_set_viewdata(nd, nd->class_);
 	unit_dataset(nd);
+	
 
 	mvptomb_setdelayspawn(nd);
 }
@@ -3642,9 +3643,12 @@ int32 mob_dead(mob_data *md, block_list *src, int32 type)
 	}
 
 	// MvP tomb [GreenBox]
-	if (battle_config.mvp_tomb_enabled && md->spawn->state.boss && map_getmapflag(md->m, MF_NOTOMB) != 1)
+	if (battle_config.mvp_tomb_enabled && md->spawn->state.boss && map_getmapflag(md->m, MF_NOTOMB) != 1){
+	    npc_data* nd = npc_name2id( "[MVP Rewards]#mvp" );
+        npc_data* dnd = npc_duplicate_npc_for_player( *nd, *sd, true );
 		mvptomb_create(md, mvp_sd != nullptr ? mvp_sd->status.name : (first_sd != nullptr ? first_sd->status.name : nullptr), time(nullptr));
-
+	
+	}
 	if( !rebirth )
 		mob_setdelayspawn(md); //Set respawning.
 	return 3; //Remove from map.

@@ -3841,7 +3841,6 @@ int64 skill_attack (int32 attack_type, block_list* src, block_list *dsrc, block_
 		case NPC_CRITICALSLASH:
 		case TF_DOUBLE:
 		case NJ_KIRIKAGE:
-		case RG_BACKSTAP:
 		case GS_CHAINACTION:
 			clif_damage(*src,*bl,tick,dmg.amotion,dmg.dmotion,damage,dmg.div_,dmg.type,dmg.damage2,false);
 			break;
@@ -3981,7 +3980,7 @@ int64 skill_attack (int32 attack_type, block_list* src, block_list *dsrc, block_
 				}
 			}
 			if(skill_id && dmg.type == DMG_CRITICAL){
-				if ((skill_id == AS_SONICBLOW  || skill_id == AC_DOUBLE || skill_id == KN_PIERCE || skill_id == CR_HOLYCROSS || skill_id ==  MO_TRIPLEATTACK || skill_id == MO_CHAINCOMBO || skill_id == MO_FINGEROFFENSIVE))
+				if ((skill_id == AS_SONICBLOW  ||  skill_id == AC_DOUBLE || skill_id == KN_PIERCE || skill_id == CR_HOLYCROSS || skill_id ==  MO_TRIPLEATTACK || skill_id == MO_CHAINCOMBO || skill_id == MO_FINGEROFFENSIVE))
 					dmg.type = DMG_MULTI_HIT_CRITICAL;
 
 			}
