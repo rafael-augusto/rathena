@@ -1,0 +1,17 @@
+//===== rAthena Script =======================================
+//= Dynamic NPC: Kachua's Secret Box
+//===== Description: =========================================
+//- [Official conversion]
+//= Kachua's Secret Box is a Gachapon NPC.
+//= It lets the player exchange a Kachua's Secret Key for a random item.
+//= It also gives a Kachua's Mileage Coupon for each pull.
+//===== Changelogs: ==========================================
+//= 1.0 First version. [secretdataz]
+//============================================================
+
+sec_in02,126,178,3	script	[MVP Rewards]#mvp	4_TREASURE_BOX,{
+	mes "[MVP Rewards]";
+	mes "Here's your reward for participating!";
+	specialeffect2 EF_VALLENTINE;
+	close;
+}

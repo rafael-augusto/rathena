@@ -16439,7 +16439,7 @@ Body:
     EquipLevelMin: 55
     Refineable: true
     Script: |
-      bonus2 bSubEle,Ele_Fire,10;
+      bonus2 bSubEle,Ele_Earth,10;
   - Id: 1731
     AegisName: Frozen_Bow
     Name: Frozen Bow
@@ -59931,4 +59931,31 @@ Body:
     ArmorLevel: 1
     EquipLevelMin: 1
     View: 654
+  - Id: 28000
+    AegisName: Thanos_Katar
+    Name: Thanos Katar
+    Type: Weapon
+    SubType: Katar
+    Buy: 10
+    Weight: 1800
+    Attack: 220
+    MagicAttack: 80
+    Range: 1
+    Slots: 1
+    Jobs:
+      Assassin: true
+    Locations:
+      Both_Hand: true
+    WeaponLevel: 4
+    EquipLevelMin: 90
+    Refineable: true
+    Script: |
+      bonus bInt,6;
+      bonus bVit,6;
+      bonus bLuk,-6;
+      bonus2 bHPDrainRate,50,5;
+      bonus2 bSPDrainRate,10,5;
+      bonus2 bHPLossRate,100,10000;
+    UnEquipScript: |
+      heal -1000,0;
 

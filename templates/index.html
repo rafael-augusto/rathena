@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comparador de Curva de EXP</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.1/dist/chartjs-plugin-zoom.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+    
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f0f2f5;
+            padding: 20px;
+        }
+        .chart-container {
+            width: 80%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .controls {
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .controls label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .controls select {
+            padding: 5px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="chart-container">
+        <div class="controls">
+            <label for="label-selector">Exibir nos Rótulos (com zoom):</label>
+            <select id="label-selector">
+                <option value="none" selected>Ocultar Rótulos</option>
+                <option value="multiplier">Multiplicador vs. Revo</option>
+                <option value="growth">Crescimento % por Nível</option>
+            </select>
+        </div>
+        <canvas id="expChart"></canvas>
+    </div>
+
+    <script>
+        Chart.register(ChartDataLabels);
+
+        let myChart;
+        let chartData;
+
+        function calculateGrowth(exps) {
+            const growthArr = [null]; // Sem crescimento para o primeiro nível
+            for (let i = 1; i < exps.length; i++) {
+                const prevExp = exps[i - 1];
+                const currExp = exps[i];
+                if (prevExp > 0) {
+                    const growth = ((currExp - prevExp) / prevExp) * 100;
+                    growthArr.push('+' + growth.toFixed(0) + '%');
+                } else {
+                    growthArr.push(null);
+                }
+            }
+            return growthArr;
+        }
+
+        function updateChartLabels(mode) {
+            if (!myChart || !chartData) return;
+
+            const { multipliers, devaroGrowth, revoGrowth } = chartData;
+
+            // Atualiza o dataset Devaro
+            myChart.config.data.datasets[0].datalabels.display = (context) => {
+                return mode !== 'none' && myChart.isZoomedOrPanned && myChart.isZoomedOrPanned();
+            };
+            myChart.config.data.datasets[0].datalabels.formatter = (value, context) => {
+                if (mode === 'multiplier') return multipliers[context.dataIndex];
+                if (mode === 'growth') return devaroGrowth[context.dataIndex];
+                return null;
+            };
+
+            // Atualiza o dataset Revo
+            myChart.config.data.datasets[1].datalabels.display = (context) => {
+                return mode === 'growth' && myChart.isZoomedOrPanned && myChart.isZoomedOrPanned();
+            };
+            myChart.config.data.datasets[1].datalabels.formatter = (value, context) => {
+                return revoGrowth[context.dataIndex];
+            };
+
+            myChart.update();
+        }
+
+        async function fetchDataAndRenderChart() {
+            try {
+                const response = await fetch('/data');
+                const data = await response.json();
+
+                chartData = {
+                    multipliers: data.devaro.exps.map((dExp, i) => (data.revo.exps[i] > 0 ? (dExp / data.revo.exps[i]).toFixed(1) + 'x' : null)),
+                    devaroGrowth: calculateGrowth(data.devaro.exps),
+                    revoGrowth: calculateGrowth(data.revo.exps)
+                };
+
+                const ctx = document.getElementById('expChart').getContext('2d');
+                
+                myChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: data.devaro.levels,
+                        datasets: [{
+                            label: 'Devaro EXP',
+                            data: data.devaro.exps,
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            datalabels: { align: 'top', anchor: 'end', backgroundColor: 'rgba(54, 162, 235, 0.8)', borderRadius: 4, color: 'white', font: { weight: 'bold' }, padding: 4 }
+                        }, {
+                            label: 'Revo EXP',
+                            data: data.revo.exps,
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            datalabels: { align: 'top', anchor: 'end', backgroundColor: 'rgba(255, 99, 132, 0.8)', borderRadius: 4, color: 'white', font: { weight: 'bold' }, padding: 4 }
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        plugins: {
+                            title: { display: true, text: 'Comparação de Curva de Experiência (EXP)', font: { size: 18 } },
+                            subtitle: { display: true, text: 'Clique e arraste para dar zoom. Clique duplo para resetar.', padding: { bottom: 10 } },
+                            tooltip: { mode: 'index', intersect: false },
+                            zoom: {
+                                pan: { enabled: true, mode: 'x' },
+                                zoom: { drag: { enabled: true, backgroundColor: 'rgba(54, 162, 235, 0.2)' }, wheel: { enabled: true }, pinch: { enabled: true }, mode: 'x' }
+                            }
+                        },
+                        scales: {
+                            x: { display: true, title: { display: true, text: 'Nível' } },
+                            y: { display: true, type: 'linear', title: { display: true, text: 'Pontos de Experiência (EXP)' } }
+                        }
+                    }
+                });
+                
+                // Inicia com rótulos ocultos
+                updateChartLabels('none');
+
+            } catch (error) {
+                console.error("Falha ao buscar dados para o gráfico:", error);
+                document.querySelector('.chart-container').innerHTML = '<h1>Erro ao carregar os dados. Verifique o console do servidor.</h1>';
+            }
+        }
+
+        document.getElementById('label-selector').addEventListener('change', (event) => {
+            updateChartLabels(event.target.value);
+        });
+
+        window.onload = fetchDataAndRenderChart;
+    </script>
+</body>
+</html>

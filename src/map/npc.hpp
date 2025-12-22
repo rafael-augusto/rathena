@@ -1634,7 +1634,7 @@ npc_data* npc_add_warp(char* name, int16 from_mapid, int16 from_x, int16 from_y,
 int32 npc_globalmessage(const char* name,const char* mes);
 const char *npc_get_script_event_name(int32 npce_index);
 npc_data* npc_duplicate_npc( npc_data& nd, char name[NPC_NAME_LENGTH + 1], int16 mapid, int16 x, int16 y, int32 class_, uint8 dir, int16 xs, int16 ys, map_session_data* owner = nullptr );
-npc_data* npc_duplicate_npc_for_player( npc_data& nd, map_session_data& sd );
+npc_data* npc_duplicate_npc_for_player( npc_data& nd, map_session_data& sd, bool for_everyone = false);
 
 void npc_setcells(npc_data* nd);
 void npc_unsetcells(npc_data* nd);

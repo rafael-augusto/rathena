@@ -25820,6 +25820,40 @@ BUILDIN_FUNC(duplicate_dynamic){
 	}
 }
 
+
+/**
+ * Duplicate a NPC for all.
+ * Return the duplicate Unique name on success or empty string on failure.
+ * duplicate_dynamic("<NPC name>"{,<character ID>});
+ */
+BUILDIN_FUNC(duplicate_dynamic_4all){
+	const char* old_npcname = script_getstr( st, 2 );
+	npc_data* nd = npc_name2id( old_npcname );
+
+	if( nd == nullptr ){
+		ShowError( "buildin_duplicate_dynamic: No such NPC '%s'.\n", old_npcname );
+		script_pushstrcopy( st, "" );
+		return SCRIPT_CMD_FAILURE;
+	}
+
+	map_session_data* sd;
+
+	if( !script_charid2sd( 3, sd ) ){
+		script_pushstrcopy( st, "" );
+		return SCRIPT_CMD_FAILURE;
+	}
+
+	npc_data* dnd = npc_duplicate_npc_for_player( *nd, *sd, true );
+
+	if( dnd == nullptr ){
+		script_pushstrcopy( st, "" );
+		return SCRIPT_CMD_SUCCESS;
+	}else{
+		script_pushstrcopy( st, dnd->exname );
+		return SCRIPT_CMD_SUCCESS;
+	}
+}
+
 /**
  * Add an achievement to the player's log
  * achievementadd(<achievement ID>{,<char ID>});
@@ -28448,6 +28482,7 @@ struct script_function buildin_func[] = {
 	BUILDIN_DEF(unloadnpc, "s"),
 	BUILDIN_DEF(duplicate, "ssii?????"),
 	BUILDIN_DEF(duplicate_dynamic, "s?"),
+	BUILDIN_DEF(duplicate_dynamic_4all, "s?"),
 
 	// WoE TE
 	BUILDIN_DEF(agitstart3,""),
