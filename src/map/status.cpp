@@ -4215,7 +4215,7 @@ int32 status_calc_pc_sub(map_session_data* sd, uint8 opt)
 			}
 		}
 	}
-
+	
 	pc_bonus_script(sd);
 
 	if( sd->pd ) { // Pet Bonus
@@ -4544,9 +4544,10 @@ int32 status_calc_pc_sub(map_session_data* sd, uint8 opt)
 #ifdef RENEWAL
 	if ((skill = pc_checkskill(sd, DC_DANCINGLESSON)) > 0)
 		base_status->cri += skill * 10;
+
+#endif
 	if ((skill = pc_checkskill(sd, PR_MACEMASTERY)) > 0 && (sd->status.weapon == W_MACE || sd->status.weapon == W_2HMACE))
 		base_status->cri += skill * 10;
-#endif
 	if ((skill = pc_checkskill(sd, SHC_SHADOW_SENSE)) > 0)
 	{
 		if (sd->status.weapon == W_DAGGER || sd->status.weapon == W_DOUBLE_DD || 
@@ -6049,7 +6050,10 @@ void status_calc_bl_main(block_list& bl, std::bitset<SCB_MAX> flag)
 
 	if(flag[SCB_DEF]) {
 		status->def = status_calc_def(&bl, sc, b_status->def);
-
+		if(status->def > 90)
+		{ 
+			status->def = 90;
+		}
 		if( bl.type == BL_HOM )
 			status->def += (status->vit/5 - b_status->vit/5);
 	}

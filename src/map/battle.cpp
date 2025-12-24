@@ -1099,6 +1099,7 @@ int32 battle_calc_cardfix(int32 attack_type, block_list *src, block_list *target
 							continue;
 						ele_fix += it.rate;
 					}
+					ele_fix = ele_fix < 80 ? ele_fix : 80;
 					cardfix = cardfix * (100 - ele_fix) / 100;
 
 					if( left&1 && lh_ele != rh_ele ) {
@@ -9863,13 +9864,13 @@ struct Damage battle_calc_misc_attack(block_list *src,block_list *target,uint16 
 #else
 		case HT_LANDMINE:
 		case MA_LANDMINE:
-			md.damage = static_cast<decltype(md.damage)>(skill_lv * (sstatus->dex + 75.0) * (100.0 + sstatus->int_) / 100.0);
+			md.damage = static_cast<decltype(md.damage)>(skill_lv * (sstatus->dex+100) * (100+ sstatus->int_) / 100.0);
 			break;
 		case HT_BLASTMINE:
-			md.damage = static_cast<decltype(md.damage)>(skill_lv * (sstatus->dex / 2.0 + 50.0) * (100.0 + sstatus->int_) / 100.0);
+			md.damage = static_cast<decltype(md.damage)>(skill_lv * (sstatus->dex+100) * (100+ sstatus->int_) / 100.0);
 			break;
 		case HT_CLAYMORETRAP:
-			md.damage = static_cast<decltype(md.damage)>(skill_lv * (sstatus->dex / 2.0 + 75.0) * (100.0 + sstatus->int_) / 100.0);
+			md.damage = static_cast<decltype(md.damage)>(skill_lv * (sstatus->dex+100) * (100+ sstatus->int_) / 100.0);
 			break;
 #endif
 		case HT_BLITZBEAT:

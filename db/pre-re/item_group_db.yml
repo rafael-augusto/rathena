@@ -11080,3 +11080,689 @@ Body:
             Item: E_Giant_Fly_Wing
           - Index: 2
             Item: F_Giant_Fly_Wing
+  - Group: AGRADE_POCKET
+    SubGroups:
+      - SubGroup: 0
+        Algorithm: All
+        List:
+          - Index: 0
+            Item: Agrade_Coin
+          - Index: 1
+            Item: Bgrade_Coin
+          - Index: 2
+            Item: Cgrade_Coin
+      - SubGroup: 2
+        List:
+          - Index: 0
+            Item: Dgrade_Coin
+            Rate: 800
+          - Index: 1
+            Item: Cgrade_Coin
+            Rate: 50
+          - Index: 2
+            Item: Bgrade_Coin
+            Rate: 150
+      - SubGroup: 3
+        List:
+          - Index: 0
+            Item: Dgrade_Coin
+            Rate: 800
+          - Index: 1
+            Item: Cgrade_Coin
+            Rate: 200
+          - Index: 3
+            Item: Anger_Seagod
+            Rate: 1
+  - Group: BGRADE_POCKET
+    SubGroups:
+      - SubGroup: 0
+        Algorithm: All
+        List:
+          - Index: 0
+            Item: Bgrade_Coin
+          - Index: 1
+            Item: Cgrade_Coin
+          - Index: 2
+            Item: Dgrade_Coin
+      - SubGroup: 2
+        List:
+          - Index: 0
+            Item: Egrade_Coin
+            Rate: 800
+          - Index: 1
+            Item: Dgrade_Coin
+            Rate: 50
+          - Index: 2
+            Item: Cgrade_Coin
+            Rate: 150
+      - SubGroup: 3
+        List:
+          - Index: 0
+            Item: Cgrade_Coin
+            Rate: 800
+          - Index: 1
+            Item: Dgrade_Coin
+            Rate: 200
+  - Group: CGRADE_POCKET
+    SubGroups:
+      - SubGroup: 0
+        Algorithm: All
+        List:
+          - Index: 0
+            Item: Cgrade_Coin
+          - Index: 1
+            Item: Dgrade_Coin
+          - Index: 2
+            Item: Egrade_Coin
+      - SubGroup: 2
+        List:
+          - Index: 0
+            Item: Dgrade_Coin
+            Rate: 800
+          - Index: 1
+            Item: Egrade_Coin
+            Rate: 50
+          - Index: 2
+            Item: Egrade_Coin
+            Rate: 150
+      - SubGroup: 3
+        List:
+          - Index: 0
+            Item: Dgrade_Coin
+            Rate: 800
+          - Index: 1
+            Item: Dgrade_Coin
+            Rate: 200
+  - Group: DGRADE_POCKET
+    SubGroups:
+      - SubGroup: 0
+        Algorithm: All
+        List:
+          - Index: 0
+            Item: Dgrade_Coin
+          - Index: 1
+            Item: Egrade_Coin
+      - SubGroup: 2
+        List:
+          - Index: 0
+            Item: Dgrade_Coin
+            Rate: 800
+            Amount: 2
+          - Index: 1
+            Item: Egrade_Coin
+            Rate: 200
+            Amount: 2
+      - SubGroup: 3
+        List:
+          - Index: 0
+            Item: Dgrade_Coin
+            Rate: 800
+          - Index: 1
+            Item: Dgrade_Coin
+            Rate: 200
+  - Group: EGRADE_POCKET
+    SubGroups:
+      - SubGroup: 0
+        Algorithm: All
+        List:
+          - Index: 0
+            Item: Egrade_Coin
+      - SubGroup: 2
+        List:
+          - Index: 0
+            Item: Egrade_Coin
+            Rate: 800
+            Amount: 2
+          - Index: 1
+            Item: Egrade_Coin
+            Rate: 200
+            Amount: 2
+      - SubGroup: 3
+        List:
+          - Index: 0
+            Item: Egrade_Coin
+            Rate: 800
+          - Index: 1
+            Item: Egrade_Coin
+            Rate: 200
+  - Group: OLD_COIN_POCKET
+    SubGroups:
+      - SubGroup: 1
+        List:
+          - Index: 0
+            Item: Egrade_Coin
+            Rate: 400
+          - Index: 5
+            Item: Anger_Seagod
+            Rate: 1
+          - Index: 6
+            Item: Cgrade_Coin
+            Rate: 74
+          - Index: 7
+            Item: Dgrade_Coin
+            Rate: 95
+      - SubGroup: 2
+        List:
+          - Index: 0
+            Item: Dgrade_Coin
+            Rate: 400
+          - Index: 5
+            Item: Agrade_Coin
+            Rate: 15
+          - Index: 6
+            Item: Egrade_Coin
+            Rate: 40
+      - SubGroup: 3
+        List:
+          - Index: 0
+            Item: Cgrade_Coin
+            Rate: 300
+          - Index: 5
+            Item: Bgrade_Coin
+            Rate: 60
+  - Group: LOW_COIN_POCKET
+    SubGroups:
+      - SubGroup: 1
+        List:
+          - Index: 0
+            Item: Dgrade_Coin
+            Rate: 600
+          - Index: 2
+            Item: Cgrade_Coin
+            Rate: 100
+      - SubGroup: 2
+        List:
+          - Index: 0
+            Item: Egrade_Coin
+            Rate: 600
+          - Index: 2
+            Item: Dgrade_Coin
+            Rate: 200
+          - Index: 3
+            Item: Anger_Seagod
+            Rate: 1
+      - SubGroup: 3
+        List:
+          - Index: 0
+            Item: Dgrade_Coin
+            Rate: 500
+          - Index: 2
+            Item: Egrade_Coin
+            Rate: 200
+      - SubGroup: 4
+        List:
+          - Index: 0
+            Item: Malang_Sp_Can
+            Rate: 500
+          - Index: 2
+            Item: Egrade_Coin
+            Rate: 200
+  - Group: ADVANCED_WEAPONS_BOX
+    SubGroups:
+      - SubGroup: 1
+        List:
+          - Index: 0
+            Item: Nagan
+            Rate: 2
+          - Index: 1
+            Item: Ice_Falchon
+            Rate: 7
+          - Index: 2
+            Item: Edge
+            Rate: 1
+          - Index: 3
+            Item: Fire_Brand
+            Rate: 7
+          - Index: 4
+            Item: Scissores_Sword
+            Rate: 7
+          - Index: 5
+            Item: Cutlas
+            Rate: 7
+          - Index: 6
+            Item: Solar_Sword
+            Rate: 7
+          - Index: 7
+            Item: Excalibur
+            Rate: 2
+          - Index: 8
+            Item: Mysteltainn_
+            Rate: 7
+          - Index: 9
+            Item: Tale_Fing_
+            Rate: 7
+          - Index: 10
+            Item: Byeorrun_Gum
+            Rate: 7
+          - Index: 11
+            Item: Immaterial_Sword
+            Rate: 7
+          - Index: 12
+            Item: Star_Dust_Blade
+            Rate: 7
+          - Index: 13
+            Item: Muramasa
+            Rate: 7
+          - Index: 14
+            Item: Masamune
+            Rate: 2
+          - Index: 15
+            Item: Dragon_Slayer
+            Rate: 7
+          - Index: 16
+            Item: Schweizersabel
+            Rate: 7
+          - Index: 17
+            Item: Zweihander
+            Rate: 7
+          - Index: 18
+            Item: Executioner_
+            Rate: 2
+          - Index: 19
+            Item: Katzbalger
+            Rate: 7
+          - Index: 20
+            Item: Zweihander_
+            Rate: 7
+          - Index: 21
+            Item: Altas_Weapon
+            Rate: 2
+          - Index: 22
+            Item: Muscle_Cutter
+            Rate: 7
+          - Index: 23
+            Item: Schweizersabel_
+            Rate: 7
+          - Index: 24
+            Item: Altas_Weapon
+            Rate: 2
+          - Index: 25
+            Item: Dragon_Slayer_
+            Rate: 7
+          - Index: 26
+            Item: Tae_Goo_Lyeon
+            Rate: 7
+          - Index: 27
+            Item: Bloody_Eater
+            Rate: 7
+          - Index: 28
+            Item: Bloody_Eater
+            Rate: 1
+          - Index: 29
+            Item: Death_Guidance
+            Rate: 1
+          - Index: 30
+            Item: Veteran_Sword
+            Rate: 7
+          - Index: 31
+            Item: Krasnaya
+            Rate: 5
+          - Index: 32
+            Item: Forturn_Sword
+            Rate: 2
+          - Index: 33
+            Item: Forturn_Sword
+            Rate: 2
+          - Index: 34
+            Item: Sword_Breaker
+            Rate: 4
+          - Index: 35
+            Item: Weeder_Knife
+            Rate: 5
+          - Index: 36
+            Item: Combat_Knife
+            Rate: 1
+          - Index: 37
+            Item: Mama's_Knife
+            Rate: 5
+          - Index: 38
+            Item: House_Auger
+            Rate: 1
+          - Index: 39
+            Item: Bazerald
+            Rate: 1
+          - Index: 40
+            Item: Assasin_Dagger
+            Rate: 5
+          - Index: 41
+            Item: Exercise
+            Rate: 5
+          - Index: 42
+            Item: Moonlight_Sword
+            Rate: 2
+          - Index: 43
+            Item: Azoth
+            Rate: 5
+          - Index: 44
+            Item: Sucsamad
+            Rate: 5
+          - Index: 45
+            Item: Grimtooth_
+            Rate: 5
+          - Index: 46
+            Item: Princess_Knife
+            Rate: 5
+          - Index: 47
+            Item: Cursed_Dagger
+            Rate: 5
+          - Index: 48
+            Item: Counter_Dagger
+            Rate: 5
+          - Index: 49
+            Item: Holy_Dagger
+            Rate: 5
+          - Index: 50
+            Item: Infiltrator
+            Rate: 1
+          - Index: 51
+            Item: Unholy_Touch
+            Rate: 5
+          - Index: 52
+            Item: Bloody_Roar
+            Rate: 2
+          - Index: 53
+            Item: Infiltrator_
+            Rate: 1
+          - Index: 54
+            Item: Wild_Beast_Claw
+            Rate: 2
+          - Index: 55
+            Item: Inverse_Scale
+            Rate: 2
+          - Index: 56
+            Item: Drill_Katar
+            Rate: 5
+          - Index: 57
+            Item: Blood_Tears
+            Rate: 5
+          - Index: 58
+            Item: Krishna
+            Rate: 5
+          - Index: 59
+            Item: Cakram
+            Rate: 5
+          - Index: 60
+            Item: Cleaver
+            Rate: 5
+          - Index: 61
+            Item: Vecer_Axe
+            Rate: 5
+          - Index: 62
+            Item: Brood_Axe
+            Rate: 2
+          - Index: 63
+            Item: Great_Axe
+            Rate: 5
+          - Index: 64
+            Item: Sabbath
+            Rate: 5
+          - Index: 65
+            Item: Right_Epsilon
+            Rate: 1
+          - Index: 66
+            Item: Slaughter
+            Rate: 5
+          - Index: 67
+            Item: Tomahawk
+            Rate: 5
+          - Index: 68
+            Item: Guillotine
+            Rate: 2
+          - Index: 69
+            Item: Doom_Slayer
+            Rate: 1
+          - Index: 70
+            Item: Doom_Slayer_
+            Rate: 1
+          - Index: 71
+            Item: Heart_Breaker
+            Rate: 1
+          - Index: 72
+            Item: Hurricane_Fury
+            Rate: 1
+          - Index: 73
+            Item: Bradium_Stonehammer
+            Rate: 5
+          - Index: 74
+            Item: Giant_Axe
+            Rate: 2
+          - Index: 75
+            Item: Gungnir
+            Rate: 5
+          - Index: 76
+            Item: Gelerdria
+            Rate: 5
+          - Index: 77
+            Item: Skewer
+            Rate: 2
+          - Index: 78
+            Item: Tjungkuletti
+            Rate: 5
+          - Index: 79
+            Item: Gungnir_
+            Rate: 5
+          - Index: 80
+            Item: Long_Horn
+            Rate: 5
+          - Index: 81
+            Item: Battle_Hook
+            Rate: 2
+          - Index: 82
+            Item: Hunting_Spear
+            Rate: 1
+          - Index: 84
+            Item: Crescent_Scythe
+            Rate: 5
+          - Index: 85
+            Item: Bill_Guisarme
+            Rate: 5
+          - Index: 86
+            Item: Zephyrus
+            Rate: 5
+          - Index: 87
+            Item: Longinus's_Spear
+            Rate: 5
+          - Index: 88
+            Item: Brionac
+            Rate: 5
+          - Index: 89
+            Item: Hell_Fire
+            Rate: 5
+          - Index: 90
+            Item: Wizardy_Staff
+            Rate: 5
+          - Index: 91
+            Item: Gae_Bolg
+            Rate: 5
+          - Index: 92
+            Item: Spectral_Spear
+            Rate: 5
+          - Index: 93
+            Item: Ahlspiess
+            Rate: 5
+          - Index: 94
+            Item: Spectral_Spear_
+            Rate: 5
+          - Index: 95
+            Item: Gae_Bolg_
+            Rate: 5
+          - Index: 96
+            Item: Zephyrus_
+            Rate: 5
+          - Index: 97
+            Item: Cardo
+            Rate: 2
+          - Index: 98
+            Item: Spike
+            Rate: 2
+          - Index: 99
+            Item: Golden_Mace
+            Rate: 5
+          - Index: 100
+            Item: Long_Mace
+            Rate: 5
+          - Index: 101
+            Item: Quadrille
+            Rate: 5
+          - Index: 102
+            Item: Grand_Cross
+            Rate: 1
+          - Index: 103
+            Item: Spike_
+            Rate: 2
+          - Index: 104
+            Item: Golden_Mace_
+            Rate: 5
+          - Index: 105
+            Item: Grand_Cross_
+            Rate: 1
+          - Index: 106
+            Item: Nemesis
+            Rate: 5
+          - Index: 107
+            Item: Book_Of_The_Apocalypse
+            Rate: 5
+          - Index: 108
+            Item: Girl's_Diary
+            Rate: 5
+          - Index: 109
+            Item: Legacy_Of_Dragon
+            Rate: 5
+          - Index: 110
+            Item: Hardback
+            Rate: 5
+          - Index: 111
+            Item: Bible_Of_Battlefield
+            Rate: 5
+          - Index: 112
+            Item: Death_Note
+            Rate: 1
+          - Index: 113
+            Item: Staff_Of_Wing
+            Rate: 5
+          - Index: 114
+            Item: Walking_Stick
+            Rate: 5
+          - Index: 115
+            Item: Holy_Stick
+            Rate: 5
+          - Index: 116
+            Item: Thorn_Staff
+            Rate: 1
+          - Index: 117
+            Item: Eraser
+            Rate: 1
+          - Index: 118
+            Item: Dead_Tree_Cane
+            Rate: 5
+          - Index: 119
+            Item: Dead_Tree_Cane
+            Rate: 2
+          - Index: 120
+            Item: Bow_Of_Roguemaster
+            Rate: 2
+          - Index: 121
+            Item: Bow_Of_Rudra
+            Rate: 2
+          - Index: 122
+            Item: Balistar
+            Rate: 2
+          - Index: 123
+            Item: Dragon_Wing
+            Rate: 5
+          - Index: 124
+            Item: Dragon_Wing
+            Rate: 5
+          - Index: 125
+            Item: Balistar_
+            Rate: 2
+          - Index: 126
+            Item: Ixion_Wing
+            Rate: 5
+          - Index: 127
+            Item: Nepenthes_Bow
+            Rate: 5
+          - Index: 128
+            Item: Cursed_Lyre
+            Rate: 5
+          - Index: 129
+            Item: Falken_Blitz
+            Rate: 5
+          - Index: 130
+            Item: Kaiser_Knuckle
+            Rate: 5
+          - Index: 131
+            Item: Berserk
+            Rate: 1
+          - Index: 132
+            Item: Claw_Of_Garm
+            Rate: 5
+          - Index: 133
+            Item: Berserk_
+            Rate: 1
+          - Index: 134
+            Item: Sura_Rampage
+            Rate: 2
+          - Index: 135
+            Item: Electronic_Guitar
+            Rate: 5
+          - Index: 136
+            Item: Oriental_Lute
+            Rate: 5
+          - Index: 137
+            Item: Berserk_Guitar
+            Rate: 1
+          - Index: 138
+            Item: Oriental_Lute_
+            Rate: 5
+          - Index: 139
+            Item: Harp_Of_Nepenthes
+            Rate: 5
+          - Index: 140
+            Item: Berserk_Guitar
+            Rate: 2
+          - Index: 141
+            Item: Lariat
+            Rate: 5
+          - Index: 142
+            Item: Rapture_Rose
+            Rate: 5
+          - Index: 143
+            Item: Chemeti
+            Rate: 5
+          - Index: 144
+            Item: Bladed_Whip
+            Rate: 5
+          - Index: 145
+            Item: Queen's_Whip
+            Rate: 5
+          - Index: 146
+            Item: Electric_Eel
+            Rate: 5
+          - Index: 147
+            Item: Sea_Witch_Foot
+            Rate: 5
+          - Index: 148
+            Item: Carrot_Whip
+            Rate: 5
+          - Index: 149
+            Item: Queen's_Whip_
+            Rate: 5
+          - Index: 150
+            Item: Stem_Of_Nepenthes
+            Rate: 5
+          - Index: 151
+            Item: Stem_Whip
+            Rate: 2
+          - Index: 152
+            Item: Stem_Whip
+            Rate: 1
+          - Index: 153
+            Item: Destruction_Rod
+            Rate: 1
+          - Index: 154
+            Item: Divine_Cross
+            Rate: 5
+          - Index: 155
+            Item: Kronos
+            Rate: 5

@@ -45,7 +45,7 @@ mal_in01,172,28,2	script	Albo#mal	561,{
 		if (checkquest(.@quests[.@i],PLAYTIME) > -1) {
 			set .@status[.@i],2;
 			set .@menu$, .@menu$+"^aaaaaa- There is no new task -^000000:";
-		} else if (.@i%2 && BaseLevel < 140) {
+		} else if (.@i%2 && BaseLevel < 95) {
 			set .@status[.@i],0;
 			set .@menu$, .@menu$+"^aaaaaaCan't take this job because level is too low^000000:";
 		} else {
@@ -482,7 +482,7 @@ L_Enter:
 		enablenpc instance_npcname("Missing, the Cleaner#n");
 		close;
 	case 2:
-		if (BaseLevel < 140) {
+		if (BaseLevel < 95) {
 			mes "[Missing, the Cleaner]";
 			mes "Hmmm... Missing thinks you're weak! Tell me the truth!!";
 			close;
@@ -518,7 +518,7 @@ OnInstanceInit:
 	disablenpc instance_npcname("Culvert Entrance#n");	// disable warp out
 	end;
 OnTouch:
-	if (BaseLevel >= 140)
+	if (BaseLevel >= 95)
 		warp instance_mapname("2@pump"),38,88;
 	else
 		warp instance_mapname("1@pump"),74,105;
@@ -823,7 +823,7 @@ OnMyMobDead:
 				     if (.@j < 5001) set .@item,12636; //Malang_Sp_Can
 				else if (.@j < 5501) set .@item,12615; //Low_Coin_Pocket
 				else if (.@j < 6001) set .@item,12621; //Egrade_Pocket
-				else if (.@j < 6201) set .@item,12620; //Dgrade_Pocket
+				else if (.@j < 6399) set .@item,12620; //Dgrade_Pocket
 				else if (.@j < 6401) set .@item,12623; //High_Weapon_Box
 				else continue;
 				makeitem .@item,1,.@map$,rand(40,77),rand(87,120);
@@ -831,10 +831,10 @@ OnMyMobDead:
 		} else if (.@i$ == "h") {
 			for(set .@i,0; .@i<10; set .@i,.@i+1) {
 				set .@j, rand(1,5001);
-				     if (.@j < 2001) set .@item,12615; //Low_Coin_Pocket
-				else if (.@j < 3001) set .@item,12621; //Egrade_Pocket
-				else if (.@j < 4001) set .@item,12620; //Dgrade_Pocket
-				else if (.@j < 4501) set .@item,12619; //Cgrade_Pocket
+				     if (.@j < 2501) set .@item,12615; //Low_Coin_Pocket
+				else if (.@j < 3501) set .@item,12621; //Egrade_Pocket
+				else if (.@j < 4501) set .@item,12620; //Dgrade_Pocket
+				else if (.@j < 4999) set .@item,12619; //Cgrade_Pocket
 				else if (.@j < 5001) set .@item,12623; //High_Weapon_Box
 				else continue;
 				makeitem .@item,1,.@map$,rand(40,77),rand(87,120);

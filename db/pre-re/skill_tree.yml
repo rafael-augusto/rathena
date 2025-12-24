@@ -63,6 +63,8 @@ Body:
         Requires:
           - Name: SM_SWORD
             Level: 1
+      - Name: KN_SPEARMASTERY
+        MaxLevel: 10
       - Name: SM_RECOVERY
         MaxLevel: 10
       - Name: SM_BASH
@@ -172,18 +174,13 @@ Body:
     Tree:
       - Name: AL_DP
         MaxLevel: 10
-      - Name: AL_DEMONBANE
-        MaxLevel: 10
-        Requires:
-          - Name: AL_DP
-            Level: 3
       - Name: AL_RUWACH
         MaxLevel: 1
       - Name: AL_PNEUMA
         MaxLevel: 1
         Requires:
-          - Name: AL_WARP
-            Level: 4
+          - Name: AL_RUWACH
+            Level: 1
       - Name: AL_TELEPORT
         MaxLevel: 2
         Requires:
@@ -208,10 +205,15 @@ Body:
             Level: 1
       - Name: AL_HOLYWATER
         MaxLevel: 1
+      - Name: PR_MACEMASTERY    
+        MaxLevel: 10
+        Requires:
+          - Name: AL_DP
+            Level: 3
       - Name: AL_CRUCIS
         MaxLevel: 10
         Requires:
-          - Name: AL_DEMONBANE
+          - Name: PR_MACEMASTERY
             Level: 3
       - Name: AL_ANGELUS
         MaxLevel: 10
@@ -234,6 +236,8 @@ Body:
     Inherit:
       Novice: true
     Tree:
+      - Name: AM_AXEMASTERY
+        MaxLevel: 10
       - Name: MC_INCCARRY
         MaxLevel: 10
       - Name: MC_DISCOUNT
@@ -277,6 +281,8 @@ Body:
     Inherit:
       Novice: true
     Tree:
+      - Name: SM_SWORD
+        MaxLevel: 10
       - Name: TF_DOUBLE
         MaxLevel: 10
       - Name: TF_MISS
@@ -308,8 +314,6 @@ Body:
       Novice: true
       Swordman: true
     Tree:
-      - Name: KN_SPEARMASTERY
-        MaxLevel: 10
       - Name: KN_PIERCE
         MaxLevel: 10
         Requires:
@@ -393,8 +397,6 @@ Body:
             Level: 1
           - Name: MG_SRECOVERY
             Level: 4
-      - Name: PR_MACEMASTERY
-        MaxLevel: 10
       - Name: PR_IMPOSITIO
         MaxLevel: 5
       - Name: PR_SUFFRAGIUM
@@ -839,8 +841,6 @@ Body:
         Requires:
           - Name: KN_RIDING
             Level: 1
-      - Name: KN_SPEARMASTERY
-        MaxLevel: 10
       - Name: AL_CURE
         MaxLevel: 1
         Requires:
@@ -859,8 +859,6 @@ Body:
       - Name: AL_HEAL
         MaxLevel: 10
         Requires:
-          - Name: AL_DEMONBANE
-            Level: 5
           - Name: CR_TRUST
             Level: 10
       - Name: CR_TRUST
@@ -928,7 +926,7 @@ Body:
       - Name: MO_IRONHAND
         MaxLevel: 10
         Requires:
-          - Name: AL_DEMONBANE
+          - Name: PR_MACEMASTERY
             Level: 10
           - Name: AL_DP
             Level: 10
@@ -1144,8 +1142,6 @@ Body:
       Novice: true
       Thief: true
     Tree:
-      - Name: SM_SWORD
-        MaxLevel: 10
       - Name: AC_VULTURE
         MaxLevel: 10
       - Name: AC_DOUBLE
@@ -1249,8 +1245,6 @@ Body:
       Novice: true
       Merchant: true
     Tree:
-      - Name: AM_AXEMASTERY
-        MaxLevel: 10
       - Name: AM_LEARNINGPOTION
         MaxLevel: 10
       - Name: AM_PHARMACY
@@ -1605,18 +1599,14 @@ Body:
             Level: 4
       - Name: AL_DP
         MaxLevel: 10
-      - Name: AL_DEMONBANE
-        MaxLevel: 10
-        Requires:
-          - Name: AL_DP
-            Level: 3
+
       - Name: AL_RUWACH
         MaxLevel: 1
       - Name: AL_PNEUMA
         MaxLevel: 1
         Requires:
-          - Name: AL_WARP
-            Level: 4
+          - Name: AL_RUWACH
+            Level: 1
       - Name: AL_TELEPORT
         MaxLevel: 2
         Requires:
@@ -1641,10 +1631,15 @@ Body:
             Level: 1
       - Name: AL_HOLYWATER
         MaxLevel: 1
+      - Name: PR_MACEMASTERY    
+        MaxLevel: 10
+        Requires:
+          - Name: AL_DP
+            Level: 3
       - Name: AL_CRUCIS
         MaxLevel: 10
         Requires:
-          - Name: AL_DEMONBANE
+          - Name: PR_MACEMASTERY
             Level: 3
       - Name: AL_ANGELUS
         MaxLevel: 10
@@ -2114,8 +2109,6 @@ Body:
         MaxLevel: 5
         Requires:
           - Name: PR_MACEMASTERY
-            Level: 10
-          - Name: AL_DEMONBANE
             Level: 10
   - Job: High_Wizard
     Inherit:
@@ -2853,7 +2846,7 @@ Body:
             Level: 4
       - Name: AL_DP
         MaxLevel: 10
-      - Name: AL_DEMONBANE
+      - Name: PR_MACEMASTERY    
         MaxLevel: 10
         Requires:
           - Name: AL_DP
@@ -2863,8 +2856,8 @@ Body:
       - Name: AL_PNEUMA
         MaxLevel: 1
         Requires:
-          - Name: AL_WARP
-            Level: 4
+          - Name: AL_RUWACH
+            Level: 1
       - Name: AL_TELEPORT
         MaxLevel: 2
         Requires:
@@ -2892,7 +2885,7 @@ Body:
       - Name: AL_CRUCIS
         MaxLevel: 10
         Requires:
-          - Name: AL_DEMONBANE
+          - Name: PR_MACEMASTERY
             Level: 3
       - Name: AL_ANGELUS
         MaxLevel: 10

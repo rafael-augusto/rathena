@@ -1,4 +1,4 @@
-prontera,164,196,4	shop	Tool Dealer#prt2	8_F_GIRL,601:-1,501:-1,502:-1,503:-1,504:-1,517:-1,579:-1,506:-1,602:-1,645:-1,656:-1,657:-1,1065:-1,1751:-1,1752:-1,717:600,716:1200,715:2000,6360:1000,6363:1000,6361:1000,6362:1000
+prontera,164,196,4	shop	Tool Dealer#prt2	8_F_GIRL,601:-1,501:-1,502:-1,503:-1,504:-1,517:-1,579:-1,506:-1,602:-1,645:-1,656:-1,657:-1,1065:-1,1751:-1,1752:-1,717:600,716:1200,715:2000
 
 
 aldebaran,146,115,4	duplicate(Tool Dealer#prt2)	Tool Dealer#aldebaran	8_F_GIRL
@@ -12,3 +12,4 @@ gonryun,152,119,4	duplicate(Tool Dealer#prt2)	Tool Dealer#gonryun	8_F_GIRL
 rachel,125,103,7	duplicate(Tool Dealer#prt2)	Tool Dealer#rachel	8_F_GIRL
 lighthalzen,153,86,7	duplicate(Tool Dealer#prt2)	Tool Dealer#lighthalzen	8_F_GIRL
 izlude,124,148,4	duplicate(Tool Dealer#prt2)	Tool Dealer#izlude	8_F_GIRL
+malangdo,232,163,4	duplicate(Tool Dealer#prt2)	Tool Dealer#malangdo	8_F_GIRL
