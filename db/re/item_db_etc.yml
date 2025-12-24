@@ -10258,7 +10258,7 @@ Body:
       DropEffect: CLIENT
     Script: |
       bonus bMaxSPrate,5;
-      bonus bMdef,50;
+      bonus bMdef,20;
   - Id: 4527
     AegisName: Black_Coelacanth_Card
     Name: Dark Coelacanth Card
@@ -10272,7 +10272,7 @@ Body:
       DropEffect: CLIENT
     Script: |
       bonus bMaxHPrate,10;
-      bonus bDef,100;
+      bonus bDef,10;
   - Id: 4528
     AegisName: Mutant_Coelacanth_Card
     Name: Mutant Coelacanth Card
@@ -10336,7 +10336,7 @@ Body:
       BuyingStore: true
       DropEffect: CLIENT
     Script: |
-      bonus3 bAddEff,Eff_Curse,100,ATF_MAGIC;
+      bonus3 bAddEff,Eff_Curse,10,ATF_MAGIC;
   - Id: 4532
     AegisName: Wild_Rider_Card
     Name: Wild Rider Card

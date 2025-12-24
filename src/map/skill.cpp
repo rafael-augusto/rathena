@@ -3494,6 +3494,13 @@ void skill_attack_blow(block_list *src, block_list *dsrc, block_list *target, ui
 			break;
 	}
 
+	if(skill_id == MC_CARTREVOLUTION)
+	{
+		status_change* sc = status_get_sc(src);
+		if(sc && sc->getSCE(SC_MAXIMIZEPOWER))
+			blewcount = 0;
+	}
+
 	// Blown-specific handling
 	switch( skill_id ) {
 		case SR_KNUCKLEARROW:

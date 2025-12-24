@@ -1,0 +1,65 @@
+Função: Você é um assistente de engenharia de software especialista em automação para desenvolvimento de jogos, com foco em servidores baseados em rAthena.
+
+Tarefa: Crie um script em Python que automatiza a sincronização de valores de defesa (DEF) de armaduras entre os arquivos de configuração do lado do servidor (YAML) e um arquivo de script do lado do cliente (LUA). O script deve ler a DEF base e os bônus de combo dos arquivos YAML, calcular o valor total e atualizar o arquivo LUA correspondente.
+
+Arquivos de Entrada:
+
+item_db_equip.yml: Contém as propriedades base dos itens de equipamento.
+item_combos.yml: Contém as definições de bônus para conjuntos de itens (combos).
+equipmentproperties.lub: O arquivo do cliente que precisa ser editado.
+Estrutura dos Arquivos (Contexto):
+
+item_db_equip.yml (YAML):
+
+Contém uma lista de itens sob a chave Body.
+Cada item é um dicionário.
+As chaves relevantes são Id (o ID numérico do item) e Def (o valor da defesa base).
+item_combos.yml (YAML):
+
+Contém uma lista de combos sob a chave Body.
+Cada combo é um dicionário com uma lista de Items (IDs dos itens que compõem o combo) e um Script (uma string com os bônus).
+O bônus de defesa que nos interessa está no formato bonus bDef,X;, onde X é um número inteiro. Este bônus se aplica a todos os itens do combo.
+equipmentproperties.lub (LUA):
+
+É um script Lua que define uma tabela global chamada Item.
+A tabela Item é indexada por IDs de itens (ex: [2101] = { ... }).
+Estamos interessados apenas nos itens com Type = "armor".
+Dentro de uma entrada de armadura, há uma tabela Stat.
+O primeiro valor numérico dentro da tabela Stat é o valor da DEF que é exibido no cliente do jogo. É este valor que precisa ser atualizado.
+O formato das entradas pode ser complexo, abrangendo múltiplas linhas e contendo funções Lua. A formatação do arquivo (espaços, quebras de linha) deve ser preservada o máximo possível.
+Lógica de Implementação do Script Python:
+
+O script deve ser executado a partir da linha de comando, aceitando os três nomes de arquivo como argumentos.
+
+Dependências: O script precisará da biblioteca PyYAML para analisar os arquivos .yml.
+Coleta de Dados:
+Crie um dicionário (ex: total_def_map) para armazenar o ItemID como chave e a DEF total calculada como valor. Use collections.defaultdict(int) para facilitar a soma.
+Passo 1: Ler DEF Base. Percorra item_db_equip.yml. Para cada item, extraia o Id e o valor de Def. Adicione este valor de Def ao total_def_map para o Id correspondente.
+Passo 2: Ler Bônus de Combo. Percorra item_combos.yml. Para cada combo:
+Use uma expressão regular (regex) para encontrar o padrão bonus\s+bDef,(\d+); (case-insensitive) dentro do campo Script.
+Se um bônus de DEF for encontrado, extraia o valor numérico.
+Para cada ItemID na lista Items daquele combo, some o valor do bônus de DEF ao valor já existente no total_def_map.
+Atualização do Arquivo .lub:
+Leia o conteúdo completo do arquivo equipmentproperties.lub para a memória, linha por linha.
+Crie uma nova lista para armazenar as linhas modificadas.
+Itere sobre cada linha do arquivo original:
+Use uma expressão regular robusta para encontrar as linhas que definem uma armadura e seu valor de Stat. O padrão deve ser capaz de lidar com formatação variada e capturar as seguintes informações:
+Grupo 1: A parte da linha antes do valor da DEF (ex: [2101] = { Type = "armor", Stat = {).
+Grupo 2: O ItemID (ex: 2101).
+Grupo 3: O valor numérico antigo da DEF (ex: 20).
+Grupo 4: O restante da linha após o valor da DEF (ex: , 0, 0, ... }).
+Se a linha corresponder ao padrão:
+Extraia o ItemID e o old_def.
+Verifique se o ItemID existe no total_def_map.
+Se existir, pegue o new_def do mapa.
+Se new_def for diferente de old_def, reconstrua a linha usando os grupos capturados e o novo valor de DEF. Adicione esta nova linha à lista de linhas modificadas.
+Se os valores forem iguais ou se o item não estiver no mapa, adicione a linha original à lista de linhas modificadas.
+Se a linha não corresponder ao padrão, simplesmente adicione a linha original à lista de linhas modificadas.
+Saída:
+Sobrescreva o arquivo equipmentproperties.lub com o conteúdo da lista de linhas modificadas.
+Imprima no console um resumo das alterações, mostrando quais ItemIDs foram atualizados e os valores de DEF antigos e novos. Ex: ID 2101: DEF alterado de 20 para 25.
+Se nenhuma alteração for necessária, informe o usuário.
+Exemplo de Uso (Linha de Comando):
+
+bash
+python update_def.py item_db_equip.yml item_combos.yml equipmentproperties.lub

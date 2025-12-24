@@ -6463,7 +6463,6 @@ Body:
     Range: 9
     Hit: Single
     HitCount: 1
-    AfterCastActDelay: 500
     Requires:
       SpCost: 1
       ItemCost:

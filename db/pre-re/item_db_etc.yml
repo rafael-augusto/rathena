@@ -8564,6 +8564,214 @@ Body:
       BuyingStore: true
     Script: |
       bonus bBaseAtk,25;
+  - Id: 4521
+    AegisName: Sedora_Card
+    Name: Sedora Card
+    Type: Card
+    Buy: 20
+    Weight: 10
+    Locations:
+      Right_Hand: true
+    Flags:
+      BuyingStore: true
+      DropEffect: CLIENT
+    Script: |
+      bonus bCritAtkRate,15;
+  - Id: 4522
+    AegisName: Sropho_Card
+    Name: Sropho Card
+    Type: Card
+    Buy: 20
+    Weight: 10
+    Locations:
+      Right_Hand: true
+    Flags:
+      BuyingStore: true
+      DropEffect: CLIENT
+    Script: |
+      bonus4 bAddEff,Eff_Crystalize,500,ATF_SHORT,3000;
+  - Id: 4523
+    AegisName: Pot_Dofle_Card
+    Name: Pot Dofle Card
+    Type: Card
+    Buy: 20
+    Weight: 10
+    Locations:
+      Armor: true
+    Flags:
+      BuyingStore: true
+      DropEffect: CLIENT
+    Script: |
+      bonus bDefEle,Ele_Water;
+      bonus2 bSubRace,RC_Fish,10;
+  - Id: 4524
+    AegisName: King_Dramoh_Card
+    Name: King Dramoh Card
+    Type: Card
+    Buy: 20
+    Weight: 10
+    Locations:
+      Head_Low: true
+      Head_Mid: true
+      Head_Top: true
+    Flags:
+      BuyingStore: true
+      DropEffect: CLIENT
+    Script: |
+      bonus bStr,2;
+      if (BaseClass == Job_Swordman)
+         bonus bStr,getrefine()/3;
+  - Id: 4525
+    AegisName: Kraken_Card
+    Name: Kraken Card
+    Type: Card
+    Buy: 20
+    Weight: 10
+    Locations:
+      Garment: true
+    Flags:
+      BuyingStore: true
+      DropEffect: CLIENT
+    Script: |
+      bonus bFlee,10;
+      skill "TF_HIDING",1;
+      skill "RG_RAID",1;
+      bonus5 bAutoSpellOnSkill,"RG_RAID","NPC_WIDEBLEEDING",1,250,1;
+    UnEquipScript: |
+      sc_end SC_HIDING;
+  - Id: 4526
+    AegisName: Odd_Coelacanth_Card
+    Name: Weird Coelacanth Card
+    Type: Card
+    Buy: 20
+    Weight: 10
+    Locations:
+      Armor: true
+    Flags:
+      BuyingStore: true
+      DropEffect: CLIENT
+    Script: |
+      bonus bMaxSPrate,5;
+      bonus bMdef,20;
+  - Id: 4527
+    AegisName: Black_Coelacanth_Card
+    Name: Dark Coelacanth Card
+    Type: Card
+    Buy: 20
+    Weight: 10
+    Locations:
+      Armor: true
+    Flags:
+      BuyingStore: true
+      DropEffect: CLIENT
+    Script: |
+      bonus bMaxHPrate,10;
+      bonus bDef,10;
+  - Id: 4528
+    AegisName: Mutant_Coelacanth_Card
+    Name: Mutant Coelacanth Card
+    Type: Card
+    Buy: 20
+    Weight: 10
+    Locations:
+      Head_Low: true
+      Head_Mid: true
+      Head_Top: true
+    Flags:
+      BuyingStore: true
+      DropEffect: CLIENT
+    Script: |
+      .@r = getrefine();
+      bonus bMatkRate,2+(.@r/2);
+      bonus bMaxHPrate,-.@r/2;
+  - Id: 4529
+    AegisName: Cruel_Coelacanth_Card
+    Name: Violent Coelacanth Card
+    Type: Card
+    Buy: 20
+    Weight: 10
+    Locations:
+      Head_Low: true
+      Head_Mid: true
+      Head_Top: true
+    Flags:
+      BuyingStore: true
+      DropEffect: CLIENT
+    Script: |
+      .@r = getrefine();
+      bonus2 bAddClass,Class_All,2+(.@r/2);
+      bonus bMaxSPrate,-.@r/2;
+  - Id: 4530
+    AegisName: Siorava_Card
+    Name: Siorava Card
+    Type: Card
+    Buy: 20
+    Weight: 10
+    Locations:
+      Head_Low: true
+      Head_Mid: true
+      Head_Top: true
+    Flags:
+      BuyingStore: true
+      DropEffect: CLIENT
+    Script: |
+      bonus bLuk,2;
+      if (BaseClass == Job_Merchant)
+         bonus bLuk,getrefine()/3;
+  - Id: 4531
+    AegisName: Red_Eruma_Card
+    Name: Red Eruma Card
+    Type: Card
+    Buy: 20
+    Weight: 10
+    Locations:
+      Right_Hand: true
+    Flags:
+      BuyingStore: true
+      DropEffect: CLIENT
+    Script: |
+      bonus3 bAddEff,Eff_Curse,10,ATF_MAGIC;
+  - Id: 4532
+    AegisName: Wild_Rider_Card
+    Name: Wild Rider Card
+    Type: Card
+    Buy: 20
+    Weight: 10
+    Locations:
+      Shoes: true
+    Flags:
+      BuyingStore: true
+      DropEffect: CLIENT
+    Script: |
+      bonus bAgi,1;
+      bonus3 bAutoSpell,"AL_INCAGI",1,50;
+  - Id: 4533
+    AegisName: Mini_Octopus_Card
+    Name: Octopus Card
+    Type: Card
+    Buy: 20
+    Weight: 10
+    Locations:
+      Right_Hand: true
+    Flags:
+      BuyingStore: true
+      DropEffect: CLIENT
+    Script: |
+      bonus3 bAddEff,Eff_Blind,100,ATF_MAGIC;
+  - Id: 4534
+    AegisName: Giant_Octopus_Card
+    Name: Giant Octopus Card
+    Type: Card
+    Buy: 20
+    Weight: 10
+    Locations:
+      Armor: true
+    Flags:
+      BuyingStore: true
+      DropEffect: CLIENT
+    Script: |
+      bonus bMaxHPrate,12;
+      skill "WZ_WATERBALL",5;
   - Id: 4700
     AegisName: Strength1
     Name: STR+1

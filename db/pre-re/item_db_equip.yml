@@ -16192,7 +16192,7 @@ Body:
     SubType: Bow
     Buy: 20
     Weight: 1200
-    Attack: 150
+    Attack: 170
     Range: 5
     Jobs:
       Archer: true
@@ -16207,6 +16207,7 @@ Body:
     Script: |
       bonus bAtkEle,Ele_Holy;
       bonus bInt,5;
+      bonus bDex,5;
       skill "AL_CURE",1;
       skill "AL_HEAL",1;
       bonus2 bResEff,Eff_Poison,5000;
@@ -16214,6 +16215,13 @@ Body:
       bonus2 bResEff,Eff_Silence,5000;
       bonus2 bResEff,Eff_Confusion,5000;
       bonus2 bResEff,Eff_Blind,5000;
+      bonus2 bResEff,Eff_Stone,5000;
+      bonus2 bResEff,Eff_Freeze,5000;
+      bonus2 bResEff,Eff_Stun,5000;
+      bonus2 bResEff,Eff_Curse,5000;
+      bonus2 bResEff,Eff_Sleep,5000;
+      bonus2 bResEff,Eff_Bleeding,5000;
+      bonus2 bResEff,Eff_Fear,5000;
   - Id: 1721
     AegisName: Repeting_CrossBow
     Name: Repeating Crossbow
@@ -16509,7 +16517,7 @@ Body:
     SubType: Bow
     Buy: 20
     Weight: 1600
-    Attack: 20
+    Attack: 50
     Range: 5
     Jobs:
       Archer: true

@@ -20074,9 +20074,6 @@ Body:
           - Index: 0
             Item: Malang_Sp_Can
             Rate: 600
-          - Index: 1
-            Item: Sapa_Feat_Cert
-            Rate: 300
           - Index: 2
             Item: Cgrade_Coin
             Rate: 100
@@ -20085,9 +20082,6 @@ Body:
           - Index: 0
             Item: Malang_Sp_Can
             Rate: 600
-          - Index: 1
-            Item: Mora_Coin
-            Rate: 200
           - Index: 2
             Item: Dgrade_Coin
             Rate: 200
@@ -20096,9 +20090,6 @@ Body:
           - Index: 0
             Item: Malang_Sp_Can
             Rate: 500
-          - Index: 1
-            Item: Manuk_Coin
-            Rate: 300
           - Index: 2
             Item: Egrade_Coin
             Rate: 200
@@ -20107,9 +20098,6 @@ Body:
           - Index: 0
             Item: Malang_Sp_Can
             Rate: 500
-          - Index: 1
-            Item: Splendide_Coin
-            Rate: 300
           - Index: 2
             Item: Egrade_Coin
             Rate: 200
@@ -23041,18 +23029,6 @@ Body:
           - Index: 0
             Item: Malang_Sp_Can
             Rate: 400
-          - Index: 1
-            Item: Splendide_Coin
-            Rate: 200
-          - Index: 2
-            Item: Manuk_Coin
-            Rate: 100
-          - Index: 3
-            Item: Sapa_Feat_Cert
-            Rate: 80
-          - Index: 4
-            Item: Mora_Coin
-            Rate: 50
           - Index: 5
             Item: Anger_Seagod
             Rate: 1
@@ -23067,18 +23043,6 @@ Body:
           - Index: 0
             Item: Malang_Sp_Can
             Rate: 400
-          - Index: 1
-            Item: Splendide_Coin
-            Rate: 250
-          - Index: 2
-            Item: Manuk_Coin
-            Rate: 100
-          - Index: 3
-            Item: Sapa_Feat_Cert
-            Rate: 100
-          - Index: 4
-            Item: Mora_Coin
-            Rate: 40
           - Index: 5
             Item: Agrade_Coin
             Rate: 15
