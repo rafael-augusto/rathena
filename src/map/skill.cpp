@@ -874,6 +874,7 @@ bool skill_isNotOk( uint16 skill_id, map_session_data& sd ){
 		(skill_nocast&4 && mapdata_flag_gvg2_no_te(mapdata)) ||
 		(skill_nocast&8 && mapdata->getMapFlag(MF_BATTLEGROUND)) ||
 		(skill_nocast&16 && mapdata_flag_gvg2_te(mapdata)) || // WOE:TE
+		(skill_id == 225 && !(mapdata->getMapFlag(MF_TOWN))) ||
 		(mapdata->zone && skill_nocast&(mapdata->zone) && mapdata->getMapFlag(MF_RESTRICTED)) ){
 			clif_msg_color( sd, MSI_IMPOSSIBLE_SKILL_AREA, color_table[COLOR_CYAN] ); // This skill cannot be used within this area.
 			return true;
@@ -2259,15 +2260,6 @@ int32 skill_additional_effect( block_list* src, block_list *bl, uint16 skill_id,
 		if( sd && battle_config.equip_self_break_rate )
 		{	// Self weapon breaking
 			int32 rate = battle_config.equip_natural_break_rate;
-#ifndef RENEWAL
-			if( sc )
-			{
-				if(sc->getSCE(SC_OVERTHRUST))
-					rate += 10;
-				if(sc->getSCE(SC_MAXOVERTHRUST))
-					rate += 10;
-			}
-#endif
 			if( rate )
 				skill_break_equip(src,src, EQP_WEAPON, rate, BCT_SELF);
 		}
@@ -3496,8 +3488,8 @@ void skill_attack_blow(block_list *src, block_list *dsrc, block_list *target, ui
 
 	if(skill_id == MC_CARTREVOLUTION)
 	{
-		status_change* sc = status_get_sc(src);
-		if(sc && sc->getSCE(SC_MAXIMIZEPOWER))
+		map_session_data *sd = BL_CAST(BL_PC, src);
+		if(sd && sd->cart_weight == 80000)
 			blewcount = 0;
 	}
 
@@ -8863,6 +8855,7 @@ int32 skill_castend_nodamage_id (block_list *src, block_list *bl, uint16 skill_i
 #endif
 	case PR_MAGNIFICAT:
 	case PR_GLORIA:
+	case BS_GREED:
 	case SOA_SOUL_OF_HEAVEN_AND_EARTH:
 		if (sd == nullptr || sd->status.party_id == 0 || (flag & 1)) {
 
@@ -9753,13 +9746,6 @@ int32 skill_castend_nodamage_id (block_list *src, block_list *bl, uint16 skill_i
 			sc_start(src,src,SC_STOP,100,skill_lv,INFINITE_TICK);// The skill_lv is stored in val1 used in skill_select_menu to determine the used skill lvl [Xazax]
 			clif_plagiarism( *sd );
 			clif_skill_nodamage(src,*bl,skill_id,1);
-		}
-		break;
-	case BS_GREED:
-		if(sd){
-			clif_skill_nodamage(src,*bl,skill_id,skill_lv);
-			map_foreachinallrange(skill_greed,bl,
-				skill_get_splash(skill_id, skill_lv),BL_ITEM,bl);
 		}
 		break;
 
