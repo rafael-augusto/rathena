@@ -16973,20 +16973,22 @@ Body:
     Name: BS_GREED
     Description: Greed
     MaxLevel: 1
-    Type: Weapon
+    Type: Magic
     TargetType: Self
     DamageFlags:
       NoDamage: true
       Splash: true
     Flags:
       IsQuest: true
-      AllowOnWarg: true
       AllowOnMado: true
     Hit: Single
-    SplashArea: 2
-    AfterCastActDelay: 1000
+    SplashArea: -1
+    HitCount: 1
+    CastTime: 2000
+    Duration1: 240000
     Requires:
-      SpCost: 10
+      SpCost: 50
+    Status: Greed
   - Id: 1014
     Name: PR_REDEMPTIO
     Description: Redemptio

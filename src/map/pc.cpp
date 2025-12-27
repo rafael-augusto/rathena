@@ -6160,7 +6160,7 @@ bool pc_takeitem(map_session_data *sd,flooritem_data *fitem)
 	nullpo_ret(sd);
 	nullpo_ret(fitem);
 
-	if (!check_distance_bl(fitem, sd, 2) && sd->ud.skill_id!=BS_GREED)
+	if (!check_distance_bl(fitem, sd, 2))
 		return false;	// Distance is too far
 
 	if (sd->sc.cant.pickup)
