@@ -2470,7 +2470,7 @@ uint16 status_base_atk(const block_list *bl, const struct status_data *status, i
 #else
 			dstr = str / 10;
 			str += dstr*dstr;
-			str += dex / 5 + status->luk / 5;
+			str += dex / 5 + status->luk / 3;
 #endif
 			break;
 		default:// Others
@@ -2479,7 +2479,7 @@ uint16 status_base_atk(const block_list *bl, const struct status_data *status, i
 #else
 			dstr = str / 10;
 			str += dstr*dstr;
-			str += dex / 5 + status->luk / 5;
+			str += dex / 5 + status->luk / 3;
 #endif
 			break;
 	}
@@ -2957,9 +2957,22 @@ int32 status_calc_mob_(mob_data* md, uint8 opt)
 				case KO_ZANZOU:
 					status->max_hp = 3000 + 3000 * ud->skill_lv;
 					break;
-				case AM_CANNIBALIZE:
+				case AM_CANNIBALIZE:{
 					status->max_hp = 1500 + 200*ud->skill_lv + 10*status_get_lv(mbl);
+					TBL_PC* pcData = ((TBL_PC*)mbl);
+					if(pcData){
+						short calcAtk = (pcData->battle_status.rhw.atk + pcData->battle_status.rhw.atk2 + pcData->battle_status.batk)/2 * ud->skill_lv;
+						status->int_ = pcData->battle_status.int_ > status->int_ ? pcData->battle_status.int_ :  status->int_;
+						md->level = pcData->status.base_level;
+						md->base_status->race = RC_DEMIHUMAN;
+						status->rhw.atk += calcAtk;
+						status->rhw.atk2 += calcAtk;
+						status->adelay = pcData->battle_status.adelay;
+						status->hit = pcData->battle_status.hit;
+						status->cri = pcData->battle_status.cri;
+					}
 					status->mode = static_cast<e_mode>(status->mode|MD_CANATTACK|MD_AGGRESSIVE);
+				}	
 					break;
 				case MH_SUMMON_LEGION:
 				{

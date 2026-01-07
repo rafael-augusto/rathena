@@ -146,6 +146,8 @@ Body:
     Dialog: Let's start with recovery!
   - Id: 70
     Dialog: Silence that cannot use skills! You can only escape by eating green potions!
+  - Id: 71
+    Dialog: 3... 2... 1... !!
 
 Footer:
   Imports:

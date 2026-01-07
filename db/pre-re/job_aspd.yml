@@ -188,10 +188,10 @@ Body:
       Baby_Priest: true
     BaseASPD:
       Fist: 400
-      Mace: 600
-      2hMace: 600
+      Mace: 500
+      2hMace: 500
       Staff: 600
-      Book: 600
+      Book: 500
       2hStaff: 600
   - Jobs:
       Wizard: true

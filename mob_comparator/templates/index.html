@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>rAthena Mob Comparator</title>
+    <style>
+        body { font-family: sans-serif; margin: 2em; background-color: #f4f4f4; color: #333; }
+        h1, h2 { text-align: center; }
+        .container { max-width: 900px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .form-container { text-align: center; margin-bottom: 20px; }
+        select { padding: 10px; font-size: 1em; width: 50%; max-width: 400px; }
+        button { padding: 10px 20px; font-size: 1em; }
+        .comparison-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 20px; }
+        .grid-header { font-weight: bold; background-color: #e9ecef; padding: 10px; border-radius: 4px; }
+        .grid-cell { background-color: #f8f9fa; padding: 10px; border-radius: 4px; }
+        .grid-cell.attribute { font-weight: bold; }
+        .not-found { text-align: center; color: #dc3545; font-size: 1.2em; padding: 20px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>rAthena Mob Comparator</h1>
+
+        <nav style="text-align: center; margin-bottom: 2em;">
+            <a href="/charts" style="padding: 10px 20px; text-decoration: none; background: #28a745; color: white; border-radius: 5px;">Go to Charts</a>
+        </nav>
+
+        <div class="form-container">
+            <form method="GET" action="/">
+                <label for="mob-select">Select a Mob:</label>
+                <select name="mob" id="mob-select" onchange="this.form.submit()">
+                    <option value="">--Choose a mob--</option>
+                    {% for mob_name in mob_names %}
+                        <option value="{{ mob_name }}" {% if mob_name == selected_mob %}selected{% endif %}>{{ mob_name }}</option>
+                    {% endfor %}
+                </select>
+            </form>
+        </div>
+
+        {% if selected_mob %}
+            <h2>Comparison for: {{ selected_mob }}</h2>
+
+            <div class="comparison-grid">
+                <!-- Headers -->
+                <div class="grid-header">Attribute</div>
+                <div class="grid-header">Pre-Renewal</div>
+                <div class="grid-header">Renewal</div>
+
+                {% if pre_re_stats %}
+                    {% set attributes = ['Level', 'Hp', 'BaseExp', 'JobExp', 'Attack', 'Defense', 'DefReduction', 'MagicDefense', 'MDefReduction', 'Str', 'Agi', 'Vit', 'Int', 'Dex', 'Luk'] %}
+                    
+                    {% for attr in attributes %}
+                        <div class="grid-cell attribute">
+                            {% if attr == 'DefReduction' %}Reduction (Phys) %
+                            {% elif attr == 'MDefReduction' %}Reduction (Magic) %
+                            {% elif attr == 'MagicAttack' %}Magic Attack
+                            {% else %}{{ attr }}
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Pre-RE Column -->
+                        <div class="grid-cell">
+                            {% if attr == 'DefReduction' or attr == 'MDefReduction' %}
+                                {{ '%.2f'|format(pre_re_stats[attr]) }}%
+                            {% else %}
+                                {{ pre_re_stats[attr] }}
+                            {% endif %}
+                        </div>
+
+                        <!-- RE Column -->
+                        <div class="grid-cell">
+                            {% if re_stats %}
+                                {% if attr == 'DefReduction' or attr == 'MDefReduction' %}
+                                    {{ '%.2f'|format(re_stats[attr]) }}%
+                                {% elif attr == 'Attack' and re_stats.MagicAttack is defined %}
+                                     {{ re_stats[attr] }} (Magic Atk: {{ re_stats.MagicAttack }})
+                                {% elif re_stats[attr] is defined %}
+                                    {{ re_stats[attr] }}
+                                {% else %}
+                                    N/A
+                                {% endif %}
+                            {% else %}
+                                N/A
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            {% if not re_stats %}
+                <p class="not-found">Mob not found in Renewal database.</p>
+            {% endif %}
+        {% endif %}
+    </div>
+
+</body>
+</html>

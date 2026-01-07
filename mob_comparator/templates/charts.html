@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>rAthena Mob Charts</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: sans-serif; margin: 2em; background-color: #f4f4f4; color: #333; }
+        h1, h2 { text-align: center; }
+        nav { text-align: center; margin-bottom: 2em; }
+        nav a { padding: 10px 20px; text-decoration: none; background: #007bff; color: white; border-radius: 5px; }
+        nav a:hover { background: #0056b3; }
+        .container { max-width: 1200px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .chart-container { width: 100%; margin-bottom: 3em; }
+        #detailsBox { margin-top: 2em; padding: 1em; background: #e9ecef; border-radius: 8px; }
+        #detailsBox h3 { margin-top: 0; }
+        #detailsBox ul { list-style-type: none; padding: 0; }
+        #detailsBox li { background: #f8f9fa; margin-bottom: 5px; padding: 10px; border-radius: 4px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Level vs. Attack Charts</h1>
+        <nav>
+            <a href="/">Go to Comparator</a>
+        </nav>
+
+        <!-- Pre-Renewal Chart -->
+        <div class="chart-container">
+            <h2>Pre-Renewal <small>(Attack is avg. of Min/Max)</small></h2>
+            <canvas id="preReChart"></canvas>
+        </div>
+
+        <!-- Renewal Chart -->
+        <div class="chart-container">
+            <h2>Renewal</h2>
+            <canvas id="reChart"></canvas>
+        </div>
+        
+        <!-- Details Display Area -->
+        <div id="detailsBox" style="display: none;">
+            <h3 id="detailsTitle"></h3>
+            <ul id="detailsList"></ul>
+        </div>
+    </div>
+
+    <script>
+        // Data from Flask
+        const preReChartData = {{ pre_re_chart_data | tojson }};
+        const preReDetails = {{ pre_re_details | tojson }};
+        const reChartData = {{ re_chart_data | tojson }};
+        const reDetails = {{ re_details | tojson }};
+
+        const detailsBox = document.getElementById('detailsBox');
+        const detailsTitle = document.getElementById('detailsTitle');
+        const detailsList = document.getElementById('detailsList');
+
+        function createChart(canvasId, label, chartData, detailsData) {
+            const ctx = document.getElementById(canvasId).getContext('2d');
+            new Chart(ctx, {
+                type: 'scatter',
+                data: {
+                    datasets: [{
+                        label: label,
+                        data: chartData,
+                        backgroundColor: 'rgba(0, 123, 255, 0.5)'
+                    }]
+                },
+                options: {
+                    scales: {
+                        x: {
+                            type: 'linear',
+                            position: 'bottom',
+                            title: {
+                                display: true,
+                                text: 'Level'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Attack'
+                            }
+                        }
+                    },
+                    onClick: (event, elements) => {
+                        if (elements.length > 0) {
+                            const clickedElement = elements[0];
+                            const level = chartData[clickedElement.index].x;
+                            const monsters = detailsData[level];
+                            
+                            if (monsters) {
+                                detailsTitle.innerText = `Monsters at Level ${level} (${label})`;
+                                detailsList.innerHTML = '';
+                                monsters.forEach(mob => {
+                                    const li = document.createElement('li');
+                                    li.textContent = `Name: ${mob.name} | Atk: ${mob.atk} | HP: ${mob.hp} | Base EXP: ${mob.exp}`;
+                                    detailsList.appendChild(li);
+                                });
+                                detailsBox.style.display = 'block';
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        createChart('preReChart', 'Pre-Renewal', preReChartData, preReDetails);
+        createChart('reChart', 'Renewal', reChartData, reDetails);
+    </script>
+
+</body>
+</html>
