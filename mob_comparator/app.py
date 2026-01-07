@@ -48,8 +48,17 @@ def calculate_re_mdef_reduction(mdef):
 # Load databases on startup
 # Note: Adjust the path if the script is not run from the root of rAthena project
 pre_re_mobs = load_mob_database('../db/pre-re/mob_db.yml')
+pre_re_mobs_by_id = {mob['Id']: mob for mob in pre_re_mobs.values() if 'Id' in mob}
 re_mobs = load_mob_database('../db/re/mob_db.yml')
 mob_names = sorted(pre_re_mobs.keys())
+
+
+@app.route('/mob/<int:mob_id>')
+def mob_detail(mob_id):
+    mob = pre_re_mobs_by_id.get(mob_id)
+    if not mob:
+        return "Mob not found", 404
+    return render_template('detail.html', mob=mob)
 
 
 @app.route('/charts')
@@ -114,6 +123,7 @@ def index():
         pre_re_mdef = pre_re_mob.get('MagicDefense', 0)
         
         pre_re_stats = {
+            'Id': pre_re_mob.get('Id'),
             'Level': pre_re_mob.get('Level', 1),
             'Hp': pre_re_mob.get('Hp', 1),
             'BaseExp': pre_re_mob.get('BaseExp', 0),
