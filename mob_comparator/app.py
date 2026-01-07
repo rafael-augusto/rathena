@@ -3,6 +3,13 @@ from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
+@app.template_filter('format_number')
+def format_number(value):
+    try:
+        return "{:,}".format(int(value)).replace(',', '.')
+    except (ValueError, TypeError):
+        return value
+
 def load_mob_database(filepath):
     """Loads a mob database from a YAML file."""
     try:
@@ -52,13 +59,59 @@ pre_re_mobs_by_id = {mob['Id']: mob for mob in pre_re_mobs.values() if 'Id' in m
 re_mobs = load_mob_database('../db/re/mob_db.yml')
 mob_names = sorted(pre_re_mobs.keys())
 
+def load_item_database(files):
+    item_map = {} # AegisName -> ID
+    for filepath in files:
+        try:
+             with open(filepath, 'r', encoding='utf-8') as f:
+                data = yaml.safe_load(f)
+                items = data.get('Body', [])
+                for item in items:
+                    if 'AegisName' in item and 'Id' in item:
+                        item_map[item['AegisName']] = item['Id']
+        except Exception as e:
+            print(f"Error loading {filepath}: {e}")
+    return item_map
+
+item_db_files = [
+    '../db/pre-re/item_db_equip.yml',
+    '../db/pre-re/item_db_etc.yml',
+    '../db/pre-re/item_db_usable.yml'
+]
+item_aegis_to_id = load_item_database(item_db_files)
+
 
 @app.route('/mob/<int:mob_id>')
 def mob_detail(mob_id):
     mob = pre_re_mobs_by_id.get(mob_id)
     if not mob:
         return "Mob not found", 404
-    return render_template('detail.html', mob=mob)
+    
+    # Create a copy to enrich drops with ItemId without mutating global state
+    mob_data = mob.copy()
+    
+    # Enriched drops
+    if 'Drops' in mob_data:
+        new_drops = []
+        for drop in mob_data['Drops']:
+            d = drop.copy()
+            item_name = d.get('Item')
+            if item_name in item_aegis_to_id:
+                d['ItemId'] = item_aegis_to_id[item_name]
+            new_drops.append(d)
+        mob_data['Drops'] = new_drops
+        
+    if 'MvpDrops' in mob_data:
+        new_mvp_drops = []
+        for drop in mob_data['MvpDrops']:
+            d = drop.copy()
+            item_name = d.get('Item')
+            if item_name in item_aegis_to_id:
+                d['ItemId'] = item_aegis_to_id[item_name]
+            new_mvp_drops.append(d)
+        mob_data['MvpDrops'] = new_mvp_drops
+
+    return render_template('detail.html', mob=mob_data)
 
 
 @app.route('/charts')
@@ -128,6 +181,7 @@ def index():
             'Hp': pre_re_mob.get('Hp', 1),
             'BaseExp': pre_re_mob.get('BaseExp', 0),
             'JobExp': pre_re_mob.get('JobExp', 0),
+            'MvpExp': pre_re_mob.get('MvpExp', 0),
             'Attack': f"{pre_re_mob.get('Attack', 0)} - {pre_re_mob.get('Attack2', 0)}",
             'Defense': pre_re_def,
             'DefReduction': pre_re_def, # Direct percentage in pre-re
