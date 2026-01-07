@@ -6672,7 +6672,7 @@ Body:
     Int: 0
     Dex: 33
     Luk: 50
-    AttackRange: 1
+    AttackRange: 2
     SkillRange: 10
     ChaseRange: 12
     Size: Small
@@ -6681,9 +6681,10 @@ Body:
     ElementLevel: 2
     WalkSpeed: 800
     AttackDelay: 1201
-    AttackMotion: 1
+    AttackMotion: 480
     ClientAttackMotion: 240
-    DamageMotion: 1
+    DamageMotion: 1056
+    Ai: 09
     Drops:
       - Item: Tendon
         Rate: 5000

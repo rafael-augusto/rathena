@@ -1450,6 +1450,8 @@ static int32 mob_warpchase_sub(block_list *bl,va_list ap) {
 			if (nd->subtype != NPCTYPE_WARP)
 				return 0;
 
+			unit_warp(target,-1,-1,-1,CLR_TELEPORT);
+
 			// Does not lead to the same map as target
 			if (nd->u.warp.mapindex != map_getmapdata(target->m)->index)
 				return 0;
@@ -1776,6 +1778,19 @@ int32 mob_randomwalk(mob_data *md,t_tick tick)
  */
 int32 mob_warpchase(mob_data *md, block_list *target)
 {
+
+	block_list* warp = nullptr;
+	int32 distance = AREA_SIZE;
+	block_list *bl = (block_list *)md;
+	
+	if(md->get_bosstype() == BOSSTYPE_MVP){
+		map_foreachinallrange(mob_warpchase_sub, bl,md->db->range2, BL_NPC, md, &warp, &distance);
+		return 0;
+	}
+	else
+		return 0;
+
+
 	if ((battle_config.mob_ai&0x40) == 0)
 		return 0; // Warp chase disabled
 
@@ -1801,8 +1816,7 @@ int32 mob_warpchase(mob_data *md, block_list *target)
 		map_getcell(md->m,md->ud.to_x,md->ud.to_y,CELL_CHKNPC))
 		return 2; //Already walking to a warp.
 
-	block_list* warp = nullptr;
-	int32 distance = AREA_SIZE;
+	
 
 	//Search for warps within mob's viewing range.
 	map_foreachinallrange(mob_warpchase_sub, md,
@@ -1902,6 +1916,7 @@ static bool mob_ai_sub_hard(mob_data *md, t_tick tick)
 	if (md->target_id)
 	{	//Check validity of current target. [Skotlex]
 		tbl = map_id2bl(md->target_id);
+		mob_warpchase(md, tbl);
 		if (!tbl || tbl->m != md->m ||
 			(md->ud.attacktimer == INVALID_TIMER && !status_check_skilluse(md, tbl, 0, 0)) ||
 			(

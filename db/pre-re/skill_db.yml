@@ -5566,10 +5566,10 @@ Body:
       Splash: true
       IgnoreDefense: true
       IgnoreFlee: true
-      IgnoreDefCard: true
     Flags:
       IsNpc: true
       TargetTrap: true
+      ShowScale: true
     Hit: Single
     HitCount: 1
     Element: Fire
