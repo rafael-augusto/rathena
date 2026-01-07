@@ -1,96 +1,134 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>rAthena Mob Comparator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#006FEE',
+                        'primary-50': '#E6F1FE',
+                        'primary-100': '#CCE3FD',
+                        'primary-200': '#99C7FB',
+                        'primary-300': '#66AAF9',
+                        'primary-400': '#338EF7',
+                        'primary-500': '#006FEE',
+                        'primary-600': '#005BC4',
+                        background: '#000000',
+                        surface: '#18181b',
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        body { font-family: sans-serif; margin: 2em; background-color: #f4f4f4; color: #333; }
-        h1, h2 { text-align: center; }
-        .container { max-width: 900px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        .form-container { text-align: center; margin-bottom: 20px; }
-        select { padding: 10px; font-size: 1em; width: 50%; max-width: 400px; }
-        button { padding: 10px 20px; font-size: 1em; }
-        .comparison-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 20px; }
-        .grid-header { font-weight: bold; background-color: #e9ecef; padding: 10px; border-radius: 4px; }
-        .grid-cell { background-color: #f8f9fa; padding: 10px; border-radius: 4px; }
-        .grid-cell.attribute { font-weight: bold; }
-        .not-found { text-align: center; color: #dc3545; font-size: 1.2em; padding: 20px; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
     </style>
 </head>
-<body>
+<body class="bg-black text-gray-200 min-h-screen p-6">
 
-    <div class="container">
-        <h1>rAthena Mob Comparator</h1>
+    <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-10 space-y-2">
+             <h1 class="text-4xl font-bold text-white tracking-tight">Mob Comparator</h1>
+             <p class="text-gray-500">rAthena Database Analysis Tool</p>
+        </div>
 
-        <nav style="text-align: center; margin-bottom: 2em;">
-            <a href="/charts" style="padding: 10px 20px; text-decoration: none; background: #28a745; color: white; border-radius: 5px;">Go to Charts</a>
-        </nav>
-
-        <div class="form-container">
-            <form method="GET" action="/">
-                <label for="mob-select">Select a Mob:</label>
-                <select name="mob" id="mob-select" onchange="this.form.submit()">
-                    <option value="">--Choose a mob--</option>
-                    {% for mob_name in mob_names %}
-                        <option value="{{ mob_name }}" {% if mob_name == selected_mob %}selected{% endif %}>{{ mob_name }}</option>
-                    {% endfor %}
-                </select>
+        <div class="flex flex-col md:flex-row gap-4 justify-center items-center mb-10">
+            <a href="/charts" class="px-5 py-2.5 rounded-xl bg-gray-800 hover:bg-gray-700 text-white font-medium transition border border-gray-700">
+                View Charts
+            </a>
+            
+            <form method="GET" action="/" class="w-full max-w-md relative">
+                <div class="relative">
+                    <select name="mob" id="mob-select" onchange="this.form.submit()" class="w-full appearance-none bg-surface border border-gray-700 text-gray-200 py-3 px-4 pr-8 rounded-xl leading-tight focus:outline-none focus:bg-gray-900 focus:border-primary-500 transition">
+                        <option value="">-- Select a Monster to Compare --</option>
+                        {% for mob_name in mob_names %}
+                            <option value="{{ mob_name }}" {% if mob_name == selected_mob %}selected{% endif %}>{{ mob_name }}</option>
+                        {% endfor %}
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-400">
+                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                    </div>
+                </div>
             </form>
         </div>
 
         {% if selected_mob %}
-            <h2>Comparison for: {{ selected_mob }}</h2>
+            <div class="bg-surface rounded-2xl border border-gray-800 shadow-xl overflow-hidden p-6 md:p-8">
+                <div class="flex justify-between items-center mb-6">
+                     <h2 class="text-2xl font-bold text-white flex items-center gap-3">
+                        {{ selected_mob }}
+                        {% if pre_re_stats and pre_re_stats.Id %}
+                            <a href="/mob/{{ pre_re_stats.Id }}" class="text-xs px-3 py-1 rounded-full bg-primary-500/10 text-primary-400 border border-primary-500/20 hover:bg-primary-500/20 transition decoration-0">
+                                View Full Details &rarr;
+                            </a>
+                        {% endif %}
+                     </h2>
+                </div>
 
-            <div class="comparison-grid">
-                <!-- Headers -->
-                <div class="grid-header">Attribute</div>
-                <div class="grid-header">Pre-Renewal</div>
-                <div class="grid-header">Renewal</div>
+                <div class="grid grid-cols-3 gap-px bg-gray-800 rounded-xl overflow-hidden border border-gray-800">
+                    <!-- Headers -->
+                    <div class="p-4 bg-gray-900 text-gray-400 font-medium text-sm uppercase tracking-wider">Attribute</div>
+                    <div class="p-4 bg-gray-900 text-blue-400 font-medium text-sm uppercase tracking-wider">Pre-Renewal</div>
+                    <div class="p-4 bg-gray-900 text-green-400 font-medium text-sm uppercase tracking-wider">Renewal</div>
 
-                {% if pre_re_stats %}
-                    {% set attributes = ['Level', 'Hp', 'BaseExp', 'JobExp', 'Attack', 'Defense', 'DefReduction', 'MagicDefense', 'MDefReduction', 'Str', 'Agi', 'Vit', 'Int', 'Dex', 'Luk'] %}
-                    
-                    {% for attr in attributes %}
-                        <div class="grid-cell attribute">
-                            {% if attr == 'DefReduction' %}Reduction (Phys) %
-                            {% elif attr == 'MDefReduction' %}Reduction (Magic) %
-                            {% elif attr == 'MagicAttack' %}Magic Attack
-                            {% else %}{{ attr }}
-                            {% endif %}
-                        </div>
+                    {% if pre_re_stats %}
+                        {% set attributes = ['Level', 'Hp', 'BaseExp', 'JobExp', 'Attack', 'Defense', 'DefReduction', 'MagicDefense', 'MDefReduction', 'Str', 'Agi', 'Vit', 'Int', 'Dex', 'Luk'] %}
                         
-                        <!-- Pre-RE Column -->
-                        <div class="grid-cell">
-                            {% if attr == 'DefReduction' or attr == 'MDefReduction' %}
-                                {{ '%.2f'|format(pre_re_stats[attr]) }}%
-                            {% else %}
-                                {{ pre_re_stats[attr] }}
-                            {% endif %}
-                        </div>
-
-                        <!-- RE Column -->
-                        <div class="grid-cell">
-                            {% if re_stats %}
-                                {% if attr == 'DefReduction' or attr == 'MDefReduction' %}
-                                    {{ '%.2f'|format(re_stats[attr]) }}%
-                                {% elif attr == 'Attack' and re_stats.MagicAttack is defined %}
-                                     {{ re_stats[attr] }} (Magic Atk: {{ re_stats.MagicAttack }})
-                                {% elif re_stats[attr] is defined %}
-                                    {{ re_stats[attr] }}
-                                {% else %}
-                                    N/A
+                        {% for attr in attributes %}
+                            <!-- Label -->
+                            <div class="p-4 bg-surface text-gray-300 font-medium border-t border-gray-800/50 flex items-center">
+                                {% if attr == 'DefReduction' %}Reduction (Phys) %
+                                {% elif attr == 'MDefReduction' %}Reduction (Magic) %
+                                {% elif attr == 'MagicAttack' %}Magic Attack
+                                {% else %}{{ attr }}
                                 {% endif %}
-                            {% else %}
-                                N/A
-                            {% endif %}
-                        </div>
-                    {% endfor %}
+                            </div>
+                            
+                            <!-- Pre-RE -->
+                            <div class="p-4 bg-surface/50 text-gray-300 border-t border-gray-800/50 font-mono">
+                                {% if attr == 'DefReduction' or attr == 'MDefReduction' %}
+                                    {{ '%.2f'|format(pre_re_stats[attr]) }}%
+                                {% else %}
+                                    {{ pre_re_stats[attr] }}
+                                {% endif %}
+                            </div>
+
+                            <!-- RE -->
+                            <div class="p-4 bg-surface/50 text-gray-300 border-t border-gray-800/50 font-mono">
+                                {% if re_stats %}
+                                    {% if attr == 'DefReduction' or attr == 'MDefReduction' %}
+                                        {{ '%.2f'|format(re_stats[attr]) }}%
+                                    {% elif attr == 'Attack' and re_stats.MagicAttack is defined %}
+                                         <div class="flex flex-col">
+                                            <span>{{ re_stats[attr] }} <span class="text-gray-500 text-xs">(Phys)</span></span>
+                                            <span class="text-blue-300">{{ re_stats.MagicAttack }} <span class="text-gray-500 text-xs">(Mag)</span></span>
+                                         </div>
+                                    {% elif re_stats[attr] is defined %}
+                                        {{ re_stats[attr] }}
+                                    {% else %}
+                                        <span class="text-gray-600">-</span>
+                                    {% endif %}
+                                {% else %}
+                                    <span class="text-gray-600">N/A</span>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                
+                {% if not re_stats %}
+                    <div class="mt-4 p-4 rounded-xl bg-red-900/20 border border-red-900/50 text-red-400 text-center">
+                        Mob not found in Renewal database.
+                    </div>
                 {% endif %}
             </div>
-            {% if not re_stats %}
-                <p class="not-found">Mob not found in Renewal database.</p>
-            {% endif %}
         {% endif %}
     </div>
 
