@@ -1,7 +1,31 @@
 import yaml
+import bleach
+from bleach.css_sanitizer import CSSSanitizer
 from flask import Flask, render_template, request
 
 app = Flask(__name__)
+
+@app.template_filter('sanitize_html')
+def sanitize_html(value):
+    if not value:
+        return ""
+    allowed_tags = [
+        'a', 'abbr', 'acronym', 'b', 'blockquote', 'code', 'div',
+        'em', 'font', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'hr', 'i', 'li',
+        'ol', 'p', 'pre', 'span', 'strong', 'table', 'tbody', 'td', 'th',
+        'thead', 'tr', 'u', 'ul'
+    ]
+    allowed_attrs = {
+        '*': ['class', 'style', 'title'],
+        'a': ['href', 'title'],
+        'font': ['color', 'face', 'size'],
+        'span': ['style'],
+        'div': ['style']
+    }
+    
+    css_sanitizer = CSSSanitizer(allowed_css_properties=['color', 'background-color', 'font-size', 'font-weight', 'text-align'])
+
+    return bleach.clean(value, tags=allowed_tags, attributes=allowed_attrs, css_sanitizer=css_sanitizer, strip=True)
 
 @app.template_filter('format_number')
 def format_number(value):
@@ -60,25 +84,36 @@ re_mobs = load_mob_database('../db/re/mob_db.yml')
 mob_names = sorted(pre_re_mobs.keys())
 
 def load_item_database(files):
-    item_map = {} # AegisName -> ID
+    aegis_map = {} # AegisName -> ID
+    id_map = {} # ID -> Item Data
     for filepath in files:
         try:
              with open(filepath, 'r', encoding='utf-8') as f:
                 data = yaml.safe_load(f)
                 items = data.get('Body', [])
                 for item in items:
-                    if 'AegisName' in item and 'Id' in item:
-                        item_map[item['AegisName']] = item['Id']
+                    if 'Id' in item:
+                        id_map[item['Id']] = item
+                        if 'AegisName' in item:
+                            aegis_map[item['AegisName']] = item['Id']
         except Exception as e:
             print(f"Error loading {filepath}: {e}")
-    return item_map
+    return aegis_map, id_map
 
 item_db_files = [
     '../db/pre-re/item_db_equip.yml',
     '../db/pre-re/item_db_etc.yml',
     '../db/pre-re/item_db_usable.yml'
 ]
-item_aegis_to_id = load_item_database(item_db_files)
+items_aegis_to_id, items_by_id = load_item_database(item_db_files)
+
+
+@app.route('/item/<int:item_id>')
+def item_detail(item_id):
+    item = items_by_id.get(item_id)
+    if not item:
+        return "Item not found", 404
+    return render_template('item_detail.html', item=item)
 
 
 @app.route('/mob/<int:mob_id>')
@@ -96,8 +131,8 @@ def mob_detail(mob_id):
         for drop in mob_data['Drops']:
             d = drop.copy()
             item_name = d.get('Item')
-            if item_name in item_aegis_to_id:
-                d['ItemId'] = item_aegis_to_id[item_name]
+            if item_name in items_aegis_to_id:
+                d['ItemId'] = items_aegis_to_id[item_name]
             new_drops.append(d)
         mob_data['Drops'] = new_drops
         
@@ -106,8 +141,8 @@ def mob_detail(mob_id):
         for drop in mob_data['MvpDrops']:
             d = drop.copy()
             item_name = d.get('Item')
-            if item_name in item_aegis_to_id:
-                d['ItemId'] = item_aegis_to_id[item_name]
+            if item_name in items_aegis_to_id:
+                d['ItemId'] = items_aegis_to_id[item_name]
             new_mvp_drops.append(d)
         mob_data['MvpDrops'] = new_mvp_drops
 
