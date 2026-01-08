@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ item.Name }} (ID: {{ item.Id }}) - Item Detail</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#006FEE',
+                        'primary-50': '#E6F1FE',
+                        'primary-100': '#CCE3FD',
+                        'primary-200': '#99C7FB',
+                        'primary-300': '#66AAF9',
+                        'primary-400': '#338EF7',
+                        'primary-500': '#006FEE',
+                        'primary-600': '#005BC4',
+                        background: '#000000',
+                        surface: '#18181b',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-black text-gray-200 min-h-screen p-6">
+
+    <div class="max-w-5xl mx-auto space-y-6">
+        <!-- Navigation -->
+        <nav class="flex justify-between items-center bg-surface p-4 rounded-xl border border-gray-800 shadow-lg">
+             <a href="javascript:history.back()" class="flex items-center space-x-2 text-gray-400 hover:text-white transition">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                <span>Back</span>
+             </a>
+             <div class="text-sm text-gray-500">Item DB</div>
+        </nav>
+
+        <!-- Main Card -->
+        <div class="bg-surface rounded-2xl border border-gray-800 shadow-xl overflow-hidden">
+            <!-- Header Background -->
+            <div class="h-32 bg-gradient-to-r from-emerald-900 to-teal-900 opacity-50 relative"></div>
+            
+            <div class="px-8 pb-8 -mt-16 relative">
+                <div class="flex flex-col md:flex-row gap-6">
+                    
+                    <!-- Avatar/Image -->
+                    <div class="flex-shrink-0">
+                        <div class="w-32 h-32 bg-gray-900 rounded-2xl border-4 border-surface shadow-2xl flex items-center justify-center overflow-hidden">
+                            <img src="/static/items/{{ item.Id }}_large.gif" alt="{{ item.Name }}" class="max-w-[90%] max-h-[90%] object-contain" onerror="this.src='https://via.placeholder.com/100?text=No+Img'">
+                        </div>
+                    </div>
+
+                    <!-- Header Info -->
+                    <div class="flex-grow pt-16 md:pt-16">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
+                            <div class="flex items-center gap-4">
+                                <img src="/static/items/{{ item.Id }}.gif" alt="Icon" class="w-8 h-8 object-contain" onerror="this.style.display='none'">
+                                <div>
+                                    <h1 class="text-3xl font-bold text-white">
+                                        {{ item.Name }}
+                                        {% if item.Slots %}
+                                            [{{ item.Slots }}]
+                                        {% endif %}
+                                    </h1>
+                                    <p class="text-gray-400 text-sm font-mono mt-1">{{ item.AegisName }} / ID: {{ item.Id }}</p>
+                                </div>
+                            </div>
+                            <div class="mt-2 md:mt-0 flex gap-2">
+                                <span class="px-3 py-1 rounded-full text-sm font-medium bg-gray-800 text-gray-300 border border-gray-700">Type: {{ item.Type }}</span>
+                                {% if item.SubType %}
+                                <span class="px-3 py-1 rounded-full text-sm font-medium bg-gray-800 text-gray-300 border border-gray-700">{{ item.SubType }}</span>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Quick Stats Chips -->
+                        <div class="flex flex-wrap gap-2 mt-4">
+                            {% if item.Weight %}
+                            <div class="px-3 py-1.5 rounded-lg bg-gray-800/50 border border-gray-700 text-xs text-gray-300 flex items-center gap-2">
+                                <span class="uppercase tracking-wider text-gray-500 text-[10px]">Weight</span>
+                                <span class="font-medium text-white">{{ item.Weight / 10 }}</span>
+                            </div>
+                            {% endif %}
+                            <div class="px-3 py-1.5 rounded-lg bg-gray-800/50 border border-gray-700 text-xs text-gray-300 flex items-center gap-2">
+                                <span class="uppercase tracking-wider text-gray-500 text-[10px]">Buy</span>
+                                <span class="font-medium text-yellow-500">{{ (item.get('Buy', 0)) | format_number }}z</span>
+                            </div>
+                             <div class="px-3 py-1.5 rounded-lg bg-gray-800/50 border border-gray-700 text-xs text-gray-300 flex items-center gap-2">
+                                <span class="uppercase tracking-wider text-gray-500 text-[10px]">Sell</span>
+                                <span class="font-medium text-yellow-500">{{ (item.get('Sell', item.get('Buy', 0) / 2)) | int | format_number }}z</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Content Grid -->
+                <div class="space-y-6 mt-8">
+                    <!-- Top Info: 2 Columns with matching heights -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
+                        
+                        <!-- Requirements (Always) -->
+                        <div class="bg-gray-900/50 rounded-xl p-4 border border-gray-800 flex flex-col">
+                            <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">Requirements</h3>
+                            <div class="space-y-2 text-sm flex-grow">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-500">Equip Level</span>
+                                    <span class="text-white">{{ item.get('EquipLevelMin', 0) }}</span>
+                                </div>
+                                {% if item.WeaponLevel %}
+                                <div class="flex justify-between">
+                                    <span class="text-gray-500">Weapon Level</span>
+                                    <span class="text-white">{{ item.WeaponLevel }}</span>
+                                </div>
+                                {% endif %}
+                                {% if item.ArmorLevel %}
+                                <div class="flex justify-between">
+                                    <span class="text-gray-500">Armor Level</span>
+                                    <span class="text-white">{{ item.ArmorLevel }}</span>
+                                </div>
+                                {% endif %}
+                                {% if item.Gender %}
+                                <div class="flex justify-between">
+                                    <span class="text-gray-500">Gender</span>
+                                    <span class="text-white">{{ item.Gender }}</span>
+                                </div>
+                                {% endif %}
+                                 <div class="flex justify-between">
+                                    <span class="text-gray-500">Refineable</span>
+                                    <span class="text-white">{{ 'Yes' if item.get('Refineable') else 'No' }}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Combat Stats -->
+                        {% if item.Attack or item.MagicAttack or item.Defense or item.Range %}
+                        <div class="bg-gray-900/50 rounded-xl p-4 border border-gray-800 flex flex-col">
+                            <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">Combat Stats</h3>
+                            <div class="grid grid-cols-2 gap-4 flex-grow content-start">
+                                {% if item.Attack %}
+                                <div class="bg-gray-800/40 p-3 rounded-lg text-center">
+                                    <div class="text-xs text-gray-500 uppercase">Attack</div>
+                                    <div class="text-lg font-bold text-red-400">{{ item.Attack }}</div>
+                                </div>
+                                {% endif %}
+                                {% if item.MagicAttack %}
+                                <div class="bg-gray-800/40 p-3 rounded-lg text-center">
+                                    <div class="text-xs text-gray-500 uppercase">Matk</div>
+                                    <div class="text-lg font-bold text-blue-400">{{ item.MagicAttack }}</div>
+                                </div>
+                                {% endif %}
+                                {% if item.Defense %}
+                                <div class="bg-gray-800/40 p-3 rounded-lg text-center">
+                                    <div class="text-xs text-gray-500 uppercase">Defense</div>
+                                    <div class="text-lg font-bold text-green-400">{{ item.Defense }}</div>
+                                </div>
+                                {% endif %}
+                                {% if item.Range %}
+                                 <div class="bg-gray-800/40 p-3 rounded-lg text-center">
+                                    <div class="text-xs text-gray-500 uppercase">Range</div>
+                                    <div class="text-lg font-bold text-gray-300">{{ item.Range }}</div>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        <!-- Applicable Jobs -->
+                        {% if item.Jobs %}
+                        <div class="bg-gray-900/50 rounded-xl p-4 border border-gray-800 flex flex-col">
+                             <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">Applicable Jobs</h3>
+                             <div class="flex flex-wrap gap-1 flex-grow content-start">
+                                 {% for job, val in item.Jobs.items() %}
+                                    {% if val %}
+                                    <span class="px-2 py-1 text-[10px] rounded bg-gray-800 text-gray-400 border border-gray-700">{{ job }}</span>
+                                    {% endif %}
+                                 {% endfor %}
+                             </div>
+                        </div>
+                        {% endif %}
+
+                        <!-- Equip Locations -->
+                        {% if item.Locations %}
+                        <div class="bg-gray-900/50 rounded-xl p-4 border border-gray-800 flex flex-col">
+                            <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">Equip Locations</h3>
+                            <div class="flex flex-wrap gap-2 flex-grow content-start">
+                                {% for loc, val in item.Locations.items() %}
+                                    {% if val %}
+                                        <span class="px-2 py-1 text-xs rounded bg-gray-800 text-gray-300 border border-gray-700">{{ loc }}</span>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Full Width: Description -->
+                    <div class="bg-gray-900/50 rounded-xl border border-gray-800 overflow-hidden">
+                         <div class="p-4 border-b border-gray-800 bg-gray-800/30">
+                            <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider">Description</h3>
+                         </div>
+                         <div class="p-4 text-sm text-gray-300 leading-relaxed whitespace-pre-wrap font-mono">{{ item.get('Description', 'No description available.') | sanitize_html | safe }}</div>
+                    </div>
+
+                    <!-- Full Width: Script -->
+                    {% if item.Script %}
+                    <div class="bg-gray-900/50 rounded-xl border border-gray-800 overflow-hidden">
+                         <div class="p-4 border-b border-gray-800 bg-gray-800/30">
+                            <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider">Script</h3>
+                         </div>
+                         <div class="p-4 text-xs text-green-400 bg-black font-mono overflow-x-auto whitespace-pre">{{ item.Script }}</div>
+                    </div>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

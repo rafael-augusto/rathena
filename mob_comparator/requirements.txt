@@ -1,4 +1,6 @@
-Flask
+bleach
+tinycss2
+flask
 PyYAML
 requests
 beautifulsoup4

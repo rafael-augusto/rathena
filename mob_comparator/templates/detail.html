@@ -196,17 +196,21 @@
                                                 <span class="w-1.5 h-1.5 rounded-full bg-yellow-500"></span>
                                                 
                                                 {% if drop.ItemId %}
-                                                    <div class="relative group/item">
-                                                        <img src="/static/items/{{ drop.ItemId }}.gif" alt="{{ drop.Item }}" class="w-6 h-6 object-contain" onerror="this.style.display='none'">
-                                                        <div class="absolute left-full top-1/2 -translate-y-1/2 ml-2 z-50 hidden group-hover/item:block pointer-events-none">
-                                                            <div class="bg-surface border border-gray-700 rounded-lg shadow-2xl p-2 w-32 h-32 flex items-center justify-center bg-gray-900">
-                                                                <img src="/static/items/{{ drop.ItemId }}_large.gif" alt="{{ drop.Item }}" class="max-w-full max-h-full object-contain">
+                                                    <a href="/item/{{ drop.ItemId }}" class="flex items-center gap-2 hover:underline">
+                                                        <div class="relative group/item">
+                                                            <img src="/static/items/{{ drop.ItemId }}.gif" alt="{{ drop.Item }}" class="w-6 h-6 object-contain" onerror="this.style.display='none'">
+                                                            <div class="absolute left-full top-1/2 -translate-y-1/2 ml-2 z-50 hidden group-hover/item:block pointer-events-none">
+                                                                <div class="bg-surface border border-gray-700 rounded-lg shadow-2xl p-2 w-32 h-32 flex items-center justify-center bg-gray-900">
+                                                                    <img src="/static/items/{{ drop.ItemId }}_large.gif" alt="{{ drop.Item }}" class="max-w-full max-h-full object-contain">
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                        {{ drop.Item }}
+                                                    </a>
+                                                {% else %}
+                                                    {{ drop.Item }}
                                                 {% endif %}
-
-                                                {{ drop.Item }}
+                                                
                                                 <span class="text-[10px] px-1 bg-yellow-900/50 rounded ml-auto">MVP</span>
                                             </td>
                                             <td class="px-4 py-2 text-right text-yellow-500 font-mono">{{ drop.Rate / 100 }}%</td>
@@ -219,17 +223,20 @@
                                         <tr class="hover:bg-gray-800/50 transition group relative">
                                             <td class="px-4 py-2 text-gray-300 group-hover:text-white flex items-center gap-3">
                                                 {% if drop.ItemId %}
-                                                    <div class="relative group/item">
-                                                        <img src="/static/items/{{ drop.ItemId }}.gif" alt="{{ drop.Item }}" class="w-6 h-6 object-contain" onerror="this.style.display='none'">
-                                                        <div class="absolute left-full top-1/2 -translate-y-1/2 ml-2 z-50 hidden group-hover/item:block pointer-events-none">
-                                                            <div class="bg-surface border border-gray-700 rounded-lg shadow-2xl p-2 w-32 h-32 flex items-center justify-center bg-gray-900">
-                                                                <img src="/static/items/{{ drop.ItemId }}_large.gif" alt="{{ drop.Item }}" class="max-w-full max-h-full object-contain">
+                                                    <a href="/item/{{ drop.ItemId }}" class="flex items-center gap-3 hover:underline">
+                                                        <div class="relative group/item">
+                                                            <img src="/static/items/{{ drop.ItemId }}.gif" alt="{{ drop.Item }}" class="w-6 h-6 object-contain" onerror="this.style.display='none'">
+                                                            <div class="absolute left-full top-1/2 -translate-y-1/2 ml-2 z-50 hidden group-hover/item:block pointer-events-none">
+                                                                <div class="bg-surface border border-gray-700 rounded-lg shadow-2xl p-2 w-32 h-32 flex items-center justify-center bg-gray-900">
+                                                                    <img src="/static/items/{{ drop.ItemId }}_large.gif" alt="{{ drop.Item }}" class="max-w-full max-h-full object-contain">
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                        <span>{{ drop.Item }}</span>
+                                                    </a>
+                                                {% else %}
+                                                    <span>{{ drop.Item }}</span>
                                                 {% endif %}
-                                                
-                                                <span>{{ drop.Item }}</span>
                                                 
                                                 {% if drop.get('StealProtected') %}
                                                     <span class="text-[10px] text-gray-600 ml-1" title="Steal Protected">(No Steal)</span>
