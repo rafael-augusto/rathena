@@ -29,14 +29,24 @@ def download_gifs(mob_ids):
         os.makedirs(OUTPUT_DIR)
         print(f"Created directory: {OUTPUT_DIR}")
 
-    total = len(mob_ids)
-    print(f"Found {total} mobs. Starting download...")
+    # Filter out mobs that already have an image
+    missing_ids = [
+        mob_id for mob_id in mob_ids 
+        if not os.path.exists(os.path.join(OUTPUT_DIR, f"{mob_id}.gif"))
+    ]
 
-    for i, mob_id in enumerate(mob_ids):
+    total = len(missing_ids)
+    if total == 0:
+        print("All mob GIFs already exist. Nothing to download.")
+        return
+
+    print(f"Found {len(mob_ids)} mobs in DB. Downloading {total} missing images...")
+
+    for i, mob_id in enumerate(missing_ids):
         file_path = os.path.join(OUTPUT_DIR, f"{mob_id}.gif")
         
+        # Double check (though list was just filtered)
         if os.path.exists(file_path):
-            print(f"[{i+1}/{total}] Skipped {mob_id}.gif (already exists)")
             continue
 
         url = BASE_URL.format(mob_id)
