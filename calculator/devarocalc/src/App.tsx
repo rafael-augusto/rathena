@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Card, CardBody, Divider } from '@heroui/react';
 import { JobSelection } from './components/JobSelection';
 import { StatsInput } from './components/StatsInput';
 import { DerivedStats } from './components/DerivedStats';
 import { Character } from './types/character';
+import { calculateStats, CalculatedStats } from './utils/calculator';
 
 const initialCharacter: Character = {
   baseLvl: 99,
@@ -22,6 +23,13 @@ const initialCharacter: Character = {
 
 function App() {
   const [character, setCharacter] = useState<Character>(initialCharacter);
+  const [calculatedStats, setCalculatedStats] = useState<CalculatedStats | null>(null);
+
+  // Recalculate stats whenever character changes
+  useEffect(() => {
+    const stats = calculateStats(character);
+    setCalculatedStats(stats);
+  }, [character]);
 
   return (
     <div className="p-4 text-foreground w-full">
@@ -31,7 +39,6 @@ function App() {
         </div>
 
         {/* Main "Your Character" Table-like Layout */}
-        {/* We use a grid that mimics the 3-column structure: Basic Info | Stats | Derived Stats */}
         <div className="grid grid-cols-1 lg:grid-cols-[350px_250px_1fr] gap-2 mb-4">
             {/* Column 1: Basic Info */}
             <JobSelection
@@ -46,23 +53,18 @@ function App() {
             {/* Column 2: Stats */}
             <StatsInput
               stats={character.stats}
+              bonuses={calculatedStats?.statBonuses || { str: 0, agi: 0, vit: 0, int: 0, dex: 0, luk: 0 }}
               onChange={(stats) => setCharacter({ ...character, stats })}
             />
 
             {/* Column 3: Derived Stats */}
-            <DerivedStats />
+            {calculatedStats && <DerivedStats stats={calculatedStats} />}
         </div>
 
         {/* Equipment Section */}
         <Card className="w-full mb-4 border border-default-200">
             <CardBody>
                 <h3 className="text-lg font-bold mb-2">Equipment & Cards</h3>
-                {/* 
-                   Rocalc layout for Equipment is roughly:
-                   Left: Weapon 1 (and related)
-                   Middle: Weapon 2 / Shield
-                   Right: Headgears, Armor, Garment, Shoes, Accessories
-                */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
                     <div className="border p-2 rounded border-default-200">
                         <div className="text-center font-bold mb-2">Right Hand</div>
