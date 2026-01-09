@@ -4,10 +4,11 @@ import { Stats } from '../types/character';
 
 interface StatsInputProps {
   stats: Stats;
+  bonuses: Stats;
   onChange: (stats: Stats) => void;
 }
 
-export function StatsInput({ stats, onChange }: StatsInputProps) {
+export function StatsInput({ stats, bonuses, onChange }: StatsInputProps) {
   const handleChange = (key: keyof Stats, value: string) => {
     onChange({ ...stats, [key]: Number(value) });
   };
@@ -25,7 +26,7 @@ export function StatsInput({ stats, onChange }: StatsInputProps) {
             className="w-16"
             classNames={{ inputWrapper: "h-8" }}
           />
-          <span className="text-small text-default-500 w-8 shrink-0">+ 0</span>
+          <span className="text-small text-default-500 w-8 shrink-0">+ {bonuses[key as keyof Stats] || 0}</span>
         </div>
       ))}
     </div>
