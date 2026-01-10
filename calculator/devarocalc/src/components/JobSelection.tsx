@@ -59,8 +59,13 @@ export function JobSelection({ jobId, baseLvl, jobLvl, onChangeJob, onChangeBase
             trigger: "border-1 flex items-center !h-8 !min-h-8 py-0",
             innerWrapper: "flex flex-row items-center justify-between w-full",
             value: "text-small !text-foreground",
-            popoverContent: "dark bg-content1 text-foreground"
+            popoverContent: "dark bg-content1 text-foreground !overflow-hidden"
           }}
+          scrollShadowProps={{ 
+            isEnabled: true,
+            className: "max-h-[400px]"
+          }}
+          disableAnimation={true}
         >
           {JobMap.map((job) => (
             <SelectItem key={job.id} textValue={job.name}>

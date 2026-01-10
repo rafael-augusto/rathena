@@ -7,21 +7,27 @@ export interface Stats {
   luk: number;
 }
 
+export interface EquippedItem {
+  id: number;
+  refine: number;
+  cards: number[];
+}
+
 export interface Character {
   baseLvl: number;
   jobLvl: number;
   jobId: number;
   stats: Stats;
   equipment: {
-    weapon?: number;
-    shield?: number;
-    headUpper?: number;
-    headMiddle?: number;
-    headLower?: number;
-    armor?: number;
-    garment?: number;
-    shoes?: number;
-    accessory1?: number;
-    accessory2?: number;
+    rightHand?: EquippedItem; // Weapon
+    leftHand?: EquippedItem;  // Shield or 2nd Weapon (if dual wield)
+    headUpper?: EquippedItem;
+    headMiddle?: EquippedItem;
+    headLower?: EquippedItem;
+    armor?: EquippedItem;
+    garment?: EquippedItem;
+    shoes?: EquippedItem;
+    accessory1?: EquippedItem;
+    accessory2?: EquippedItem;
   };
 }

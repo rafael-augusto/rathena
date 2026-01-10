@@ -1,0 +1,22 @@
+/* Applied to the Popover Content element */
+.equipment-select-popover {
+    padding: 0 !important;
+    overflow: hidden !important;
+}
+
+/* Wrapper (ScrollShadow) inside */
+.equipment-select-popover [data-slot="scroll-shadow"] {
+    max-height: 300px !important;
+    overflow-y: auto !important;
+}
+
+/* Listbox (UL) inside */
+.equipment-select-popover [data-slot="listbox"] {
+    max-height: none !important;
+    overflow: visible !important;
+}
+
+/* Inner divs of Listbox (Virtualizer) */
+.equipment-select-popover [data-slot="listbox"] > div {
+    overflow: visible !important;
+}
