@@ -1,5 +1,5 @@
 import React from 'react';
-import { Select, SelectItem, Input } from '@heroui/react';
+import { Select, SelectItem } from '@heroui/react';
 import { JobMap } from '../data/jobs';
 
 interface JobSelectionProps {
@@ -12,19 +12,30 @@ interface JobSelectionProps {
 }
 
 export function JobSelection({ jobId, baseLvl, jobLvl, onChangeJob, onChangeBaseLvl, onChangeJobLvl }: JobSelectionProps) {
+  
+  const getMaxJobLvl = (id: number) => {
+    if (id === 0 || id === 34) return 10; // Novice / High Novice
+    if (id >= 21 && id <= 33) return 70; // Trans Classes
+    if (id === 20) return 99; // Super Novice
+    return 50; // First, Second, Extended
+  };
+
+  const maxJobLvl = getMaxJobLvl(jobId);
+
   return (
-    <div className="flex flex-col gap-2 p-2 border rounded-lg border-divider h-full">
+    <div className="flex flex-col gap-0 p-2 border rounded-lg border-divider h-full">
       {/* Base Level Row */}
       <div className="flex items-center gap-2 h-10">
         <span className="text-small font-bold w-20 text-right shrink-0">Base Lvl</span>
-        <Input 
-          type="number" 
-          size="sm"
-          value={baseLvl.toString()} 
-          onValueChange={(v) => onChangeBaseLvl(Number(v))}
-          className="w-20"
-          classNames={{ inputWrapper: "h-8" }}
-        />
+        <select 
+          className="w-20 h-8 p-1 border rounded bg-default-100 text-sm text-foreground dark:bg-content1 border-default-200"
+          value={baseLvl}
+          onChange={(e) => onChangeBaseLvl(Number(e.target.value))}
+        >
+          {[...Array(99).keys()].map(i => (
+            <option key={i+1} value={i+1}>{i+1}</option>
+          ))}
+        </select>
         <div className="flex items-center gap-1 text-tiny text-default-500 shrink-0">
           <span>(auto-adjust</span>
           <input type="checkbox" defaultChecked className="w-4 h-4 cursor-pointer" aria-label="Auto-adjust level" />
@@ -35,14 +46,15 @@ export function JobSelection({ jobId, baseLvl, jobLvl, onChangeJob, onChangeBase
       {/* Job Level Row */}
       <div className="flex items-center gap-2 h-10">
         <span className="text-small font-bold w-20 text-right shrink-0">Job Lvl</span>
-        <Input 
-          type="number" 
-          size="sm"
-          value={jobLvl.toString()} 
-          onValueChange={(v) => onChangeJobLvl(Number(v))}
-          className="w-20"
-          classNames={{ inputWrapper: "h-8" }}
-        />
+        <select 
+          className="w-20 h-8 p-1 border rounded bg-default-100 text-sm text-foreground dark:bg-content1 border-default-200"
+          value={jobLvl}
+          onChange={(e) => onChangeJobLvl(Number(e.target.value))}
+        >
+          {[...Array(maxJobLvl).keys()].map(i => (
+            <option key={i+1} value={i+1}>{i+1}</option>
+          ))}
+        </select>
       </div>
 
       {/* Class Selection Row */}

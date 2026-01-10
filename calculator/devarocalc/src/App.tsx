@@ -50,9 +50,24 @@ function App() {
   }, [character]);
 
   // Ensure leftHandMode is reset if not dual wield
+  // And clamp Job Level based on class max
   useEffect(() => {
-      if (!DUAL_WIELD_JOBS.includes(character.jobId) && leftHandMode === 'Weapon') {
+      const job = character.jobId;
+      if (!DUAL_WIELD_JOBS.includes(job) && leftHandMode === 'Weapon') {
           setLeftHandMode('Shield');
+      }
+
+      // Clamp Job Level
+      const getMaxJobLvl = (id: number) => {
+        if (id === 0 || id === 34) return 10;
+        if (id >= 21 && id <= 33) return 70;
+        if (id === 20) return 99;
+        return 50;
+      };
+      
+      const max = getMaxJobLvl(job);
+      if (character.jobLvl > max) {
+          setCharacter(prev => ({ ...prev, jobLvl: max }));
       }
   }, [character.jobId]);
 
@@ -218,13 +233,13 @@ function App() {
   };
 
   return (
-    <div className="p-4 text-foreground w-full max-w-[1280px] mx-auto">
-        <div className="mb-4 text-center">
-            <h1 className="text-2xl font-bold">DevaRO Calc (Pre-Renewal)</h1>
+    <div className="p-2 text-foreground w-full max-w-[1280px] mx-auto">
+        <div className="mb-2 text-center">
+            <h1 className="text-xl font-bold">DevaRO Calc (Pre-Renewal)</h1>
         </div>
 
         {/* Main Info Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-[350px_250px_1fr] gap-4 mb-4">
+        <div className="grid grid-cols-1 lg:grid-cols-[320px_220px_1fr] gap-2 mb-2">
             <JobSelection
               jobId={character.jobId}
               baseLvl={character.baseLvl}
@@ -238,33 +253,40 @@ function App() {
               stats={character.stats}
               bonuses={calculatedStats?.statBonuses || { str: 0, agi: 0, vit: 0, int: 0, dex: 0, luk: 0 }}
               onChange={(stats) => setCharacter({ ...character, stats })}
+              baseLvl={character.baseLvl}
+              jobId={character.jobId}
             />
 
             {calculatedStats && <DerivedStats stats={calculatedStats} />}
         </div>
 
         {/* Equipment Grid */}
-        <Card className="w-full mb-4 border border-default-200 shadow-sm">
-            <CardBody>
-                <h3 className="text-lg font-bold mb-4 px-2">Equipment & Cards</h3>
-                <div className="grid grid-cols-1 lg:grid-cols-[350px_1fr] gap-x-6 gap-y-4">
-                    {/* Column 1: Weapons */}
-                    <div className="flex flex-col gap-4">
+        <Card className="w-full mb-2 border border-default-200 shadow-sm">
+            <CardBody className="p-2">
+                <h3 className="text-md font-bold mb-2 px-1">Equipment & Cards</h3>
+                <div className="grid grid-cols-1 lg:grid-cols-[280px_280px_1fr] gap-x-2 gap-y-2">
+                    {/* Column 1: Right Hand */}
+                    <div className="flex flex-col gap-2">
                         <EquipmentSelect 
-                            label=""
+                            label="Right Hand"
                             placeholder="(No Weapon)"
                             equipped={character.equipment.rightHand}
                             onChange={(item) => updateEquipment('rightHand', item)}
                             availableItems={availableWeapons}
                             cardSlotType={CARD_SLOTS.WEAPON}
                             refinePlacement="left"
+                            containerClassName="min-h-[210px]"
                         />
+                    </div>
+
+                    {/* Column 2: Left Hand */}
+                    <div className="flex flex-col gap-2">
                         <EquipmentSelect 
-                            label=""
+                            label="Left Hand"
                             placeholder={leftHandMode === 'Weapon' ? "(No Weapon)" : "(No Shield)"}
                             topRightContent={DUAL_WIELD_JOBS.includes(character.jobId) && (
                                 <div className="flex gap-2 text-xs items-center">
-                                    <label className="flex items-center gap-1 cursor-pointer">
+                                    <label className="flex items-center gap-1 cursor-pointer scale-90 origin-right">
                                         <input 
                                             type="radio" 
                                             checked={leftHandMode === 'Shield'} 
@@ -273,7 +295,7 @@ function App() {
                                         />
                                         Shield
                                     </label>
-                                    <label className="flex items-center gap-1 cursor-pointer">
+                                    <label className="flex items-center gap-1 cursor-pointer scale-90 origin-right">
                                         <input 
                                             type="radio" 
                                             checked={leftHandMode === 'Weapon'} 
@@ -289,120 +311,101 @@ function App() {
                             availableItems={availableLeftHand}
                             cardSlotType={(character.equipment.leftHand.id && m_Item[character.equipment.leftHand.id]) ? (m_Item[character.equipment.leftHand.id][1] === ITEM_TYPES.SHIELD ? CARD_SLOTS.SHIELD : CARD_SLOTS.WEAPON) : (leftHandMode === 'Shield' ? CARD_SLOTS.SHIELD : CARD_SLOTS.WEAPON)}
                             refinePlacement="left"
+                            containerClassName="min-h-[210px]"
                         />
                     </div>
 
-                    {/* Column 2: Equipment Panels */}
-                    <div className="flex flex-col gap-2">
-                        {/* Headgear Panel */}
-                        <div className="flex flex-col gap-1 p-2 border rounded-lg border-default-200 bg-content2/30">
-                            <span className="text-xs font-bold text-default-500 uppercase px-1">Headgear</span>
-                            <div className="flex flex-col gap-1">
-                                <EquipmentSelect 
-                                    label=""
-                                    placeholder="(No Upper Headgear)"
-                                    equipped={character.equipment.headUpper}
-                                    onChange={(item) => updateEquipment('headUpper', item)}
-                                    availableItems={availableHeadUpper}
-                                    cardSlotType={CARD_SLOTS.HEAD}
-                                    refinePlacement="left"
-                                    cardsPlacement="right"
-                                />
-                                <EquipmentSelect 
-                                    label=""
-                                    placeholder="(No Middle Headgear)"
-                                    equipped={character.equipment.headMiddle}
-                                    onChange={(item) => updateEquipment('headMiddle', item)}
-                                    availableItems={availableHeadMiddle}
-                                    cardSlotType={CARD_SLOTS.HEAD}
-                                    cardsPlacement="right"
-                                />
-                                <EquipmentSelect 
-                                    label=""
-                                    placeholder="(No Lower Headgear)"
-                                    equipped={character.equipment.headLower}
-                                    onChange={(item) => updateEquipment('headLower', item)}
-                                    availableItems={availableHeadLower}
-                                    cardSlotType={CARD_SLOTS.HEAD}
-                                    cardsPlacement="right"
-                                />
-                            </div>
-                        </div>
-
-                        {/* Armor & Parts Panel */}
-                        <div className="flex flex-col gap-1 p-2 border rounded-lg border-default-200 bg-content2/30">
-                            <span className="text-xs font-bold text-default-500 uppercase px-1">Armor & Parts</span>
-                            <div className="flex flex-col gap-1">
-                                <EquipmentSelect 
-                                    label=""
-                                    placeholder="(No Armor)"
-                                    equipped={character.equipment.armor}
-                                    onChange={(item) => updateEquipment('armor', item)}
-                                    availableItems={availableArmor}
-                                    cardSlotType={CARD_SLOTS.ARMOR}
-                                    refinePlacement="left"
-                                    cardsPlacement="right"
-                                />
-                                <EquipmentSelect 
-                                    label=""
-                                    placeholder="(No Garment)"
-                                    equipped={character.equipment.garment}
-                                    onChange={(item) => updateEquipment('garment', item)}
-                                    availableItems={availableGarment}
-                                    cardSlotType={CARD_SLOTS.GARMENT}
-                                    refinePlacement="left"
-                                    cardsPlacement="right"
-                                />
-                                <EquipmentSelect 
-                                    label=""
-                                    placeholder="(No Shoes)"
-                                    equipped={character.equipment.shoes}
-                                    onChange={(item) => updateEquipment('shoes', item)}
-                                    availableItems={availableShoes}
-                                    cardSlotType={CARD_SLOTS.SHOES}
-                                    refinePlacement="left"
-                                    cardsPlacement="right"
-                                />
-                            </div>
-                        </div>
-
-                        {/* Accessories Panel */}
-                        <div className="flex flex-col gap-1 p-2 border rounded-lg border-default-200 bg-content2/30">
-                            <span className="text-xs font-bold text-default-500 uppercase px-1">Accessories</span>
-                            <div className="flex flex-col gap-1">
-                                <EquipmentSelect 
-                                    label=""
-                                    placeholder="(No Accessory)"
-                                    equipped={character.equipment.accessory1}
-                                    onChange={(item) => updateEquipment('accessory1', item)}
-                                    availableItems={availableAccessory}
-                                    cardSlotType={CARD_SLOTS.ACCESSORY}
-                                    cardsPlacement="right"
-                                />
-                                <EquipmentSelect 
-                                    label=""
-                                    placeholder="(No Accessory)"
-                                    equipped={character.equipment.accessory2}
-                                    onChange={(item) => updateEquipment('accessory2', item)}
-                                    availableItems={availableAccessory}
-                                    cardSlotType={CARD_SLOTS.ACCESSORY}
-                                    cardsPlacement="right"
-                                />
-                            </div>
-                        </div>
+                    {/* Column 3: Equipment Panel */}
+                    <div className="flex flex-col gap-1.5 p-2 border rounded-lg border-default-200 bg-content2/20">
+                        <EquipmentSelect 
+                            placeholder="(No Upper Headgear)"
+                            equipped={character.equipment.headUpper}
+                            onChange={(item) => updateEquipment('headUpper', item)}
+                            availableItems={availableHeadUpper}
+                            cardSlotType={CARD_SLOTS.HEAD}
+                            refinePlacement="left"
+                            cardsPlacement="right"
+                            variant="minimal"
+                        />
+                        <EquipmentSelect 
+                            placeholder="(No Middle Headgear)"
+                            equipped={character.equipment.headMiddle}
+                            onChange={(item) => updateEquipment('headMiddle', item)}
+                            availableItems={availableHeadMiddle}
+                            cardSlotType={CARD_SLOTS.HEAD}
+                            cardsPlacement="right"
+                            variant="minimal"
+                        />
+                        <EquipmentSelect 
+                            placeholder="(No Lower Headgear)"
+                            equipped={character.equipment.headLower}
+                            onChange={(item) => updateEquipment('headLower', item)}
+                            availableItems={availableHeadLower}
+                            cardSlotType={CARD_SLOTS.HEAD}
+                            cardsPlacement="right"
+                            variant="minimal"
+                        />
+                        <EquipmentSelect 
+                            placeholder="(No Armor)"
+                            equipped={character.equipment.armor}
+                            onChange={(item) => updateEquipment('armor', item)}
+                            availableItems={availableArmor}
+                            cardSlotType={CARD_SLOTS.ARMOR}
+                            refinePlacement="left"
+                            cardsPlacement="right"
+                            variant="minimal"
+                        />
+                        <EquipmentSelect 
+                            placeholder="(No Garment)"
+                            equipped={character.equipment.garment}
+                            onChange={(item) => updateEquipment('garment', item)}
+                            availableItems={availableGarment}
+                            cardSlotType={CARD_SLOTS.GARMENT}
+                            refinePlacement="left"
+                            cardsPlacement="right"
+                            variant="minimal"
+                        />
+                        <EquipmentSelect 
+                            placeholder="(No Shoes)"
+                            equipped={character.equipment.shoes}
+                            onChange={(item) => updateEquipment('shoes', item)}
+                            availableItems={availableShoes}
+                            cardSlotType={CARD_SLOTS.SHOES}
+                            refinePlacement="left"
+                            cardsPlacement="right"
+                            variant="minimal"
+                        />
+                        <EquipmentSelect 
+                            placeholder="(No Accessory)"
+                            equipped={character.equipment.accessory1}
+                            onChange={(item) => updateEquipment('accessory1', item)}
+                            availableItems={availableAccessory}
+                            cardSlotType={CARD_SLOTS.ACCESSORY}
+                            cardsPlacement="right"
+                            variant="minimal"
+                        />
+                        <EquipmentSelect 
+                            placeholder="(No Accessory)"
+                            equipped={character.equipment.accessory2}
+                            onChange={(item) => updateEquipment('accessory2', item)}
+                            availableItems={availableAccessory}
+                            cardSlotType={CARD_SLOTS.ACCESSORY}
+                            cardsPlacement="right"
+                            variant="minimal"
+                        />
                     </div>
                 </div>
             </CardBody>
         </Card>
 
         {/* Bottom Actions */}
-        <div className="fixed bottom-0 left-0 right-0 p-4 bg-content1 border-t border-divider flex justify-center gap-4 shadow-lg z-50">
-          <Button color="primary" size="lg" className="font-bold">Calculate</Button>
-          <Button color="secondary" size="lg">Save</Button>
+        <div className="fixed bottom-0 left-0 right-0 p-2 bg-content1 border-t border-divider flex justify-center gap-4 shadow-lg z-50">
+          <Button color="primary" size="md" className="font-bold">Calculate</Button>
+          <Button color="secondary" size="md">Save</Button>
         </div>
         
         {/* Spacer for fixed bottom bar */}
-        <div className="h-20"></div>
+        <div className="h-16"></div>
     </div>
   )
 }
