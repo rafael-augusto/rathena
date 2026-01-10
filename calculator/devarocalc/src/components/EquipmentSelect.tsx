@@ -14,6 +14,8 @@ interface EquipmentSelectProps {
   cardSlotType: number; // 1=Wpn, 2=Head, 3=Shield, 4=Armor, 5=Garment, 6=Shoes, 7=Acc
   refinePlacement?: 'left' | 'bottom';
   cardsPlacement?: 'bottom' | 'right';
+  containerClassName?: string;
+  variant?: 'default' | 'minimal';
 }
 
 export const EquipmentSelect: React.FC<EquipmentSelectProps> = ({
@@ -26,6 +28,8 @@ export const EquipmentSelect: React.FC<EquipmentSelectProps> = ({
   cardSlotType,
   refinePlacement = 'bottom',
   cardsPlacement = 'bottom',
+  containerClassName = "",
+  variant = 'default',
 }) => {
   const items = useMemo(() => {
     const groups: Record<string, any[]> = {};
@@ -67,7 +71,6 @@ export const EquipmentSelect: React.FC<EquipmentSelectProps> = ({
     return groups;
   }, [availableItems]);
 
-  // Force 4 slots for Weapons, 1 for others (always visible)
   const maxSlots = cardSlotType === 1 ? 4 : 1;
 
   const availableCards = useMemo(() => {
@@ -96,7 +99,7 @@ export const EquipmentSelect: React.FC<EquipmentSelectProps> = ({
 
   const renderRefineSelect = (isLeft: boolean) => (
     <select
-      className={`${isLeft ? "w-16 shrink-0" : "w-20"} h-8 p-1 border rounded bg-default-100 text-sm text-foreground dark:bg-content1 border-default-200 text-center`}
+      className={`${isLeft ? "w-full" : "w-20"} h-8 p-1 border rounded bg-default-100 text-sm text-foreground dark:bg-content1 border-default-200 text-center`}
       value={equipped.refine}
       onChange={(e) => handleRefineChange(e.target.value)}
       disabled={equipped.id === 0}
@@ -109,7 +112,7 @@ export const EquipmentSelect: React.FC<EquipmentSelectProps> = ({
 
   const renderItemSelect = () => (
     <select
-      className="flex-1 h-8 p-1 border rounded bg-default-100 text-sm text-foreground dark:bg-content1 border-default-200 overflow-hidden"
+      className="w-full h-8 p-1 border rounded bg-default-100 text-sm text-foreground dark:bg-content1 border-default-200 min-w-0"
       value={equipped.id}
       onChange={(e) => handleItemChange(e.target.value)}
     >
@@ -129,7 +132,7 @@ export const EquipmentSelect: React.FC<EquipmentSelectProps> = ({
   const renderCardSelect = (index: number) => (
     <select
       key={index}
-      className="w-full p-1 border rounded bg-default-100 text-xs h-7 text-foreground dark:bg-content1 border-default-200"
+      className="w-full p-1 border rounded bg-default-100 text-xs h-7 text-foreground dark:bg-content1 border-default-200 min-w-0"
       value={equipped.cards[index] || 0}
       onChange={(e) => handleCardChange(index, e.target.value)}
       disabled={equipped.id === 0}
@@ -141,31 +144,40 @@ export const EquipmentSelect: React.FC<EquipmentSelectProps> = ({
     </select>
   );
 
-  const renderCards = () => {
-    if (cardsPlacement === 'right') {
-      return (
-        <div className="flex flex-col gap-1">
-          {[...Array(maxSlots)].map((_, i) => renderCardSelect(i))}
-        </div>
-      );
-    }
+  const containerStyle = variant === 'minimal' 
+    ? "p-0 bg-transparent border-none" 
+    : "p-2 border rounded border-default-200 bg-background/50";
 
+  if (cardsPlacement === 'right') {
     return (
-      <div className="flex flex-col gap-1 mt-1">
-        {[...Array(maxSlots)].map((_, i) => (
-          <div key={i} className="flex gap-1">
-            {refinePlacement === 'left' && <div className="w-16 shrink-0" />}
-            <div className="flex-1">
-              {renderCardSelect(i)}
+      <div className={`flex flex-col gap-1 overflow-hidden w-full ${containerStyle} ${containerClassName}`}>
+        {(label || topRightContent) && (
+            <div className="flex justify-between items-center h-5">
+                <span className="text-sm font-bold">{label}</span>
+                {topRightContent}
             </div>
-          </div>
-        ))}
+        )}
+        <div className="grid grid-cols-[50px_1fr_140px] gap-1 items-center w-full">
+            {/* Refine / Spacer */}
+            <div className="min-w-0">
+                {refinePlacement === 'left' ? renderRefineSelect(true) : <div className="w-full" />}
+            </div>
+            {/* Item Select */}
+            <div className="min-w-0">
+                {renderItemSelect()}
+            </div>
+            {/* Cards (usually 1 for gear) */}
+            <div className="min-w-0">
+                {renderCardSelect(0)}
+            </div>
+        </div>
       </div>
     );
-  };
+  }
 
+  // Fallback for weapons (cards placement bottom)
   return (
-    <div className="flex flex-col gap-2 p-2 border rounded border-default-200 bg-background/50">
+    <div className={`flex flex-col gap-0 overflow-hidden w-full ${containerStyle} ${containerClassName}`}>
       {(label || topRightContent) && (
           <div className="flex justify-between items-center h-5">
               <span className="text-sm font-bold">{label}</span>
@@ -173,30 +185,25 @@ export const EquipmentSelect: React.FC<EquipmentSelectProps> = ({
           </div>
       )}
       
-      <div className={cardsPlacement === 'right' ? 'flex gap-2 items-start' : 'flex flex-col'}>
-          {/* Equipment Side */}
-          <div className={cardsPlacement === 'right' ? 'w-1/2 shrink-0' : 'w-full'}>
-              {/* Force the Refine+Item layout if card is on the right OR refine is on left */}
-              {(refinePlacement === 'left' || cardsPlacement === 'right') ? (
-                  <div className="flex gap-1">
-                      {/* Show refine if left placement, otherwise show spacer to keep alignment */}
-                      {refinePlacement === 'left' ? renderRefineSelect(true) : <div className="w-16 shrink-0" />}
-                      {renderItemSelect()}
-                  </div>
-              ) : (
-                  <div className="flex flex-col gap-2">
-                      {renderItemSelect()}
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs">Refine:</span>
-                        {renderRefineSelect(false)}
-                      </div>
-                  </div>
-              )}
+      <div className="flex flex-col gap-1">
+          <div className="flex gap-1 items-center">
+              <div className="w-14 shrink-0">
+                {renderRefineSelect(true)}
+              </div>
+              <div className="flex-1 min-w-0">
+                {renderItemSelect()}
+              </div>
           </div>
 
-          {/* Cards Side */}
-          <div className={cardsPlacement === 'right' ? 'flex-1' : 'w-full'}>
-              {renderCards()}
+          <div className="flex flex-col gap-1 mt-1">
+            {[...Array(maxSlots)].map((_, i) => (
+              <div key={i} className="flex gap-1">
+                <div className="w-14 shrink-0" />
+                <div className="flex-1 min-w-0">
+                  {renderCardSelect(i)}
+                </div>
+              </div>
+            ))}
           </div>
       </div>
     </div>
