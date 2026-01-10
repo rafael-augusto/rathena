@@ -11,6 +11,10 @@ export interface EquippedItem {
   id: number;
   refine: number;
   cards: number[];
+  enchant?: {
+    attr: string;
+    value: number;
+  };
 }
 
 export interface Character {
@@ -19,15 +23,15 @@ export interface Character {
   jobId: number;
   stats: Stats;
   equipment: {
-    rightHand?: EquippedItem; // Weapon
-    leftHand?: EquippedItem;  // Shield or 2nd Weapon (if dual wield)
-    headUpper?: EquippedItem;
-    headMiddle?: EquippedItem;
-    headLower?: EquippedItem;
-    armor?: EquippedItem;
-    garment?: EquippedItem;
-    shoes?: EquippedItem;
-    accessory1?: EquippedItem;
-    accessory2?: EquippedItem;
+    rightHand: EquippedItem;
+    leftHand: EquippedItem;
+    headUpper: EquippedItem;
+    headMiddle: EquippedItem;
+    headLower: EquippedItem;
+    armor: EquippedItem;
+    garment: EquippedItem;
+    shoes: EquippedItem;
+    accessory1: EquippedItem;
+    accessory2: EquippedItem;
   };
 }

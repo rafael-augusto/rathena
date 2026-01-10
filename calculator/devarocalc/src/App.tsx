@@ -4,6 +4,7 @@ import { JobSelection } from './components/JobSelection';
 import { StatsInput } from './components/StatsInput';
 import { DerivedStats } from './components/DerivedStats';
 import { EquipmentSelect } from './components/EquipmentSelect';
+import { ItemDetails } from './components/ItemDetails';
 import { Character, EquippedItem } from './types/character';
 import { calculateStats, CalculatedStats } from './utils/calculator';
 import { m_Item } from './data/items';
@@ -42,6 +43,18 @@ function App() {
   const [character, setCharacter] = useState<Character>(initialCharacter);
   const [calculatedStats, setCalculatedStats] = useState<CalculatedStats | null>(null);
   const [leftHandMode, setLeftHandMode] = useState<'Weapon' | 'Shield'>('Shield');
+  const [activeDetail, setActiveDetail] = useState<{ id: number, cards: number[] } | null>(null);
+
+  const isTwoHanded = (item: any) => {
+      if (!item) return false;
+      if (TWO_HANDED_TYPES.includes(item[1])) return true;
+      // Code 195 in items.ts marks Two-Handed Staffs/Weapons
+      for (let i = 11; i < item.length; i += 2) {
+          if (item[i] === 195 && item[i+1] === 1) return true;
+          if (item[i] === 0) break;
+      }
+      return false;
+  };
 
   // Recalculate stats whenever character changes
   useEffect(() => {
@@ -94,7 +107,7 @@ function App() {
       const job = character.jobId;
       const rightHandId = character.equipment.rightHand.id;
       const rightHandItem = m_Item[rightHandId];
-      const is2H = rightHandItem && TWO_HANDED_TYPES.includes(rightHandItem[1]);
+      const is2H = isTwoHanded(rightHandItem);
       const isDualWield = DUAL_WIELD_JOBS.includes(job);
 
       let newEquipment = { ...character.equipment };
@@ -162,7 +175,7 @@ function App() {
       const isDualWield = DUAL_WIELD_JOBS.includes(job);
       const rightHandId = character.equipment.rightHand.id;
       const rightHandItem = m_Item[rightHandId];
-      const is2H = rightHandItem && TWO_HANDED_TYPES.includes(rightHandItem[1]);
+      const is2H = isTwoHanded(rightHandItem);
 
       m_Item.forEach((item: any, index: number) => {
           if (!item) return;
@@ -223,6 +236,10 @@ function App() {
               [slot]: item
           }
       }));
+      // Set as active detail when changed
+      if (item.id !== 0) {
+          setActiveDetail({ id: item.id, cards: item.cards });
+      }
   };
 
   return (
@@ -237,6 +254,7 @@ function App() {
               jobId={character.jobId}
               baseLvl={character.baseLvl}
               jobLvl={character.jobLvl}
+              bodyElement={calculatedStats?.bodyElement || "Neutral 1"}
               onChangeJob={(id) => setCharacter({ ...character, jobId: id })}
               onChangeBaseLvl={(lvl) => setCharacter({ ...character, baseLvl: lvl })}
               onChangeJobLvl={(lvl) => setCharacter({ ...character, jobLvl: lvl })}
@@ -309,7 +327,7 @@ function App() {
                     </div>
 
                     {/* Column 3: Equipment Panel */}
-                    <div className="flex flex-col gap-0.5 p-2 border rounded border-default-200 bg-background/50 min-h-[180px]">
+                    <div className="lg:row-span-2 flex flex-col gap-0.5 p-2 border rounded border-default-200 bg-background/50 min-h-[180px]">
                         <div className="flex justify-between items-center h-4 mb-0.5 px-1">
                             <span className="text-[11px] font-bold">Armor</span>
                         </div>
@@ -391,6 +409,17 @@ function App() {
                                 variant="minimal"
                             />
                         </div>
+                    </div>
+
+                    {/* Details Panel Spanning Col 1 & 2 */}
+                    <div className="lg:col-span-2">
+                        {activeDetail ? (
+                            <ItemDetails itemId={activeDetail.id} cardIds={activeDetail.cards} />
+                        ) : (
+                            <div className="h-full flex items-center justify-center p-4 border rounded border-dashed border-default-200 text-default-400 text-[10px] italic">
+                                Select an item to see details
+                            </div>
+                        )}
                     </div>
                 </div>
             </CardBody>

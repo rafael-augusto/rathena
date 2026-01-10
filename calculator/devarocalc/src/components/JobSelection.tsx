@@ -6,12 +6,21 @@ interface JobSelectionProps {
   jobId: number;
   baseLvl: number;
   jobLvl: number;
+  bodyElement: string;
   onChangeJob: (id: number) => void;
   onChangeBaseLvl: (lvl: number) => void;
   onChangeJobLvl: (lvl: number) => void;
 }
 
-export function JobSelection({ jobId, baseLvl, jobLvl, onChangeJob, onChangeBaseLvl, onChangeJobLvl }: JobSelectionProps) {
+export function JobSelection({ 
+  jobId, 
+  baseLvl, 
+  jobLvl, 
+  bodyElement,
+  onChangeJob, 
+  onChangeBaseLvl, 
+  onChangeJobLvl 
+}: JobSelectionProps) {
   
   const getMaxJobLvl = (id: number) => {
     if (id === 0 || id === 34) return 10; 
@@ -91,7 +100,7 @@ export function JobSelection({ jobId, baseLvl, jobLvl, onChangeJob, onChangeBase
       <div className="flex items-center gap-1.5 h-8">
         <span className="text-[11px] font-bold w-16 text-right shrink-0">Adopted</span>
         <div className="flex-1 flex items-center">
-            <input type="checkbox" className="w-3 h-3 cursor-pointer" aria-label="Adopted" />
+            <input type="checkbox" className="w-4 h-4 cursor-pointer" aria-label="Adopted" />
         </div>
       </div>
       
@@ -104,7 +113,7 @@ export function JobSelection({ jobId, baseLvl, jobLvl, onChangeJob, onChangeBase
       {/* Body Element Display */}
       <div className="flex items-center gap-1.5 h-8">
         <span className="text-[11px] font-bold w-16 text-right shrink-0">Body Ele.</span>
-        <span className="text-[10px] text-default-600 flex-1">Neutral 1</span>
+        <span className="text-[10px] text-default-600 flex-1">{bodyElement}</span>
       </div>
     </div>
   );
