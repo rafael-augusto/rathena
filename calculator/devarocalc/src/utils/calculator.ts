@@ -4,11 +4,38 @@ import { JobKeyMap } from '../data/jobs';
 import { m_Item } from '../data/items';
 import { m_Card } from '../data/cards';
 import { WeaponTypeMap } from '../data/equip_logic';
+import { ItemDbData } from '../data/item_db_descriptions';
 
 // Map YML body to a usable structure
 const body = tableData.Body;
 
-// ... interface CalculatedStats ...
+export interface CalculatedStats {
+  maxHP: number;
+  maxSP: number;
+  atk: { min: number; max: number };
+  matk: { min: number; max: number };
+  def: number;
+  softDef: number;
+  mdef: number;
+  softMdef: number;
+  hit: number;
+  flee: number;
+  dodge: number;
+  crit: number;
+  perfectDodge: number;
+  aspd: number;
+  castTime: number;
+  hpRegen: number;
+  spRegen: number;
+  weightLimit: number;
+  statBonuses: Stats;
+  bodyElement: string;
+}
+
+const ELEMENT_NAMES = [
+    "Neutral", "Water", "Earth", "Fire", "Wind", 
+    "Poison", "Holy", "Shadow", "Ghost", "Undead"
+];
 
 function getJobData(jobId: number) {
     const jobKey = JobKeyMap[jobId];
@@ -76,7 +103,7 @@ export function calculateStats(char: Character): CalculatedStats {
   let equipSPMul = 0;
   let equipHPFlat = 0;
   let equipSPFlat = 0;
-  // let equipASPD = 0; 
+  let bodyElementIdx = 0; // Default Neutral
 
   const applyScript = (data: any[], startIndex: number, refine: number) => {
       for (let i = startIndex; i < data.length; i += 2) {
@@ -99,33 +126,17 @@ export function calculateStats(char: Character): CalculatedStats {
               case 9: equipFlee += val; break;
               case 10: equipCrit += val; break;
               case 11: equipPDodge += val; break;
-              // case 12: ASPD? 
-              case 13: equipHPFlat += val; break; // HP Flat
-              case 14: equipSPFlat += val; break; // SP Flat
-              case 15: equipHPMul += val; break; // HP %
-              case 16: equipSPMul += val; break; // SP %
-              case 17: equipAtk += val; break; // ATK Flat? No, items.js says "ATK" (17) is usually Range Attack %? 
-                       // Wait, Items.js L2000+: if (17 <= nC1 && nC1 <= 19) -> wNAME1.
-                       // wNAME1 = [..., "ATK", "DEF", "MDEF"] (Indices 17, 18, 19).
-                       // So 17=ATK, 18=DEF, 19=MDEF.
-                       equipAtk += val; break;
+              case 13: equipHPFlat += val; break;
+              case 14: equipSPFlat += val; break;
+              case 15: equipHPMul += val; break;
+              case 16: equipSPMul += val; break;
+              case 17: equipAtk += val; break;
               case 18: equipDef += val; break;
               case 19: equipMdef += val; break;
-              
-              // Refine bonuses? Usually scripted as "val * refine" in the loop if handled by legacy calc.
-              // But here we might just get static values. 
-              // Legacy calc iterates and evaluates. 
-              // m_Item in items.js are static arrays.
-              // Dynamic bonuses are usually hardcoded or special codes.
-              // For MVP, we parse static bonuses.
-              
-              // 87: ATK %
-              case 87: equipAtk += Math.floor(equipAtk * val / 100); break; // Rough approx
-              // 88: MATK %
+              case 87: equipAtk += Math.floor(equipAtk * val / 100); break;
               case 88: equipMatkPercent += val; break;
-              // 89: MATK Flat? Or %? 
               case 89: equipMatkPercent += val; break; 
-              
+              case 198: bodyElementIdx = val; break; // Armor Element
               default: break;
           }
       }
@@ -133,25 +144,30 @@ export function calculateStats(char: Character): CalculatedStats {
 
   const processItem = (slotItem: any) => {
       if (!slotItem || slotItem.id === 0) return;
-      const data = m_Item[slotItem.id];
-      if (!data) return;
+      const legacyData = m_Item[slotItem.id];
+      if (!legacyData) return;
+
+      const itemName = legacyData[8].toLowerCase().trim();
+      const dbItem = ItemDbData[itemName];
 
       // Base stats from item (ATK/DEF)
-      // data[3] = ATK (if weapon) or DEF (if armor)?
-      // data[1] is Type. 1-21 Weapon. 50+ Armor/etc.
-      if (data[1] <= 21) {
-          equipAtk += data[3];
-          // Weapon Level data[4]
+      if (dbItem) {
+          if (legacyData[1] <= 21) {
+              equipAtk += dbItem.atk;
+              equipMatk += dbItem.matk;
+          } else {
+              equipDef += dbItem.def;
+          }
       } else {
-          equipDef += data[3]; // For armors, index 3 is usually DEF?
-          // Check items.js: [293,60,...,120,... "Coat"] -> 120 is Weight? 
-          // [293,60, 1, 5, 0, "0/1", 120, 1, "Coat"...]
-          // Index 3 is 5? That seems low for Coat. Coat def is 5. Yes.
-          // Weight is index 6 (120).
+          if (legacyData[1] <= 21) {
+              equipAtk += legacyData[3];
+          } else {
+              equipDef += legacyData[3];
+          }
       }
 
       // Script
-      applyScript(data, 11, slotItem.refine);
+      applyScript(legacyData, 11, slotItem.refine);
 
       // Cards
       slotItem.cards.forEach((cardId: number) => {
@@ -161,6 +177,17 @@ export function calculateStats(char: Character): CalculatedStats {
               applyScript(cardData, 4, 0);
           }
       });
+
+      // Enchants
+      if (slotItem.enchant) {
+          const { attr, value } = slotItem.enchant;
+          if (attr === 'str') equipStats.str += value;
+          else if (attr === 'agi') equipStats.agi += value;
+          else if (attr === 'vit') equipStats.vit += value;
+          else if (attr === 'int') equipStats.int += value;
+          else if (attr === 'dex') equipStats.dex += value;
+          else if (attr === 'luk') equipStats.luk += value;
+      }
   };
 
   Object.values(equipment).forEach(item => processItem(item));
@@ -176,7 +203,7 @@ export function calculateStats(char: Character): CalculatedStats {
 
   // --- Max HP ---
   let maxHP = getBaseHP(jobId, baseLvl);
-  const isReborn = jobId >= 21; 
+  const isReborn = (jobId >= 21 && jobId <= 33) || (jobId >= 34 && jobId <= 40);
   if (isReborn) maxHP = Math.floor(maxHP * 1.25);
   
   maxHP = Math.floor(maxHP * (1 + totalStats.vit / 100));
@@ -192,17 +219,13 @@ export function calculateStats(char: Character): CalculatedStats {
 
   // --- ATK ---
   let statusAtk = totalStats.str + Math.floor(totalStats.str/10)**2 + Math.floor(totalStats.dex/5) + Math.floor(totalStats.luk/5);
-  let totalAtk = statusAtk + equipAtk; // Simplified
+  let totalAtk = statusAtk + equipAtk;
 
   // --- MATK ---
   let minMatk = totalStats.int + Math.floor(totalStats.int/7)**2;
   let maxMatk = totalStats.int + Math.floor(totalStats.int/5)**2;
-  
-  // Apply equipMatk (Flat)
   minMatk += equipMatk;
   maxMatk += equipMatk;
-
-  // Apply equipMatkPercent
   if (equipMatkPercent > 0) {
       minMatk = Math.floor(minMatk * (1 + equipMatkPercent / 100));
       maxMatk = Math.floor(maxMatk * (1 + equipMatkPercent / 100));
@@ -210,7 +233,7 @@ export function calculateStats(char: Character): CalculatedStats {
 
   // --- DEF ---
   const softDef = Math.floor(totalStats.vit * 0.5) + Math.floor(totalStats.vit * 0.3);
-  const hardDef = equipDef; // + refine bonuses (todo)
+  const hardDef = equipDef;
 
   // --- MDEF ---
   const softMdef = totalStats.int + Math.floor(totalStats.vit / 2);
@@ -223,23 +246,20 @@ export function calculateStats(char: Character): CalculatedStats {
   const perfectDodge = 1 + (totalStats.luk * 0.1) + equipPDodge;
 
   // --- ASPD ---
-  // Determine Base ASPD factor based on Weapon
-  const rightHandId = equipment.rightHand.id;
+  const rightHandId = equipment.rightHand?.id || 0;
   const rightHandItem = m_Item[rightHandId];
   const weaponType = rightHandItem ? rightHandItem[1] : 0;
   
-  let aspdFactor = jobEntry.BaseASPD?.Unarmed || 1; // Default
-  
+  let aspdFactor = jobEntry.BaseASPD?.Unarmed || 1;
   if (weaponType > 0 && WeaponTypeMap[weaponType]) {
       const typeKey = WeaponTypeMap[weaponType];
       if (jobEntry.BaseASPD && jobEntry.BaseASPD[typeKey]) {
           aspdFactor = jobEntry.BaseASPD[typeKey];
       }
   }
-
   const wd = 50 * aspdFactor;
   const delay = (wd - (Math.round(wd*totalStats.agi/25) + Math.round(wd*totalStats.dex/100))/10);
-  const aspd = 200 - delay; // Needs equipASPD modifier
+  const aspd = 200 - delay;
 
   return {
     maxHP, maxSP,
@@ -261,6 +281,7 @@ export function calculateStats(char: Character): CalculatedStats {
         int: jobBonuses.int + equipStats.int,
         dex: jobBonuses.dex + equipStats.dex,
         luk: jobBonuses.luk + equipStats.luk,
-    }
+    },
+    bodyElement: `${ELEMENT_NAMES[bodyElementIdx]} 1`
   };
 }

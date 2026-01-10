@@ -1,0 +1,732 @@
+- bonusId: 737
+  requiredItems:
+  - 436
+  - 475
+- bonusId: 737
+  requiredItems:
+  - 436
+  - 477
+- bonusId: 738
+  requiredItems:
+  - 288
+  - 699
+- bonusId: 739
+  requiredItems:
+  - 300
+  - 724
+- bonusId: 740
+  requiredItems:
+  - 323
+  - 725
+- bonusId: 741
+  requiredItems:
+  - 298
+  - 726
+- bonusId: 742
+  requiredItems:
+  - 684
+  - 661
+  - 691
+- bonusId: 743
+  requiredItems:
+  - 684
+  - 703
+  - 712
+- bonusId: 744
+  requiredItems:
+  - 684
+  - 704
+  - 713
+- bonusId: 745
+  requiredItems:
+  - 667
+  - 685
+  - 702
+  - 711
+- bonusId: 746
+  requiredItems:
+  - 666
+  - 701
+  - 721
+  - 722
+- bonusId: 747
+  requiredItems:
+  - 665
+  - 700
+  - 719
+  - 720
+- bonusId: 748
+  requiredItems:
+  - 664
+  - 683
+  - 690
+  - 698
+  - 710
+- bonusId: 749
+  requiredItems:
+  - 534
+  - 535
+  - 536
+  - 670
+- bonusId: 750
+  requiredItems:
+  - 727
+  - 88
+- bonusId: 750
+  requiredItems:
+  - 727
+  - 92
+- bonusId: 751
+  requiredItems:
+  - 727
+  - 329
+- bonusId: 751
+  requiredItems:
+  - 727
+  - 342
+- bonusId: 751
+  requiredItems:
+  - 727
+  - 343
+- bonusId: 752
+  requiredItems:
+  - 694
+  - 732
+- bonusId: 753
+  requiredItems:
+  - 695
+  - 733
+- bonusId: 754
+  requiredItems:
+  - 716
+  - 706
+- bonusId: 755
+  requiredItems:
+  - 705
+  - 405
+- bonusId: 755
+  requiredItems:
+  - 705
+  - 467
+- bonusId: 755
+  requiredItems:
+  - 705
+  - 471
+- bonusId: 756
+  requiredItems:
+  - 707
+  - 717
+- bonusId: 757
+  requiredItems:
+  - 727
+  - 647
+- bonusId: 763
+  requiredItems:
+  - 478
+  - 697
+- bonusId: 764
+  requiredItems:
+  - 684
+  - 663
+  - 692
+- bonusId: 765
+  requiredItems:
+  - 684
+  - 662
+- bonusId: 766
+  requiredItems:
+  - 619
+  - 731
+- bonusId: 767
+  requiredItems:
+  - 616
+  - 692
+- bonusId: 768
+  requiredItems:
+  - 728
+  - 729
+- bonusId: 770
+  requiredItems:
+  - 769
+  - 848
+- bonusId: 814
+  requiredItems:
+  - 813
+  - 808
+- bonusId: 818
+  requiredItems:
+  - 816
+  - 817
+- bonusId: 824
+  requiredItems:
+  - 823
+  - 292
+- bonusId: 854
+  requiredItems:
+  - 829
+  - 844
+- bonusId: 854
+  requiredItems:
+  - 829
+  - 1753
+- bonusId: 854
+  requiredItems:
+  - 830
+  - 844
+- bonusId: 854
+  requiredItems:
+  - 830
+  - 1753
+- bonusId: 855
+  requiredItems:
+  - 992
+  - 616
+- bonusId: 855
+  requiredItems:
+  - 992
+  - 617
+- bonusId: 855
+  requiredItems:
+  - 992
+  - 618
+- bonusId: 856
+  requiredItems:
+  - 863
+  - 831
+- bonusId: 857
+  requiredItems:
+  - 835
+  - 836
+- bonusId: 858
+  requiredItems:
+  - 823
+  - 838
+  - 837
+- bonusId: 858
+  requiredItems:
+  - 822
+  - 838
+  - 837
+- bonusId: 860
+  requiredItems:
+  - 251
+  - 307
+  - 838
+- bonusId: 861
+  requiredItems:
+  - 521
+  - 839
+- bonusId: 862
+  requiredItems:
+  - 841
+  - 842
+- bonusId: 971
+  requiredItems:
+  - 958
+  - 965
+  - 968
+- bonusId: 972
+  requiredItems:
+  - 959
+  - 965
+  - 968
+- bonusId: 973
+  requiredItems:
+  - 960
+  - 965
+  - 968
+- bonusId: 974
+  requiredItems:
+  - 961
+  - 966
+  - 969
+- bonusId: 975
+  requiredItems:
+  - 962
+  - 966
+  - 969
+- bonusId: 976
+  requiredItems:
+  - 963
+  - 966
+  - 969
+- bonusId: 977
+  requiredItems:
+  - 964
+  - 967
+  - 970
+- bonusId: 995
+  requiredItems:
+  - 718
+  - 994
+- bonusId: 999
+  requiredItems:
+  - 987
+  - 998
+  - 1001
+- bonusId: 1004
+  requiredItems:
+  - 442
+  - 1003
+- bonusId: 1006
+  requiredItems:
+  - 442
+  - 1005
+- bonusId: 1008
+  requiredItems:
+  - 946
+  - 1007
+- bonusId: 1010
+  requiredItems:
+  - 990
+  - 1009
+- bonusId: 1042
+  requiredItems:
+  - 198
+  - 1041
+- bonusId: 1053
+  requiredItems:
+  - 1050
+  - 1051
+  - 1052
+- bonusId: 1058
+  requiredItems:
+  - 1055
+  - 1056
+  - 1057
+- bonusId: 1114
+  requiredItems:
+  - 1104
+  - 1107
+  - 1110
+- bonusId: 1115
+  requiredItems:
+  - 1111
+  - 978
+- bonusId: 1115
+  requiredItems:
+  - 1111
+  - 979
+- bonusId: 1115
+  requiredItems:
+  - 1111
+  - 980
+- bonusId: 1115
+  requiredItems:
+  - 1111
+  - 981
+- bonusId: 1115
+  requiredItems:
+  - 1111
+  - 982
+- bonusId: 1115
+  requiredItems:
+  - 1111
+  - 983
+- bonusId: 1115
+  requiredItems:
+  - 1111
+  - 984
+- bonusId: 1202
+  requiredItems:
+  - 247
+  - 1182
+- bonusId: 1203
+  requiredItems:
+  - 1189
+  - 1192
+- bonusId: 1209
+  requiredItems:
+  - 1208
+  - 385
+- bonusId: 1210
+  requiredItems:
+  - 1208
+  - 381
+- bonusId: 1211
+  requiredItems:
+  - 1208
+  - 805
+- bonusId: 1212
+  requiredItems:
+  - 1208
+  - 887
+- bonusId: 1213
+  requiredItems:
+  - 1208
+  - 1037
+- bonusId: 1217
+  requiredItems:
+  - 783
+  - 1216
+- bonusId: 1238
+  requiredItems:
+  - 1236
+  - 1237
+- bonusId: 1239
+  requiredItems:
+  - 684
+  - 1237
+- bonusId: 1249
+  requiredItems:
+  - 251
+  - 1248
+- bonusId: 1311
+  requiredItems:
+  - 1306
+  - 1309
+  - 1310
+- bonusId: 1335
+  requiredItems:
+  - 1334
+  - 1327
+- bonusId: 1335
+  requiredItems:
+  - 1334
+  - 1328
+- bonusId: 1335
+  requiredItems:
+  - 1334
+  - 1329
+- bonusId: 1335
+  requiredItems:
+  - 1334
+  - 1330
+- bonusId: 1335
+  requiredItems:
+  - 1334
+  - 1331
+- bonusId: 1335
+  requiredItems:
+  - 1334
+  - 1332
+- bonusId: 1335
+  requiredItems:
+  - 1334
+  - 1333
+- bonusId: 1433
+  requiredItems:
+  - 1432
+  - 1431
+- bonusId: 1493
+  requiredItems:
+  - 1492
+  - 89
+- bonusId: 1493
+  requiredItems:
+  - 1492
+  - 936
+- bonusId: 1494
+  requiredItems:
+  - 1492
+  - 253
+- bonusId: 1530
+  requiredItems:
+  - 1529
+  - 1250
+- bonusId: 1556
+  requiredItems:
+  - 803
+  - 1547
+- bonusId: 1556
+  requiredItems:
+  - 1253
+  - 1547
+- bonusId: 1564
+  requiredItems:
+  - 1560
+  - 264
+- bonusId: 1564
+  requiredItems:
+  - 1561
+  - 264
+- bonusId: 1564
+  requiredItems:
+  - 1741
+  - 264
+- bonusId: 1564
+  requiredItems:
+  - 1776
+  - 264
+- bonusId: 1565
+  requiredItems:
+  - 1560
+  - 266
+- bonusId: 1565
+  requiredItems:
+  - 1561
+  - 266
+- bonusId: 1565
+  requiredItems:
+  - 1741
+  - 266
+- bonusId: 1565
+  requiredItems:
+  - 1776
+  - 266
+- bonusId: 1566
+  requiredItems:
+  - 1560
+  - 364
+- bonusId: 1566
+  requiredItems:
+  - 1561
+  - 364
+- bonusId: 1566
+  requiredItems:
+  - 1741
+  - 364
+- bonusId: 1566
+  requiredItems:
+  - 1776
+  - 364
+- bonusId: 1567
+  requiredItems:
+  - 1560
+  - 678
+- bonusId: 1567
+  requiredItems:
+  - 1561
+  - 678
+- bonusId: 1567
+  requiredItems:
+  - 1741
+  - 678
+- bonusId: 1567
+  requiredItems:
+  - 1776
+  - 678
+- bonusId: 1568
+  requiredItems:
+  - 1560
+  - 1563
+- bonusId: 1568
+  requiredItems:
+  - 1561
+  - 1563
+- bonusId: 1568
+  requiredItems:
+  - 1741
+  - 1563
+- bonusId: 1568
+  requiredItems:
+  - 1776
+  - 1563
+- bonusId: 1575
+  requiredItems:
+  - 804
+  - 1216
+- bonusId: 1578
+  requiredItems:
+  - 1577
+  - 1555
+- bonusId: 1578
+  requiredItems:
+  - 1577
+  - 1373
+- bonusId: 1578
+  requiredItems:
+  - 1577
+  - 1576
+- bonusId: 1580
+  requiredItems:
+  - 1579
+  - 794
+- bonusId: 1581
+  requiredItems:
+  - 1579
+  - 274
+- bonusId: 1582
+  requiredItems:
+  - 1579
+  - 276
+- bonusId: 1624
+  requiredItems:
+  - 1623
+  - 50
+- bonusId: 1625
+  requiredItems:
+  - 1623
+  - 9
+- bonusId: 1626
+  requiredItems:
+  - 1623
+  - 696
+- bonusId: 1639
+  requiredItems:
+  - 1634
+  - 1636
+  - 1637
+  - 1638
+- bonusId: 1640
+  requiredItems:
+  - 1635
+  - 1636
+  - 1637
+  - 1638
+- bonusId: 1646
+  requiredItems:
+  - 1641
+  - 1643
+  - 1644
+  - 1645
+- bonusId: 1647
+  requiredItems:
+  - 1642
+  - 1643
+  - 1644
+  - 1645
+- bonusId: 1653
+  requiredItems:
+  - 1648
+  - 1650
+  - 1651
+  - 1652
+- bonusId: 1654
+  requiredItems:
+  - 1649
+  - 1650
+  - 1651
+  - 1652
+- bonusId: 1660
+  requiredItems:
+  - 1655
+  - 1657
+  - 1658
+  - 1659
+- bonusId: 1661
+  requiredItems:
+  - 1656
+  - 1657
+  - 1658
+  - 1659
+- bonusId: 1667
+  requiredItems:
+  - 1662
+  - 1664
+  - 1665
+  - 1666
+- bonusId: 1667
+  requiredItems:
+  - 1662
+  - 1669
+  - 1665
+  - 1666
+- bonusId: 1668
+  requiredItems:
+  - 1663
+  - 1664
+  - 1665
+  - 1666
+- bonusId: 1668
+  requiredItems:
+  - 1663
+  - 1669
+  - 1665
+  - 1666
+- bonusId: 1677
+  requiredItems:
+  - 1672
+  - 1674
+  - 1675
+  - 1676
+- bonusId: 1678
+  requiredItems:
+  - 1673
+  - 1674
+  - 1675
+  - 1676
+- bonusId: 1712
+  requiredItems:
+  - 1708
+  - 1709
+  - 1710
+  - 1711
+- bonusId: 1717
+  requiredItems:
+  - 1713
+  - 1714
+  - 1715
+  - 1716
+- bonusId: 1722
+  requiredItems:
+  - 1718
+  - 1719
+  - 1720
+  - 1721
+- bonusId: 1727
+  requiredItems:
+  - 1723
+  - 1724
+  - 1725
+  - 1726
+- bonusId: 1734
+  requiredItems:
+  - 1730
+  - 1731
+  - 1732
+  - 1733
+- bonusId: 1739
+  requiredItems:
+  - 1735
+  - 1736
+  - 1737
+  - 1738
+- bonusId: 1749
+  requiredItems:
+  - 1747
+  - 1748
+- bonusId: 1752
+  requiredItems:
+  - 1751
+  - 374
+- bonusId: 1752
+  requiredItems:
+  - 1751
+  - 377
+- bonusId: 1769
+  requiredItems:
+  - 1768
+  - 644
+- bonusId: 1770
+  requiredItems:
+  - 1768
+  - 863
+- bonusId: 1783
+  requiredItems:
+  - 1782
+  - 1175
+- bonusId: 1784
+  requiredItems:
+  - 1782
+  - 1176
+- bonusId: 1786
+  requiredItems:
+  - 1785
+  - 1169
+- bonusId: 1829
+  requiredItems:
+  - 288
+  - 699
+  - 1828
+- bonusId: 1856
+  requiredItems:
+  - 1854
+  - 1855
+- bonusId: 1858
+  requiredItems:
+  - 1854
+  - 1857
+- bonusId: 1861
+  requiredItems:
+  - 889
+  - 1860
+- bonusId: 1864
+  requiredItems:
+  - 987
+  - 998
+  - 1863
+- bonusId: 1866
+  requiredItems:
+  - 442
+  - 1865
