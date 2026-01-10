@@ -1,4 +1,18 @@
-﻿//[ id, display location, job that can use, classic atk/def, renewal atk/def, renewal matk/mdef, level of weapon, slots, weight, level required to use, "name of item", ?, "description", effect1, effect2, ..., 0 =?]
+﻿import { skillName, m_Skill, m_EnableSkill, m_AutoSpellSkill } from './skills';
+
+const SRV = 0;
+export const v_Size=["Small","Medium","Large"];
+const v_Effect=["Poison","Stun","Freeze","Curse","Blind","Sleep","Silence","Chaos","Bleeding","Stone","Weapon Break","Armor Break"];
+
+export const v_Race=["<b style='color:#9F9E9B'>Formless</b>","<b style='color:purple'>Undead</b>","<b style='color brown'>Brute</b>","<b style='color:#00DD00'>Plant</b>","<b style='color:green'>Insect</b>","<b style='color:blue'>Fish</b>","<b style='color:#000000'>Demon</b>","<b style='color:orange'>Demi-Human</b>","<b style='color:#CDCD40'>Angel</b>","<b style='color:red'>Dragon</b>"];
+export const v_Element=["<b style='color:#A89682'>Neutral</b>","<b style='color:blue'>Water</b>","<b style='color:brown'>Earth</b>","<b style='color:red'>Fire</b>","<b style='color:#00CC00'>Wind</b>","<b style='color:#bb24bb'>Poison</b>","<b style='color:#CDCD00'>Holy</b>","<b style='color:#000000'>Shadow</b>","<b style='color:#BFBEBB'>Ghost</b>","<b style='color:purple'>Undead</b>"];
+
+let CBIstr = "";
+let wNAME1 = [];
+let wIS = "";
+let wISS = "";
+let wNAME99 = [];
+
 export const m_Item = [
 [0,0,0,0,1,0,0,0,"(no weapon)",0,"",0]
 ,[1,1,0,17,1,"3/4",40,1,"Knife",0,"",0]
@@ -1875,7 +1889,7 @@ export const m_Item = [
 
 //[ id, display location, job that can use, atk/def, level of weapon, slots, weight, level required to use, "name of item", ?, "description", effect1, effect2, ..., 0 =? ]
 
-ItemMax = m_Item.length -1;
+export const ItemMax = m_Item.length -1;
 
 function Click_Item(value){
 //	if(EquipNumSearch(633) && c.A_Kakutyou.value == 28){
@@ -2241,7 +2255,7 @@ function Item_Setumei(nC1,nC2)
 	}
 }
 
-w_SE = [[737,436,475,"NULL"]
+const w_SE = [[737,436,475,"NULL"]
 ,[737,436,477,"NULL"]
 ,[738,288,699,"NULL"]
 ,[739,300,724,"NULL"]
@@ -2407,7 +2421,7 @@ w_SE = [[737,436,475,"NULL"]
 ,[1864,987,998,1863,"NULL"]
 ,[1866,442,1865,"NULL"]
 ];
-SE_MAXnum = w_SE.length -1;
+const SE_MAXnum = w_SE.length -1;
 for(var i=0;i<=SE_MAXnum;i++){
 	for(var k=1;w_SE[i][k] != "NULL";k++){
 		for(var j=11;m_Item[w_SE[i][k]][j] != 0;j+=2);

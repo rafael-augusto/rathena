@@ -1,4 +1,4 @@
-﻿function skillName(skillNum,server){
+﻿export function skillName(skillNum,server){
 //alert("skillNum = "+skillNum+"\n server = "+server);
 	var shown = 2;
 	var hidden = 3;
@@ -15,7 +15,7 @@
 	}
 	return str;
 }
-function skillNameInSelect(skillNum,server){
+export function skillNameInSelect(skillNum,server){
 //alert("skillNum = "+skillNum+"\n server = "+server);
 	var shown = 2;
 	var hidden = 3;
@@ -966,7 +966,7 @@ m_JobBuff = [
 [  3, 13, 14, 23, 24, 38, 39, 42,253,385,  9,309,196,310,183,146,148,241,156,185,999] // Expanded SN
 ];
 */
-m_JobBuff = [
+export const m_JobBuff = [
 [537,			   999,999,999,999,999,999,999,999,999,999,999,999,999,999,999,999,999,999,999,999],
 [537,5,			  	    3,   4,  12,   9,392,999,999,999,999,999,999,999,999,999,999,999,999,999,999],
 [537, 	  	  	 13, 14,392,999,999,999,999,999,999,999,999,999,999,999,999,999,999,999,999,999],
@@ -1044,9 +1044,9 @@ m_JobBuff = [
 [  3, 13, 14, 23, 24, 38, 39, 42,253,385,  9,309,196,310,183,146,148,241,156,185,999] // Expanded SN
 ];
 
-m_JobBuffAddings = [1,2,1,1,1,2,2,2,1,2,1,2,2,2,1,2,1,1,2,2,4,2,1,2,1,2,2,2,1,2,1,1,2,2,0,3,2,2,2,3,3,3,4,3,2,1];		//2025-03-21
+export const m_JobBuffAddings = [1,2,1,1,1,2,2,2,1,2,1,2,2,2,1,2,1,1,2,2,4,2,1,2,1,2,2,2,1,2,1,1,2,2,0,3,2,2,2,3,3,3,4,3,2,1];		//2025-03-21
 
-m_JobAtkSkill = [
+export const m_JobAtkSkill = [
 [0,999],
 [0,  6,  7,999],
 [0, 17, 19,999],
@@ -1126,7 +1126,7 @@ m_JobAtkSkill = [
 [111,122,124,126,128,130,132,133,161,275] // Expanded Super Novice
 ];
 
-m_EnableSkill = [
+export const m_EnableSkill = [
 [0,0,0,0],
 [1,1,54,3],
 [2,1,51,3],
@@ -1178,7 +1178,7 @@ m_EnableSkill = [
 [48,1,128,1]
 ];
 
-m_AutoSpellSkill = [		// id, add to skill list, skill id, lvl, chance, when receiving/attacking ATK/MATK
+export const m_AutoSpellSkill = [		// id, add to skill list, skill id, lvl, chance, when receiving/attacking ATK/MATK
 [0,0,0,0,0,0],
 [1,1,54,3,10,1],
 [2,1,51,3,10,1],
