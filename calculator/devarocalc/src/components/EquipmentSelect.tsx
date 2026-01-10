@@ -99,7 +99,7 @@ export const EquipmentSelect: React.FC<EquipmentSelectProps> = ({
 
   const renderRefineSelect = (isLeft: boolean) => (
     <select
-      className={`${isLeft ? "w-full" : "w-20"} h-8 p-1 border rounded bg-default-100 text-sm text-foreground dark:bg-content1 border-default-200 text-center`}
+      className={`${isLeft ? "w-full" : "w-16"} h-6 p-0 border rounded bg-default-100 text-[11px] text-foreground dark:bg-content1 border-default-200 text-center`}
       value={equipped.refine}
       onChange={(e) => handleRefineChange(e.target.value)}
       disabled={equipped.id === 0}
@@ -112,7 +112,7 @@ export const EquipmentSelect: React.FC<EquipmentSelectProps> = ({
 
   const renderItemSelect = () => (
     <select
-      className="w-full h-8 p-1 border rounded bg-default-100 text-sm text-foreground dark:bg-content1 border-default-200 min-w-0"
+      className="w-full h-6 p-0 px-1 border rounded bg-default-100 text-[11px] text-foreground dark:bg-content1 border-default-200 min-w-0"
       value={equipped.id}
       onChange={(e) => handleItemChange(e.target.value)}
     >
@@ -132,7 +132,7 @@ export const EquipmentSelect: React.FC<EquipmentSelectProps> = ({
   const renderCardSelect = (index: number) => (
     <select
       key={index}
-      className="w-full p-1 border rounded bg-default-100 text-xs h-7 text-foreground dark:bg-content1 border-default-200 min-w-0"
+      className="w-full p-0 px-1 border rounded bg-default-100 text-[10px] h-6 text-foreground dark:bg-content1 border-default-200 min-w-0"
       value={equipped.cards[index] || 0}
       onChange={(e) => handleCardChange(index, e.target.value)}
       disabled={equipped.id === 0}
@@ -146,27 +146,24 @@ export const EquipmentSelect: React.FC<EquipmentSelectProps> = ({
 
   const containerStyle = variant === 'minimal' 
     ? "p-0 bg-transparent border-none" 
-    : "p-2 border rounded border-default-200 bg-background/50";
+    : "p-1.5 border rounded border-default-200 bg-background/50";
 
   if (cardsPlacement === 'right') {
     return (
-      <div className={`flex flex-col gap-1 overflow-hidden w-full ${containerStyle} ${containerClassName}`}>
+      <div className={`flex flex-col gap-0.5 overflow-hidden w-full ${containerStyle} ${containerClassName}`}>
         {(label || topRightContent) && (
-            <div className="flex justify-between items-center h-5">
-                <span className="text-sm font-bold">{label}</span>
+            <div className="flex justify-between items-center h-4">
+                <span className="text-[11px] font-bold">{label}</span>
                 {topRightContent}
             </div>
         )}
-        <div className="grid grid-cols-[50px_1fr_140px] gap-1 items-center w-full">
-            {/* Refine / Spacer */}
+        <div className="grid grid-cols-[45px_1fr_120px] gap-1 items-center w-full">
             <div className="min-w-0">
                 {refinePlacement === 'left' ? renderRefineSelect(true) : <div className="w-full" />}
             </div>
-            {/* Item Select */}
             <div className="min-w-0">
                 {renderItemSelect()}
             </div>
-            {/* Cards (usually 1 for gear) */}
             <div className="min-w-0">
                 {renderCardSelect(0)}
             </div>
@@ -175,19 +172,18 @@ export const EquipmentSelect: React.FC<EquipmentSelectProps> = ({
     );
   }
 
-  // Fallback for weapons (cards placement bottom)
   return (
-    <div className={`flex flex-col gap-0 overflow-hidden w-full ${containerStyle} ${containerClassName}`}>
+    <div className={`flex flex-col gap-0.5 overflow-hidden w-full ${containerStyle} ${containerClassName}`}>
       {(label || topRightContent) && (
-          <div className="flex justify-between items-center h-5">
-              <span className="text-sm font-bold">{label}</span>
+          <div className="flex justify-between items-center h-4">
+              <span className="text-[11px] font-bold">{label}</span>
               {topRightContent}
           </div>
       )}
       
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col gap-0.5">
           <div className="flex gap-1 items-center">
-              <div className="w-14 shrink-0">
+              <div className="w-12 shrink-0">
                 {renderRefineSelect(true)}
               </div>
               <div className="flex-1 min-w-0">
@@ -195,10 +191,10 @@ export const EquipmentSelect: React.FC<EquipmentSelectProps> = ({
               </div>
           </div>
 
-          <div className="flex flex-col gap-1 mt-1">
+          <div className="flex flex-col gap-0.5">
             {[...Array(maxSlots)].map((_, i) => (
               <div key={i} className="flex gap-1">
-                <div className="w-14 shrink-0" />
+                <div className="w-12 shrink-0" />
                 <div className="flex-1 min-w-0">
                   {renderCardSelect(i)}
                 </div>

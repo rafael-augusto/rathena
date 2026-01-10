@@ -11,10 +11,7 @@ interface StatsInputProps {
 
 export function StatsInput({ stats, bonuses, onChange, baseLvl, jobId }: StatsInputProps) {
   
-  // Calculate Points Available
   const calculateTotalPoints = (level: number, id: number) => {
-    // Non-trans: 48, Trans: 100
-    // Trans IDs in our JobKeyMap are 21-33 and 34-40
     const isTrans = (id >= 21 && id <= 33) || (id >= 34 && id <= 40);
     let points = isTrans ? 100 : 48;
     
@@ -24,10 +21,8 @@ export function StatsInput({ stats, bonuses, onChange, baseLvl, jobId }: StatsIn
     return points;
   };
 
-  // Calculate Points Used
   const calculateStatCost = (statValue: number) => {
     let cost = 0;
-    // Stat starts at 1. We calculate cost from 1 to statValue.
     for (let i = 1; i < statValue; i++) {
       cost += Math.floor((i - 1) / 10) + 2;
     }
@@ -43,18 +38,17 @@ export function StatsInput({ stats, bonuses, onChange, baseLvl, jobId }: StatsIn
   };
 
   return (
-    <div className="flex flex-col gap-1 p-2 border rounded-lg border-divider h-full bg-background/50">
-      {/* Points Label */}
-      <div className={`text-center font-bold text-xs mb-1 py-1 px-2 rounded ${remaining < 0 ? 'bg-danger-100 text-danger' : 'bg-success-50 text-success-600'}`}>
+    <div className="flex flex-col gap-0.5 p-1.5 border rounded-lg border-divider h-full bg-background/50">
+      <div className={`text-center font-bold text-[10px] mb-1 py-0.5 px-1 rounded ${remaining < 0 ? 'bg-danger-100 text-danger' : 'bg-success-50 text-success-600'}`}>
         Points: {remaining}
       </div>
 
       <div className="flex flex-col gap-0.5">
         {Object.entries(stats).map(([key, value]) => (
-          <div key={key} className="flex items-center justify-center gap-1.5 h-8">
-            <span className="font-bold w-7 text-center uppercase text-[11px] shrink-0 text-default-600">{key}</span>
+          <div key={key} className="flex items-center justify-center gap-1 h-7">
+            <span className="font-bold w-6 text-center uppercase text-[10px] shrink-0 text-default-600">{key}</span>
             <select 
-              className="w-14 h-7 p-0.5 border rounded bg-default-100 text-xs text-foreground dark:bg-content1 border-default-200 text-center"
+              className="w-12 h-6 p-0 border rounded bg-default-100 text-[11px] text-foreground dark:bg-content1 border-default-200 text-center"
               value={value}
               onChange={(e) => handleChange(key as keyof Stats, e.target.value)}
             >
@@ -62,7 +56,7 @@ export function StatsInput({ stats, bonuses, onChange, baseLvl, jobId }: StatsIn
                 <option key={i+1} value={i+1}>{i+1}</option>
               ))}
             </select>
-            <span className="text-[10px] text-default-400 w-7 shrink-0">+{(bonuses as any)[key] || 0}</span>
+            <span className="text-[9px] text-default-400 w-6 shrink-0">+{(bonuses as any)[key] || 0}</span>
           </div>
         ))}
       </div>
