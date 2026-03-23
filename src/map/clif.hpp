@@ -1004,14 +1004,14 @@ void clif_skill_unit_test(block_list *bl, int16 x, int16 y, int32 unit_id, int16
 
 void clif_autospell( map_session_data& sd, uint16 skill_lv );
 void clif_plagiarism( map_session_data& sd);
-void clif_devotion(block_list *src, map_session_data *tsd);
-void clif_spiritball( block_list *bl, block_list* target = nullptr, enum send_target send_target = AREA );
-void clif_soulball( map_session_data *sd, block_list* target = nullptr, enum send_target send_target = AREA );
-void clif_servantball( map_session_data& sd, block_list* target = nullptr, enum send_target send_target = AREA );
-void clif_abyssball( map_session_data& sd, block_list* target = nullptr, enum send_target send_target = AREA );
-void clif_combo_delay( block_list& bl, t_tick wait );
-void clif_bladestop( block_list& src, uint32 target_id, bool active );
-void clif_changemapcell( int16 m, int16 x, int16 y, int16 type, send_target target = ALL_SAMEMAP, block_list* tbl = nullptr );
+void clif_devotion( const block_list* src, const map_session_data* tsd );
+void clif_spiritball( const block_list* bl, const block_list* target = nullptr, enum send_target send_target = AREA );
+void clif_soulball( const map_session_data* sd, const block_list* target = nullptr, enum send_target send_target = AREA );
+void clif_servantball( const map_session_data& sd, const block_list* target = nullptr, enum send_target send_target = AREA );
+void clif_abyssball( const map_session_data& sd, const block_list* target = nullptr, enum send_target send_target = AREA );
+void clif_combo_delay( const block_list& bl, t_tick wait );
+void clif_bladestop( const block_list& src, uint32 target_id, bool active );
+void clif_changemapcell( int16 m, int16 x, int16 y, int16 type, send_target target = ALL_SAMEMAP, const block_list* tbl = nullptr );
 
 #define clif_status_load(bl, type, flag) clif_status_change((bl), (type), (flag), 0, 0, 0, 0)
 void clif_status_change(const block_list* bl, int32 type, int32 flag, t_tick tick, int32 val1, int32 val2, int32 val3);
@@ -1424,7 +1424,6 @@ enum out_ui_type : int8 {
 	OUT_UI_ENCHANTGRADE,
 	OUT_UI_ENCHANT = 10,
 };
-
 
 void clif_ui_open( map_session_data& sd, enum out_ui_type ui_type, int32 data );
 void clif_attendence_response( const map_session_data* sd, int32 data );

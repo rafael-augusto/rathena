@@ -6,7 +6,7 @@
 SkillMammonite::SkillMammonite() : WeaponSkillImpl(MC_MAMMONITE) {
 }
 
-void SkillMammonite::calculateSkillRatio(const Damage* wd, const block_list* src, const block_list* target, uint16 skill_lv, int32& base_skillratio) const {
+void SkillMammonite::calculateSkillRatio(const Damage* wd, const block_list* src, const block_list* target, uint16 skill_lv, int32& base_skillratio, int32 mflag) const {
 	map_session_data *sd = (TBL_PC*)src;
 
 	if(sd && sd->status.weapon == W_2HAXE)
